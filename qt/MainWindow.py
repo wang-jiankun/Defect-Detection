@@ -30,7 +30,7 @@ class Detect(QMainWindow):
         self.log = []
         self.class_name_dic = {0: '正常', 1: '不导电', 2: '擦花', 3: '角位漏底', 4: '桔皮', 5: '漏底', 6: '起坑', 7: '脏点'}
 
-        # 主窗口
+        # 主窗口，信号与槽绑定，初始化设置
         self.ac_exit.triggered.connect(QApplication.exit)
         self.ac_detect_log.triggered.connect(self.action_detect_log)
         self.ac_defect_log.triggered.connect(self.action_defect_log)

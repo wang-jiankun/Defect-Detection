@@ -81,8 +81,8 @@ def train(inherit=False, model='Alex'):
 
     # 训练迭代
     with tf.Session() as sess:
-        summary_writer1 = tf.summary.FileWriter('../log/view/train', sess.graph)
-        summary_writer2 = tf.summary.FileWriter('../log/view/test')
+        summary_writer1 = tf.summary.FileWriter('../log/curve/train', sess.graph)
+        summary_writer2 = tf.summary.FileWriter('../log/curve/test')
         step = 0
         if inherit:
             ckpt = tf.train.get_checkpoint_state(log_path)

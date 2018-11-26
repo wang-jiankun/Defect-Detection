@@ -10,9 +10,9 @@ from qt import MainWindow
 # 实例化一个 App
 app = QApplication(sys.argv)
 # 实例化一个 窗口
-login = MainWindow.Detect()
+win = MainWindow.Detect()
 # 显示窗口
-login.show()
+win.show()
 print('Welcome to use defect detection system.')
 # 进入主循环
 sys.exit(app.exec())

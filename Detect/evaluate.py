@@ -128,8 +128,8 @@ def evaluate(model='Alex'):
     print('各类精度：', precision)
     print('准确率：', np.sum(true_pos)/test_num)
     print('平均准确率：', np.mean(precision))
-    print('缺陷漏检率：', (pre_pos[0]-true_pos[0])/test_num)
-    print('正常漏检率：', (normal_num-true_pos[0])/test_num)
+    print('漏检率：', (pre_pos[0]-true_pos[0])/(test_num-normal_num))
+    print('过杀率：', (normal_num-true_pos[0])/normal_num)
 
 
 if __name__ == '__main__':

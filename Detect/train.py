@@ -13,9 +13,9 @@ from sklearn.model_selection import train_test_split
 import time
 
 
-MAX_STEP = 1200
+MAX_STEP = 1600
 LEARNING_RATE_BASE = 0.001
-LEARNING_RATE_DECAY = 0.96
+LEARNING_RATE_DECAY = 0.92
 # 训练信息和保存权重的gap
 INFO_STEP = 20
 SAVE_STEP = 200
@@ -127,9 +127,15 @@ def train(model='Alex', inherit=False, fine_tune=False):
     saver = tf.train.Saver(tf.global_variables())
     init = tf.global_variables_initializer()
 
+    tf.summary.scalar("loss", loss)
+    # tf.summary.histogram("W1", W)
+    merged_summary_op = tf.summary.merge_all()
+
     # 训练迭代
     with tf.Session() as sess:
         step = 0
+        train_summary_writer = tf.summary.FileWriter('../log/curve/train', sess.graph)
+        test_summary_writer = tf.summary.FileWriter('../log/curve/test')
         # 是否使用预训练模型
         if fine_tune:
             print('finetune:', model)
@@ -161,16 +167,22 @@ def train(model='Alex', inherit=False, fine_tune=False):
             # image_batch = np.expand_dims(image_batch, axis=3)
 
             # 训练，损失值和准确率
-            _, los, train_ac = sess.run([train_op, loss, accuracy], feed_dict={x: image_batch, y_: label_batch})
+            _ = sess.run(train_op, feed_dict={x: image_batch, y_: label_batch})
             end_time = time.clock()
             runtime = end_time - start_time
 
             step += 1
             # 训练信息和保存模型
             if step % INFO_STEP == 0 or step == MAX_STEP:
-                val_ac = sess.run(accuracy, feed_dict={x: val_data, y_: val_label})
-                print('step: %d, runtime: %.2f loss: %.4f, train accuracy: %.4f, test accuracy: %.4f' %
-                      (step, runtime, los, train_ac, val_ac))
+                train_loss, train_ac, train_summary = sess.run([loss, accuracy, merged_summary_op],
+                                                               feed_dict={x: image_batch, y_: label_batch})
+                train_summary_writer.add_summary(train_summary, step)
+                test_loss, test_ac, test_summary = sess.run([loss, accuracy, merged_summary_op],
+                                                            feed_dict={x: val_data, y_: val_label})
+                test_summary_writer.add_summary(test_summary, step)
+
+                print('step: %d, runtime: %.2f, train_loss: %.4f, test_loss: %.4f,train accuracy: %.4f, '
+                      'test accuracy: %.4f' % (step, runtime, train_loss, test_loss, train_ac, test_ac))
 
             if step % SAVE_STEP == 0:
                 print('learning_rate: ', sess.run(learning_rate))

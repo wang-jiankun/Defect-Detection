@@ -7,11 +7,11 @@ import numpy as np
 import tensorflow as tf
 from nets import alexnet, vgg, inception_v4, resnet_v2
 from PIL import Image
-import os
+import time
 
 CLASSES = 8
-IMG_SIZE = 224
-GLOBAL_POOL = False
+IMG_SIZE = 299
+GLOBAL_POOL = True
 
 
 def predict(img_path, model='Alex'):
@@ -79,10 +79,17 @@ def predict(img_path, model='Alex'):
             return
 
         img = read_img(img_path)
+        # 第一次运行时间会较长
+        sess.run(y, feed_dict={x: img})
+
+        start_time = time.clock()
         predictions = sess.run(y, feed_dict={x: img})
         pre = np.argmax(predictions)
-        print('prediction is:', '\n', predictions)
+        end_time = time.clock()
+        runtime = end_time - start_time
+        print('prediction is:', predictions)
         print('predict class is:', pre)
+        print('run time:', runtime)
 
 
 def check_tensor_name():
