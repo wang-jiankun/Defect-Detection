@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4256552a-cf68-4251-944f-476e81a1b257" name="Default" comment="">
+    <list default="true" id="4256552a-cf68-4251-944f-476e81a1b257" name="Default" comment="11-26">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Detect/evaluate.py" beforeDir="false" afterPath="$PROJECT_DIR$/Detect/evaluate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Detect/phone_seg.py" beforeDir="false" afterPath="$PROJECT_DIR$/Detect/phone_seg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Detect/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/Detect/predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Detect/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/Detect/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qt/LogDialog.py" beforeDir="false" afterPath="$PROJECT_DIR$/qt/LogDialog.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/qt/MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/qt/MainWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qt/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/qt/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qt/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/qt/predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qt/ui_defect_log.ui" beforeDir="false" afterPath="$PROJECT_DIR$/qt/ui_defect_log.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qt/ui_detect_log.ui" beforeDir="false" afterPath="$PROJECT_DIR$/qt/ui_detect_log.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qt/ui_detection.ui" beforeDir="false" afterPath="$PROJECT_DIR$/qt/ui_detection.ui" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,23 +20,23 @@
     <SUITE FILE_PATH="coverage/Defect_Detection$evaluate.coverage" NAME="evaluate Coverage Results" MODIFIED="1543212305912" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Detect" />
     <SUITE FILE_PATH="coverage/Defect_Detection$predict.coverage" NAME="predict Coverage Results" MODIFIED="1543213357749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Detect" />
     <SUITE FILE_PATH="coverage/Defect_Detection$train.coverage" NAME="train Coverage Results" MODIFIED="1543210624519" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Detect" />
-    <SUITE FILE_PATH="coverage/Defect_Detection$main.coverage" NAME="main Coverage Results" MODIFIED="1542328815694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/qt" />
+    <SUITE FILE_PATH="coverage/Defect_Detection$main.coverage" NAME="main Coverage Results" MODIFIED="1543486699322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/qt" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="1763711355">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="5" />
-          <entry key="project.open.time.0" value="5" />
+          <entry key="project.closed" value="7" />
+          <entry key="project.open.time.0" value="7" />
           <entry key="project.open.time.13" value="1" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="jpg" value="1" />
           <entry key="md" value="2" />
-          <entry key="py" value="23" />
+          <entry key="py" value="31" />
           <entry key="txt" value="2" />
         </counts>
       </usages-collector>
@@ -45,17 +45,19 @@
           <entry key="Image" value="1" />
           <entry key="Markdown" value="2" />
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="23" />
+          <entry key="Python" value="31" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="251" />
+          <entry key="py" value="794" />
+          <entry key="txt" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="251" />
+          <entry key="PLAIN_TEXT" value="5" />
+          <entry key="Python" value="794" />
         </counts>
       </usages-collector>
     </session>
@@ -68,8 +70,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Detect/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3886">
-              <caret line="174" column="23" lean-forward="true" selection-start-line="174" selection-start-column="23" selection-end-line="174" selection-end-column="23" />
+            <state relative-caret-position="-364">
+              <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
               <folding>
                 <element signature="e#46#55#0" expanded="true" />
               </folding>
@@ -78,24 +80,34 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Detect/predict.py">
+        <entry file="file://$PROJECT_DIR$/qt/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="936">
-              <caret line="81" column="20" selection-start-line="81" selection-start-column="20" selection-end-line="81" selection-end-column="20" />
+            <state relative-caret-position="130">
+              <caret line="7" column="25" lean-forward="true" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/qt/MainWindow.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="53" column="108" lean-forward="true" selection-start-line="53" selection-start-column="99" selection-end-line="53" selection-end-column="108" />
               <folding>
-                <element signature="e#46#64#0" expanded="true" />
+                <element signature="e#51#161#0" expanded="true" />
+                <marker date="1543486663912" expanded="true" signature="2435:2440" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Detect/evaluate.py">
+        <entry file="file://$PROJECT_DIR$/qt/LogDialog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="14" column="11" lean-forward="true" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+            <state relative-caret-position="364">
+              <caret line="32" column="102" selection-start-line="32" selection-start-column="102" selection-end-line="32" selection-end-column="102" />
               <folding>
-                <element signature="e#48#59#0" expanded="true" />
+                <element signature="e#56#135#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -156,7 +168,6 @@
         <option value="$PROJECT_DIR$/Detect/model_merge.py" />
         <option value="$PROJECT_DIR$/Detect/submit.py" />
         <option value="$PROJECT_DIR$/qt/cv.py" />
-        <option value="$PROJECT_DIR$/qt/predict.py" />
         <option value="$PROJECT_DIR$/Image_preprocessing/lenet.py" />
         <option value="E:/Python36/Lib/site-packages/labelme/label_file.py" />
         <option value="$PROJECT_DIR$/js.py" />
@@ -165,13 +176,14 @@
         <option value="$PROJECT_DIR$/log/Alex/checkpoint" />
         <option value="$PROJECT_DIR$/Detect/phone_seg.py" />
         <option value="$PROJECT_DIR$/Image_preprocessing/image_segmentation.py" />
-        <option value="$PROJECT_DIR$/qt/LogDialog.py" />
         <option value="$PROJECT_DIR$/qt/test.py" />
-        <option value="$PROJECT_DIR$/qt/MainWindow.py" />
         <option value="$PROJECT_DIR$/qt/main.py" />
         <option value="$PROJECT_DIR$/Detect/evaluate.py" />
         <option value="$PROJECT_DIR$/Detect/train.py" />
         <option value="$PROJECT_DIR$/Detect/predict.py" />
+        <option value="$PROJECT_DIR$/qt/predict.py" />
+        <option value="$PROJECT_DIR$/qt/MainWindow.py" />
+        <option value="$PROJECT_DIR$/qt/LogDialog.py" />
       </list>
     </option>
   </component>
@@ -182,8 +194,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="556" />
-    <option name="height" value="984" />
+    <option name="x" value="881" />
+    <option name="width" value="1046" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -202,12 +215,7 @@
             <path>
               <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="Detect" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="log" type="462c0819:PsiDirectoryNode" />
+              <item name="qt" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -217,7 +225,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="E:/WJK_File/Python_File/test" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -248,7 +256,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.predict">
+  <component name="RunManager" selected="Python.main">
     <configuration name="evaluate" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Defect_Detection" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -368,10 +376,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.predict" />
         <item itemvalue="Python.evaluate" />
         <item itemvalue="Python.train" />
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
@@ -387,6 +395,14 @@
       <option name="presentableId" value="Default" />
       <updated>1533886753317</updated>
     </task>
+    <task id="LOCAL-00001" summary="11-26">
+      <created>1543218509165</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1543218509165</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -407,12 +423,12 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4988764" visible="true" weight="0.21083692" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4988764" visible="true" weight="0.21620172" />
       <window_info id="Structure" order="1" sideWeight="0.5011236" side_tool="true" weight="0.22251585" />
       <window_info id="Favorites" order="2" sideWeight="0.5011236" side_tool="true" weight="0.22251585" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3281075" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49895832" visible="true" weight="0.39641657" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49895832" visible="true" weight="0.20828667" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.2857143" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -455,6 +471,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="11-26" />
+    <option name="LAST_COMMIT_MESSAGE" value="11-26" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -486,13 +506,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons/numpy/core/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="3011" selection-start-line="3011" selection-end-line="3011" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://E:/backup/Defect_Detection/MyNet/train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2213" />
@@ -710,16 +723,6 @@
     <entry file="file://$PROJECT_DIR$/qt/1.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/qt/predict.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-663">
-          <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
-          <folding>
-            <element signature="e#51#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/-965805770/PyQt5/QtWidgets/QFileDialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -731,34 +734,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="155" column="8" selection-start-line="155" selection-start-column="8" selection-end-line="155" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/qt/LogDialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="858">
-          <caret line="36" column="11" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/qt/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/qt/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="10" column="28" lean-forward="true" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/qt/MainWindow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5819">
-          <caret line="259" column="31" lean-forward="true" selection-start-line="259" selection-start-column="31" selection-end-line="259" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -824,22 +799,71 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Detect/evaluate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="14" column="11" lean-forward="true" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qt/predict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="76" column="45" selection-start-line="76" selection-start-column="45" selection-end-line="76" selection-end-column="45" />
+          <folding>
+            <element signature="e#51#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Detect/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3886">
-          <caret line="174" column="23" lean-forward="true" selection-start-line="174" selection-start-column="23" selection-end-line="174" selection-end-column="23" />
+        <state relative-caret-position="-364">
+          <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
           <folding>
             <element signature="e#46#55#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Detect/evaluate.py">
+    <entry file="file://$PROJECT_DIR$/qt/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="12" column="24" lean-forward="true" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qt/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
-          <caret line="14" column="11" lean-forward="true" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+          <caret line="7" column="25" lean-forward="true" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Python36/Lib/site-packages/PyQt5/uic/Compiler/qtproxies.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="409" column="26" lean-forward="true" selection-start-line="409" selection-start-column="12" selection-end-line="409" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qt/MainWindow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="53" column="108" lean-forward="true" selection-start-line="53" selection-start-column="99" selection-end-line="53" selection-end-column="108" />
           <folding>
-            <element signature="e#48#59#0" expanded="true" />
+            <element signature="e#51#161#0" expanded="true" />
+            <marker date="1543486663912" expanded="true" signature="2435:2440" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qt/LogDialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="32" column="102" selection-start-line="32" selection-start-column="102" selection-end-line="32" selection-end-column="102" />
+          <folding>
+            <element signature="e#56#135#0" expanded="true" />
           </folding>
         </state>
       </provider>

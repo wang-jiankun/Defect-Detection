@@ -74,7 +74,7 @@ def predict(img_path):
     predictions = sess.run(y, feed_dict={x: img})
     pre = np.argmax(predictions)
     end_time = time.clock()
-    run_time = round(end_time - start_time, 2)
+    run_time = round(end_time - start_time, 3)
     print('Detection is done. class: %d running time: %s s ' % (int(pre), run_time))
     # print('prediction is:', '\n', predictions)
     return pre, run_time

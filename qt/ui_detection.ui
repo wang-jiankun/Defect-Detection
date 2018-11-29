@@ -617,6 +617,12 @@
                <pointsize>12</pointsize>
               </font>
              </property>
+             <property name="inputMask">
+              <string/>
+             </property>
+             <property name="text">
+              <string>E:\Defect_Detection\data\1.jpg</string>
+             </property>
              <property name="placeholderText">
               <string>图片路径</string>
              </property>

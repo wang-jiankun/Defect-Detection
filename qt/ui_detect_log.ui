@@ -53,12 +53,12 @@
      </column>
      <column>
       <property name="text">
-       <string>检测结果</string>
+       <string>检测时间</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>检测时间</string>
+       <string>检测结果</string>
       </property>
      </column>
     </widget>

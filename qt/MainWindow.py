@@ -3,7 +3,7 @@
 author: 王建坤
 date: 2018-9-25
 """
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QApplication, QMessageBox, QTableWidgetItem
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QApplication, QMessageBox, QTableWidgetItem, QHeaderView
 from PyQt5.uic import loadUi
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import QImage, QPixmap, QPainter, QFont, QPen, QBrush, QColor
@@ -17,6 +17,7 @@ import os
 import time
 import logging
 import zipfile
+import pymysql
 
 __version__ = '1.0'
 
@@ -27,8 +28,12 @@ class Detect(QMainWindow):
         # 在窗口中加载界面
         loadUi('ui_detection.ui', self)
         self.image = None
-        self.log = []
-        self.class_name_dic = {0: '正常', 1: '不导电', 2: '擦花', 3: '角位漏底', 4: '桔皮', 5: '漏底', 6: '起坑', 7: '脏点'}
+
+        # 连接数据库
+        self.connection = pymysql.connect(host='localhost', user='root', password='1234',
+                                          db='detection_data', charset='utf8')
+        self.cursor = self.connection.cursor()
+        self.class_name_dic = {0: '正常', 1: '不导电', 2: '划痕', 3: '污渍', 4: '桔皮', 5: '漏底', 6: '起坑', 7: '脏点'}
 
         # 主窗口，信号与槽绑定，初始化设置
         self.ac_exit.triggered.connect(QApplication.exit)
@@ -45,6 +50,8 @@ class Detect(QMainWindow):
         self.pb_close_model.setDisabled(True)
         self.pb_detect.setDisabled(True)
         self.pb_save_image.setDisabled(True)
+        self.table_history.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.table_history.horizontalHeader().setStyleSheet("QHeaderView::section{background-color:lightgray;};")
         # self.table_history.horizontalHeaderItem(0).setBackground(QBrush(QColor(0,0,0))
 
         # print 输出重定向
@@ -96,10 +103,10 @@ class Detect(QMainWindow):
         self.table_history.insertRow(row_count)
         self.table_history.setItem(row_count, 0, QTableWidgetItem(str(row_count+1)))
         self.table_history.item(row_count, 0).setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-        self.table_history.setItem(row_count, 1, QTableWidgetItem(str(pre)))
-        # 记录此次检测的信息
-        temp_log = [img_path, str(pre), time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())]
-        self.log.append(temp_log)
+        self.table_history.setItem(row_count, 1, QTableWidgetItem(self.class_name_dic[pre]))
+        # 数据库插入一条检测记录
+        self.insert_log(pre)
+        # temp_log = [img_path, str(pre), time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())]
         if pre == -1:
             return
         self.le_class.setText(str(pre))
@@ -144,23 +151,25 @@ class Detect(QMainWindow):
             self.image.save(file_path[0])
             print('Save detected image successfully')
 
+    @staticmethod
     def action_detect_log(self):
         """
         打开检测记录文件窗口
         :return:
         """
-        self.detect_dialog = LogDialog.DetectLog(self.log)
-        self.detect_dialog.show()
-        self.detect_dialog.exec()
+        detect_dialog = LogDialog.DetectLog()
+        detect_dialog.show()
+        detect_dialog.exec()
 
+    @staticmethod
     def action_defect_log(self):
         """
         打开缺陷记录文件窗口
         :return:
         """
-        self.defect_dialog = LogDialog.DefectLog(self.log)
-        self.defect_dialog.show()
-        self.defect_dialog.exec()
+        defect_dialog = LogDialog.DefectLog()
+        defect_dialog.show()
+        defect_dialog.exec()
 
     def action_update_model(self):
         """
@@ -283,6 +292,18 @@ class Detect(QMainWindow):
         qp.drawText(200, 200, self.class_name_dic[pre])
         qp.end()
         self.lb_image.setPixmap(QPixmap.fromImage(self.image))
+
+    def insert_log(self, pre):
+        """
+        向数据库中插入一条检测记录
+        :param pre:
+        :return:
+        """
+        # 插入一行
+        sql = "INSERT INTO detection_log(detect_class) VALUES(%s)"
+        self.cursor.execute(sql, (self.class_name_dic[pre],))
+        # 提交事务
+        self.connection.commit()
 
 
 class EmittingStream(QtCore.QObject):
