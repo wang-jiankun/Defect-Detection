@@ -3,30 +3,24 @@ Detect 训练
 author: 王建坤
 date: 2018-9-10
 """
-import os
-import numpy as np
-import tensorflow as tf
+from Detect.config import *
 from Detect import utils
-from nets import alexnet, vgg, resnet_v2, inception_v4, inception_resnet_v2
 import tensorflow.contrib.slim as slim
 from sklearn.model_selection import train_test_split
 import time
+import os
 
-
-MAX_STEP = 1600
+MAX_STEP = 2000
 LEARNING_RATE_BASE = 0.001
 LEARNING_RATE_DECAY = 0.92
 # 训练信息和保存权重的gap
 INFO_STEP = 20
 SAVE_STEP = 200
 # 类别数和图片尺寸
-CLASSES = 8
-IMG_SIZE = 299
-BATCH_SIZE = 128
-GLOBAL_POOL = True
+BATCH_SIZE = 64
 
 
-def train(model='Alex', inherit=False, fine_tune=False):
+def train(model='Mobile', inherit=True, fine_tune=False):
     """
     train a specified model
     :param model: the train model name
@@ -40,25 +34,40 @@ def train(model='Alex', inherit=False, fine_tune=False):
     my_global_step = tf.Variable(0, name='global_step', trainable=False, dtype=tf.int64)
 
     # 加载数据集
-    images = np.load('../data/data_'+str(IMG_SIZE)+'.npy')
-    labels = np.load('../data/label_'+str(IMG_SIZE)+'.npy')
+    images = np.load('../data/data_' + str(IMG_SIZE) + '.npy')
+    labels = np.load('../data/label_' + str(IMG_SIZE) + '.npy')
     train_data, val_data, train_label, val_label = train_test_split(images, labels, test_size=0.2, random_state=222)
 
     # 模型保存路径，模型名，预训练文件路径，前向传播
     if model == 'Alex':
-        log_path = "../log/Alex"
+        log_dir = "../log/Alex"
         model_name = 'alex.ckpt'
         if fine_tune:
             print('Error: alex has no pre-train model')
             return
         y, _ = alexnet.alexnet_v2(x,
-                                  num_classes=CLASSES,      # 分类的类别
-                                  is_training=True,         # 是否在训练
-                                  dropout_keep_prob=1.0,    # 保留比率
-                                  spatial_squeeze=True,     # 压缩掉1维的维度
+                                  num_classes=CLASSES,  # 分类的类别
+                                  is_training=True,  # 是否在训练
+                                  dropout_keep_prob=1.0,  # 保留比率
+                                  spatial_squeeze=True,  # 压缩掉1维的维度
                                   global_pool=GLOBAL_POOL)  # 输入不是规定的尺寸时，需要global_pool
+    elif model == 'Mobile':
+        log_dir = "../log/Mobile"
+        model_name = 'mobile.ckpt'
+        y, _ = mobilenet_v1.mobilenet_v1(x,
+                                         num_classes=CLASSES,
+                                         dropout_keep_prob=1.0,
+                                         is_training=True,
+                                         min_depth=8,
+                                         depth_multiplier=1.0,
+                                         conv_defs=None,
+                                         prediction_fn=None,
+                                         spatial_squeeze=True,
+                                         reuse=None,
+                                         scope='MobilenetV1',
+                                         global_pool=GLOBAL_POOL)
     elif model == 'VGG':
-        log_path = "../log/VGG"
+        log_dir = "../log/VGG"
         model_name = 'vgg_299.ckpt'
         fine_tune_path = '../data/vgg_16_2016_08_28/vgg_16.ckpt'
         y, _ = vgg.vgg_16(x,
@@ -70,7 +79,7 @@ def train(model='Alex', inherit=False, fine_tune=False):
         variables_to_restore = slim.get_variables_to_restore(exclude=['vgg_16/fc8'])
 
     elif model == 'Incep':
-        log_path = "E:/alum/log/Incep"
+        log_dir = "E:/alum/log/Incep"
         model_name = 'incep.ckpt'
         fine_tune_path = 'E:/alum/weight/inception_v4_2016_09_09/inception_v4.ckpt'
         y, _ = inception_v4.inception_v4(x,
@@ -83,7 +92,7 @@ def train(model='Alex', inherit=False, fine_tune=False):
         variables_to_restore = slim.get_variables_to_restore(exclude=['InceptionV4/Logits', 'InceptionV4/AuxLogits'])
 
     elif model == 'Res':
-        log_path = "E:/alum/log/Res"
+        log_dir = "E:/alum/log/Res"
         model_name = 'res.ckpt'
         fine_tune_path = 'E:/alum/weight/resnet_v2_50_2017_04_14/resnet_v2_50.ckpt'
         y, _ = resnet_v2.resnet_v2_50(x,
@@ -97,7 +106,7 @@ def train(model='Alex', inherit=False, fine_tune=False):
         variables_to_restore = slim.get_variables_to_restore(exclude=['resnet_v2_50/logits'])
 
     elif model == 'IncepRes':
-        log_path = "E:/alum/log/IncepRes"
+        log_dir = "E:/alum/log/IncepRes"
         model_name = 'incepres.ckpt'
         fine_tune_path = 'E:/alum/weight/inception_resnet_v2_2016_08_30/inception_resnet_v2_2016_08_30.ckpt'
         y, _ = inception_resnet_v2.inception_resnet_v2(x,
@@ -146,7 +155,7 @@ def train(model='Alex', inherit=False, fine_tune=False):
             init_fine_tune(sess)
         # 是否继续训练，ckpt 有 model_checkpoint_path 和 all_model_checkpoint_paths 两个属性
         elif inherit:
-            ckpt = tf.train.get_checkpoint_state(log_path)
+            ckpt = tf.train.get_checkpoint_state(log_dir)
             if ckpt and ckpt.model_checkpoint_path:
                 global_step = ckpt.model_checkpoint_path.split('/')[-1].split('-')[-1]
                 saver.restore(sess, ckpt.model_checkpoint_path)
@@ -186,7 +195,7 @@ def train(model='Alex', inherit=False, fine_tune=False):
 
             if step % SAVE_STEP == 0:
                 print('learning_rate: ', sess.run(learning_rate))
-                checkpoint_path = os.path.join(log_path, model_name)
+                checkpoint_path = os.path.join(log_dir, model_name)
                 saver.save(sess, checkpoint_path, global_step=step)
 
 

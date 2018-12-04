@@ -228,7 +228,7 @@ class Detect(QMainWindow):
         print("Downloading model ......")
         url = model_path
         try:
-            request.urlretrieve(url, '1.jpg')
+            request.urlretrieve(url, 'test1.jpg')
         except Exception as e:
             logging.exception(e)
             print('下载 model 出错')

@@ -24,4 +24,4 @@ def put_text(img_path, pre_class):
 
 
 if __name__ == '__main__':
-    put_text('../data/1.jpg', 1)
+    put_text('../data/test1.jpg', 1)

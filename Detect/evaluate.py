@@ -3,20 +3,14 @@ Detect 性能评估
 author: 王建坤
 date: 2018-9-10
 """
+from Detect.config import *
 import math
-import numpy as np
-import tensorflow as tf
-from nets import alexnet, vgg, inception_v4, resnet_v2
 from sklearn.model_selection import train_test_split
 
-
-BATCH_SIZE = 64
-IMG_SIZE = 299
-CLASSES = 8
-GLOBAL_POOL = True
+BATCH_SIZE = 8
 
 
-def evaluate(model='Alex'):
+def evaluate(model='Mobile'):
     """
     评估模型
     :param model: model name
@@ -27,8 +21,8 @@ def evaluate(model='Alex'):
     true_pos = np.zeros(CLASSES, dtype=np.uint16)
 
     # 加载测试集
-    images = np.load('../data/data_299.npy')
-    labels = np.load('../data/label_299.npy')
+    images = np.load('../data/data_' + str(IMG_SIZE) + '.npy')
+    labels = np.load('../data/label_' + str(IMG_SIZE) + '.npy')
     _, val_data, _, val_label = train_test_split(images, labels, test_size=0.2, random_state=222)
     test_num = val_data.shape[0]
     # 存放预测结果
@@ -47,6 +41,20 @@ def evaluate(model='Alex'):
                                   dropout_keep_prob=1.0,    # 保留比率
                                   spatial_squeeze=True,     # 压缩掉1维的维度
                                   global_pool=GLOBAL_POOL)  # 输入不是规定的尺寸时，需要global_pool
+    elif model == 'Mobile':
+        log_dir = "../log/Mobile"
+        y, _ = mobilenet_v1.mobilenet_v1(x,
+                                         num_classes=CLASSES,
+                                         dropout_keep_prob=1.0,
+                                         is_training=True,
+                                         min_depth=8,
+                                         depth_multiplier=1.0,
+                                         conv_defs=None,
+                                         prediction_fn=None,
+                                         spatial_squeeze=True,
+                                         reuse=None,
+                                         scope='MobilenetV1',
+                                         global_pool=GLOBAL_POOL)
     elif model == 'VGG':
         log_dir = "../log/VGG"
         y, _ = vgg.vgg_16(x,
@@ -94,7 +102,7 @@ def evaluate(model='Alex'):
             return
 
         # 遍历一次测试集需要次数
-        num_iter = int(math.ceil(test_num / test_num))
+        num_iter = int(math.ceil(test_num / BATCH_SIZE))
 
         step = 0
         start = 0
@@ -107,8 +115,8 @@ def evaluate(model='Alex'):
             image_batch = val_data[start:end]
             label_batch = val_label[start:end]
             # 准确率和预测结果统计信息
-            pre = sess.run(y_pre, feed_dict={x: image_batch, y_: label_batch})
-            pre = np.squeeze(pre)
+            pres, pre = sess.run([y, y_pre], feed_dict={x: image_batch, y_: label_batch})
+            print(pres)
             res[start:end] = pre
             start += BATCH_SIZE
             step += 1
