@@ -42,8 +42,8 @@ GLOBAL_POOL = False
 
 def train(inherit=False, model='Alex'):
     # 加载数据集
-    images = np.load('../data/phone_data.npy')
-    labels = np.load('../data/phone_label.npy')
+    images = np.load('../data/card_data.npy')
+    labels = np.load('../data/card_label.npy')
     train_data, val_data, train_label, val_label = train_test_split(images, labels, test_size=0.2, random_state=222)
 
     # 占位符
@@ -178,4 +178,4 @@ def predict(root_path, model='Alex'):
 
 if __name__ == '__main__':
     train()
-    # predict('../data/phone')
+    # predict('../data/card')

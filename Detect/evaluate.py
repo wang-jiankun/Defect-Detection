@@ -7,10 +7,11 @@ from Detect.config import *
 import math
 from sklearn.model_selection import train_test_split
 
-BATCH_SIZE = 8
+BATCH_SIZE = 1
+IS_TRAINING = False
 
 
-def evaluate(model='Mobile'):
+def evaluate(model=MODEL_NAME):
     """
     评估模型
     :param model: model name
@@ -21,15 +22,23 @@ def evaluate(model='Mobile'):
     true_pos = np.zeros(CLASSES, dtype=np.uint16)
 
     # 加载测试集
-    images = np.load('../data/data_' + str(IMG_SIZE) + '.npy')
-    labels = np.load('../data/label_' + str(IMG_SIZE) + '.npy')
+    # 铝型材
+    # images = np.load('../data/data_' + str(IMG_SIZE) + '.npy')
+    # labels = np.load('../data/label_' + str(IMG_SIZE) + '.npy')
+    # 手机壳
+    images = np.load('../data/phone_data.npy')
+    labels = np.load('../data/phone_label.npy')
     _, val_data, _, val_label = train_test_split(images, labels, test_size=0.2, random_state=222)
+    # 如果输入是灰色图，要增加一维
+    if CHANNEL == 1:
+        val_data = np.expand_dims(val_data, axis=3)
+
     test_num = val_data.shape[0]
     # 存放预测结果
     res = np.zeros(test_num, dtype=np.uint16)
 
     # 占位符
-    x = tf.placeholder(tf.float32, [None, IMG_SIZE, IMG_SIZE, 3], name="x_input")
+    x = tf.placeholder(tf.float32, [None, IMG_SIZE, IMG_SIZE, CHANNEL], name="x_input")
     y_ = tf.placeholder(tf.uint8, [None], name="y_input")
 
     # 模型保存路径，模型名，预训练文件路径，前向传播
@@ -37,16 +46,19 @@ def evaluate(model='Mobile'):
         log_dir = "../log/Alex"
         y, _ = alexnet.alexnet_v2(x,
                                   num_classes=CLASSES,      # 分类的类别
-                                  is_training=True,         # 是否在训练
+                                  is_training=IS_TRAINING,  # 是否在训练
                                   dropout_keep_prob=1.0,    # 保留比率
                                   spatial_squeeze=True,     # 压缩掉1维的维度
                                   global_pool=GLOBAL_POOL)  # 输入不是规定的尺寸时，需要global_pool
+    elif model == 'My':
+        log_dir = "../log/My"
+        y = mynet.mynet_v1(x, is_training=IS_TRAINING, num_classes=CLASSES)
     elif model == 'Mobile':
         log_dir = "../log/Mobile"
         y, _ = mobilenet_v1.mobilenet_v1(x,
                                          num_classes=CLASSES,
                                          dropout_keep_prob=1.0,
-                                         is_training=True,
+                                         is_training=IS_TRAINING,
                                          min_depth=8,
                                          depth_multiplier=1.0,
                                          conv_defs=None,
@@ -59,14 +71,14 @@ def evaluate(model='Mobile'):
         log_dir = "../log/VGG"
         y, _ = vgg.vgg_16(x,
                           num_classes=CLASSES,
-                          is_training=True,
+                          is_training=IS_TRAINING,
                           dropout_keep_prob=1.0,
                           spatial_squeeze=True,
                           global_pool=GLOBAL_POOL)
     elif model == 'Incep4':
         log_dir = "E:/alum/log/Incep4"
         y, _ = inception_v4.inception_v4(x, num_classes=CLASSES,
-                                         is_training=True,
+                                         is_training=IS_TRAINING,
                                          dropout_keep_prob=1.0,
                                          reuse=None,
                                          scope='InceptionV4',
@@ -75,7 +87,7 @@ def evaluate(model='Mobile'):
         log_dir = "E:/alum/log/Res"
         y, _ = resnet_v2.resnet_v2_50(x,
                                       num_classes=CLASSES,
-                                      is_training=True,
+                                      is_training=IS_TRAINING,
                                       global_pool=GLOBAL_POOL,
                                       output_stride=None,
                                       spatial_squeeze=True,
@@ -116,7 +128,6 @@ def evaluate(model='Mobile'):
             label_batch = val_label[start:end]
             # 准确率和预测结果统计信息
             pres, pre = sess.run([y, y_pre], feed_dict={x: image_batch, y_: label_batch})
-            print(pres)
             res[start:end] = pre
             start += BATCH_SIZE
             step += 1

@@ -46,8 +46,8 @@ def json_to_npy(root_path, save_path='../data/'):
     print('data set shape is: ', np.shape(data), np.shape(labels))
 
     # 数组保存为npy
-    data_save_path = save_path + 'phone_data.npy'
-    label_save_path = save_path + 'phone_label.npy'
+    data_save_path = save_path + 'card_data.npy'
+    label_save_path = save_path + 'card_label.npy'
     np.save(data_save_path, data)
     np.save(label_save_path, labels)
 
@@ -67,7 +67,7 @@ def json_to_label(json_path):
 
 if __name__ == '__main__':
     print('running json2npy: ')
-    json_to_npy('../data/phone')
+    json_to_npy('../data/card')
     # json_to_label('E:/1.json')
 
 

@@ -10,17 +10,17 @@ from sklearn.model_selection import train_test_split
 import time
 import os
 
-MAX_STEP = 2000
+MAX_STEP = 10000
 LEARNING_RATE_BASE = 0.001
-LEARNING_RATE_DECAY = 0.92
+LEARNING_RATE_DECAY = 0.95
 # 训练信息和保存权重的gap
-INFO_STEP = 20
-SAVE_STEP = 200
+INFO_STEP = 1000
+SAVE_STEP = 5000
 # 类别数和图片尺寸
-BATCH_SIZE = 64
+BATCH_SIZE = 128
 
 
-def train(model='Mobile', inherit=True, fine_tune=False):
+def train(model=MODEL_NAME, inherit=False, fine_tune=False):
     """
     train a specified model
     :param model: the train model name
@@ -29,14 +29,22 @@ def train(model='Mobile', inherit=True, fine_tune=False):
     :return: none
     """
     # 占位符
-    x = tf.placeholder(tf.float32, [None, IMG_SIZE, IMG_SIZE, 3], name="x_input")
+    x = tf.placeholder(tf.float32, [None, IMG_SIZE, IMG_SIZE, CHANNEL], name="x_input")
     y_ = tf.placeholder(tf.uint8, [None], name="y_input")
     my_global_step = tf.Variable(0, name='global_step', trainable=False, dtype=tf.int64)
 
     # 加载数据集
-    images = np.load('../data/data_' + str(IMG_SIZE) + '.npy')
-    labels = np.load('../data/label_' + str(IMG_SIZE) + '.npy')
+    # 铝型材
+    # images = np.load('../data/data_' + str(IMG_SIZE) + '.npy')
+    # labels = np.load('../data/label_' + str(IMG_SIZE) + '.npy')
+    # 手机壳
+    images = np.load('../data/phone_data.npy')
+    labels = np.load('../data/phone_label.npy')
     train_data, val_data, train_label, val_label = train_test_split(images, labels, test_size=0.2, random_state=222)
+    # 如果输入是灰色图，要增加一维
+    if CHANNEL == 1:
+        train_data = np.expand_dims(train_data, axis=3)
+        val_data = np.expand_dims(val_data, axis=3)
 
     # 模型保存路径，模型名，预训练文件路径，前向传播
     if model == 'Alex':
@@ -51,6 +59,10 @@ def train(model='Mobile', inherit=True, fine_tune=False):
                                   dropout_keep_prob=1.0,  # 保留比率
                                   spatial_squeeze=True,  # 压缩掉1维的维度
                                   global_pool=GLOBAL_POOL)  # 输入不是规定的尺寸时，需要global_pool
+    elif model == 'My':
+        log_dir = "../log/My"
+        model_name = 'my.ckpt'
+        y = mynet.mynet_v1(x, is_training=True, num_classes=CLASSES)
     elif model == 'Mobile':
         log_dir = "../log/Mobile"
         model_name = 'mobile.ckpt'
@@ -128,7 +140,11 @@ def train(model='Mobile', inherit=True, fine_tune=False):
     loss = tf.reduce_mean(cross_entropy, name='loss')
     learning_rate = tf.train.exponential_decay(LEARNING_RATE_BASE, my_global_step, 100, LEARNING_RATE_DECAY)
     optimizer = tf.train.AdamOptimizer(learning_rate)
-    train_op = optimizer.minimize(loss, global_step=my_global_step)
+    # 保证 train_op 在 update_ops执行之后再执行。
+    update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
+    with tf.control_dependencies([tf.group(*update_ops)]):
+        train_op = optimizer.minimize(loss, global_step=my_global_step)
+    # train_op = slim.learning.create_train_op(cross_entropy, optimizer, global_step=my_global_step)
     correct = tf.equal(tf.argmax(y, 1), tf.argmax(y_hot, 1))
     accuracy = tf.reduce_mean(tf.cast(correct, "float"))
 
@@ -172,8 +188,6 @@ def train(model='Mobile', inherit=True, fine_tune=False):
         while step < MAX_STEP:
             start_time = time.clock()
             image_batch, label_batch = utils.get_batch(train_data, train_label, BATCH_SIZE)
-            # 如果输入是灰色图，要增加一维
-            # image_batch = np.expand_dims(image_batch, axis=3)
 
             # 训练，损失值和准确率
             _ = sess.run(train_op, feed_dict={x: image_batch, y_: label_batch})

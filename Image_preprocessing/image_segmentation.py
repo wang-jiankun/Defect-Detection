@@ -13,8 +13,10 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 IMG_SIZE = 600
 IMG_SIZE1 = 300
-METHOD = 0
+THRESH = 40     # 100
+METHOD = 1
 SHOW = True
+IMG_PATH = '../data/phone/12_03(18_24_41_823).jpg'  # '../data/card/10_23(14_19_11_703).jpg'
 
 
 def data_image_segm(root_path, save_dir):
@@ -62,10 +64,12 @@ def image_segm(img, method=METHOD):
     # img_blur = cv2.medianBlur(img, 5)
     # img_sobel = single_sobel(img_gray, 0, 1)
     img_grad = img_gradient(img)
-    img_bin = img_thresh(img_grad, 100, 255)
+    img_bin = img_thresh(img_grad, THRESH, 255)
     # img_mor = img_morphology(img_grad)
+    # 霍夫检测法
     if method == 0:
         points = hough_lines_prob(img_bin, img)
+    # 轮廓查找法
     else:
         points = find_contours(img_bin, img)
     dst = perspective_transform(img, points)
@@ -107,7 +111,6 @@ def img_gradient(img_gray):
     abs_x = cv2.convertScaleAbs(x)
     abs_y = cv2.convertScaleAbs(y)
     dst = cv2.addWeighted(abs_x, 1, abs_y, 1, 0)
-    # ret, thresh = cv2.threshold(dst, 200, 255, cv2.THRESH_BINARY)
     return dst
 
 
@@ -316,7 +319,7 @@ def find_contours(img_bin, img, draw=True):
         if box[0][0] > IMG_SIZE/2:
             box = box[[1, 2, 3, 0], :]
         if draw:
-            cv2.polylines(img, [box], True, (0, 0, 255), 3)
+            cv2.polylines(img, [box], True, 255, 1)
     elif approximate_method == 2:
         box = []
     else:
@@ -377,5 +380,5 @@ def water_shed(img):
 
 if __name__ == '__main__':
     print('running image segmentation:')
-    # data_image_segm('../data/phone', '../data/seg/phone')
-    image_segm_single('../data/phone/10_23(14_19_11_703).jpg')  # 14_19_23_581
+    # data_image_segm('../data/card', '../data/seg/card')
+    image_segm_single(IMG_PATH)

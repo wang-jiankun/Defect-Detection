@@ -12,8 +12,11 @@ import os
 # os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 # os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
+IMG_DIR = '../data/crop/pos/'
+IS_TRAINING = False
 
-def predict(img_path, model='Mobile'):
+
+def predict(img_path, model=MODEL_NAME):
     """
     预测图片
     :param img_path: 图片路径
@@ -21,23 +24,26 @@ def predict(img_path, model='Mobile'):
     :return: none
     """
     # 占位符
-    x = tf.placeholder(tf.float32, [None, IMG_SIZE, IMG_SIZE, 3])
+    x = tf.placeholder(tf.float32, [None, IMG_SIZE, IMG_SIZE, CHANNEL])
 
     # 模型保存路径，前向传播
     if model == 'Alex':
         log_dir = "../log/Alex"
         y, _ = alexnet.alexnet_v2(x,
                                   num_classes=CLASSES,      # 分类的类别
-                                  is_training=True,         # 是否在训练
+                                  is_training=IS_TRAINING,  # 是否在训练
                                   dropout_keep_prob=1.0,    # 保留比率
                                   spatial_squeeze=True,     # 压缩掉1维的维度
                                   global_pool=GLOBAL_POOL)        # 输入不是规定的尺寸时，需要global_pool
+    elif model == 'My':
+        log_dir = "../log/My"
+        y = mynet.mynet_v1(x, is_training=IS_TRAINING, num_classes=CLASSES)
     elif model == 'Mobile':
         log_dir = "../log/Mobile"
         y, _ = mobilenet_v1.mobilenet_v1(x,
                                          num_classes=CLASSES,
                                          dropout_keep_prob=1.0,
-                                         is_training=True,
+                                         is_training=IS_TRAINING,
                                          min_depth=8,
                                          depth_multiplier=1.0,
                                          conv_defs=None,
@@ -50,14 +56,14 @@ def predict(img_path, model='Mobile'):
         log_dir = "../log/VGG"
         y, _ = vgg.vgg_16(x,
                           num_classes=CLASSES,
-                          is_training=True,
+                          is_training=IS_TRAINING,
                           dropout_keep_prob=1.0,
                           spatial_squeeze=True,
                           global_pool=GLOBAL_POOL)
     elif model == 'Incep4':
         log_dir = "../log/Incep4"
         y, _ = inception_v4.inception_v4(x, num_classes=CLASSES,
-                                         is_training=True,
+                                         is_training=IS_TRAINING,
                                          dropout_keep_prob=1.0,
                                          reuse=None,
                                          scope='InceptionV4',
@@ -66,7 +72,7 @@ def predict(img_path, model='Mobile'):
         log_dir = "../log/Res"
         y, _ = resnet_v2.resnet_v2_50(x,
                                       num_classes=CLASSES,
-                                      is_training=True,
+                                      is_training=IS_TRAINING,
                                       global_pool=GLOBAL_POOL,
                                       output_stride=None,
                                       spatial_squeeze=True,
@@ -86,6 +92,7 @@ def predict(img_path, model='Mobile'):
         if ckpt and ckpt.model_checkpoint_path:
             global_step = ckpt.model_checkpoint_path.split('/')[-1].split('-')[-1]
             saver.restore(sess, ckpt.model_checkpoint_path)
+            # check_tensor_name(sess)
             print('Loading success, global_step is %s' % global_step)
         else:
             print('Error: no checkpoint file found')
@@ -94,10 +101,13 @@ def predict(img_path, model='Mobile'):
         # img = read_img(img_path)
         # # 第一次运行时间会较长
         # sess.run(y, feed_dict={x: img})
-        img_list = os.listdir('../data/alum/不导电')
+        img_list = os.listdir(IMG_DIR)
         for img_name in img_list[:5]:
-            img_path = '../data/alum/不导电/' + img_name
+            img_path = IMG_DIR + img_name
             img = read_img(img_path)
+            # 如果输入是灰色图，要增加一维
+            if CHANNEL == 1:
+                img = np.expand_dims(img, axis=3)
 
             start_time = time.clock()
             predictions = sess.run(y, feed_dict={x: img})
@@ -105,11 +115,11 @@ def predict(img_path, model='Mobile'):
             end_time = time.clock()
             runtime = end_time - start_time
             print('prediction is:', predictions)
-            # print('predict class is:', pre)
+            print('predict class is:', pre)
             # print('run time:', runtime)
 
 
-def check_tensor_name():
+def check_tensor_name(sess):
     """
     查看模型的 tensor，在调用模型之后使用
     :return: none
@@ -117,7 +127,10 @@ def check_tensor_name():
     import tensorflow.contrib.slim as slim
     variables_to_restore = slim.get_variables_to_restore()
     for var in variables_to_restore:
+        # tensor 的名
         print(var.name)
+        # tensor 的值
+        print(sess.run(var))
 
 
 def read_img(img_path):
