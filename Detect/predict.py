@@ -12,8 +12,11 @@ import os
 # os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 # os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
-IMG_DIR = '../data/crop/pos/'
+# IMG_DIR = '../data/crop/pos/'
+IMG_DIR = '../data/phone/'
 IS_TRAINING = False
+
+IMG_SIZE = 1000
 
 
 def predict(img_path, model=MODEL_NAME):
@@ -24,7 +27,7 @@ def predict(img_path, model=MODEL_NAME):
     :return: none
     """
     # 占位符
-    x = tf.placeholder(tf.float32, [None, IMG_SIZE, IMG_SIZE, CHANNEL])
+    x = tf.placeholder(tf.float32, [None, IMG_SIZE, IMG_SIZE*2, CHANNEL])
 
     # 模型保存路径，前向传播
     if model == 'Alex':
@@ -102,7 +105,9 @@ def predict(img_path, model=MODEL_NAME):
         # # 第一次运行时间会较长
         # sess.run(y, feed_dict={x: img})
         img_list = os.listdir(IMG_DIR)
-        for img_name in img_list[:5]:
+        for img_name in img_list[0:-1]:
+            # img_name = '1.jpg'
+            print(img_name)
             img_path = IMG_DIR + img_name
             img = read_img(img_path)
             # 如果输入是灰色图，要增加一维
@@ -111,12 +116,13 @@ def predict(img_path, model=MODEL_NAME):
 
             start_time = time.clock()
             predictions = sess.run(y, feed_dict={x: img})
-            pre = np.argmax(predictions)
+            pre = np.argmax(predictions, 3)
+            print(np.sum(pre), pre.shape)
             end_time = time.clock()
             runtime = end_time - start_time
-            print('prediction is:', predictions)
-            print('predict class is:', pre)
-            # print('run time:', runtime)
+            # print('prediction is:', predictions)
+            print('predict class is:', pre[:, 6:13, 13:30])
+            print('run time:', runtime)
 
 
 def check_tensor_name(sess):
@@ -140,8 +146,8 @@ def read_img(img_path):
     :return: numpy array of image
     """
     img = Image.open(img_path)
-    img = img.resize((IMG_SIZE, IMG_SIZE))
-    img = np.array(img)
+    img = img.resize((IMG_SIZE*2, IMG_SIZE))
+    # img = np.array(img)
     img = np.expand_dims(img, axis=0)
     return img
 

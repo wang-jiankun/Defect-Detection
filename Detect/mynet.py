@@ -24,7 +24,7 @@ def mynet_v1(inputs, num_classes=10, is_training=True, scope=None):
                 net = slim.conv2d(net, 64, [1, 1], stride=1, scope='Conv_4_pw')
                 net = slim.conv2d(net, 64, [5, 5], padding='VALID', scope='Conv_5')
                 pre = slim.conv2d(net, num_classes, [1, 1], scope='Conv_6')
-                pre = tf.squeeze(pre, [1, 2], name='squeezed')
+                # pre = tf.squeeze(pre, [1, 2], name='squeezed')
                 # pre = slim.softmax(pre, scope='Predictions')
 
             return pre

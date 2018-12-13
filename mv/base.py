@@ -8,10 +8,19 @@ import numpy as np
 import time
 import os
 
-IMG_H_SIZE = 2000   # 2592
-IMG_V_SIZE = 1000   # 1994
-THRESH = 50     # 40
-IMG_DIR = '../data/phone'
+OBJECT = 'phone'
+if OBJECT == 'phone':
+    IMG_H_SIZE = 2000   # 2592
+    IMG_V_SIZE = 1000   # 1994
+    THRESH = 50     # 40
+    IMG_DIR = '../data/phone'
+    SIZE_RATIO = 3
+else:
+    IMG_H_SIZE = 1000
+    IMG_V_SIZE = 514
+    THRESH = 60
+    IMG_DIR = '../data/cigarette'
+    SIZE_RATIO = 30
 
 
 def open_img(img_path, resize=False):
@@ -73,23 +82,30 @@ def img_filter(img, method=1, k=3):
     return img_blur
 
 
-def find_object(img_bin, img, draw=False):
+def find_object(img_bin, img, approximate_method=0, draw=False):
     """
     查找目标物体的轮廓
     :param img_bin: 二值化图
     :param img: 原图
+    :param approximate_method: 轮廓近似方式
     :param draw: 图像显示标志位
     :return:
     """
-    approximate_method = 1
     _, contours, hierarchy = cv2.findContours(img_bin, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     print(len(contours))
-    # 轮廓是否要近似为最小外包矩形
-    if approximate_method == 1:
-        # rect = cv2.boundingRect(contours[0])
-        # cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    # 轮廓是近似方式，0：矩形，1：最小矩形，2：点集
+    if approximate_method == 0:
+        area_thresh = img.shape[0] * img.shape[1] / SIZE_RATIO
+        for contour in contours:
+            area = cv2.contourArea(contour)
+            if area > area_thresh:
+                x, y, w, h = cv2.boundingRect(contour)
+                print(x, y, w, h)
+                cv2.rectangle(img, (x, y), (x + w, y + h), 255, 2)
+        box = None
+    elif approximate_method == 1:
         contour = 0
-        area_thresh = img.shape[0] * img.shape[1]/3
+        area_thresh = img.shape[0] * img.shape[1] / SIZE_RATIO
         for contour in contours:
             area = cv2.contourArea(contour)
             if area > area_thresh:
@@ -168,8 +184,8 @@ def seg_object(method=0):
         gradient_img = img_gradient(gray_img)
         cv2.imshow('gradient', gradient_img)
         thresh_img = img_thresh(gradient_img, THRESH, 255)
-    box = find_object(thresh_img, gray_img)
-    dst = perspective_transform(gray_img, box)
+    box = find_object(thresh_img, gray_img, 1, True)
+    dst = perspective_transform(gray_img, box, True)
     # blur_img = img_filter(thresh_img, 1)
 
     end_time = time.clock()
@@ -184,7 +200,33 @@ def seg_object(method=0):
     cv2.destroyAllWindows()
 
 
+def cut_roi():
+    """
+    根据位置，裁剪出装配电子烟的 ROI，并保存
+    """
+    # 打开图片
+    img_list = os.listdir(IMG_DIR)
+    for img_name in img_list:
+        print('image name:', img_name)
+        gray_img = open_img(os.path.join(IMG_DIR, img_name), True)
+
+        # 两个工位的 ROI
+        left = gray_img[250:410, 150:410]
+        right = gray_img[250:410, 600:860]
+
+        cv2.imshow('l', left)
+        cv2.imshow('r', right)
+        img1_name = 'l_' + img_name
+        img2_name = 'r``_' + img_name
+        cv2.imwrite(os.path.join(IMG_DIR, img1_name), left)
+        cv2.imwrite(os.path.join(IMG_DIR, img2_name), right)
+
+        cv2.waitKey()
+        cv2.destroyAllWindows()
+
+
 if __name__ == '__main__':
     print('run cv.base: ')
     seg_object()
     # img_compare()
+    # cut_roi()
