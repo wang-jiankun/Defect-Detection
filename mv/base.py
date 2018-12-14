@@ -8,19 +8,21 @@ import numpy as np
 import time
 import os
 
-OBJECT = 'phone'
+OBJECT = 'ocr'
 if OBJECT == 'phone':
     IMG_H_SIZE = 2000   # 2592
     IMG_V_SIZE = 1000   # 1994
     THRESH = 50     # 40
     IMG_DIR = '../data/phone'
     SIZE_RATIO = 3
-else:
+elif OBJECT == 'cig':
     IMG_H_SIZE = 1000
     IMG_V_SIZE = 514
     THRESH = 60
     IMG_DIR = '../data/cigarette'
     SIZE_RATIO = 30
+else:
+    IMG_DIR = '../data/ocr/Cam1'
 
 
 def open_img(img_path, resize=False):
@@ -51,16 +53,17 @@ def img_gradient(img_gray):
     return dst
 
 
-def img_thresh(img_gray, thresh, max_val):
+def img_thresh(img_gray, thresh, max_val, method=cv2.THRESH_BINARY):
     """
     图像二值化
     :param img_gray: 灰度图
     :param thresh: 阈值
     :param max_val: 二值中的高值
+    :param method: 方法
     :return:
     """
     # 普通阈值：cv2.THRESH_BINARY,自适应阈值：cv2.THRESH_OTSU, cv2.THRESH_TRUNC
-    _, dst = cv2.threshold(img_gray, thresh, max_val, cv2.THRESH_BINARY)
+    _, dst = cv2.threshold(img_gray, thresh, max_val, method)
     return dst
 
 
@@ -80,6 +83,39 @@ def img_filter(img, method=1, k=3):
         img_blur = cv2.GaussianBlur(img, (k, k), 0)
 
     return img_blur
+
+
+def img_morphology(img_gray, method=0, kernel_size=3, kernel_type=0):
+    """
+    形态学操作
+    :param img_gray: 灰度图
+    :param method: 方法，0：腐蚀，1：膨胀，2：开运算，3：闭运算
+    :param kernel_size: 窗口的大小
+    :param kernel_type: 窗口的类型，0：矩形，1：椭圆形，2：交叉形
+    :return:
+    """
+    if method == 0:
+        # 腐蚀
+        img_gray = cv2.erode(img_gray, (kernel_size, kernel_size), iterations=2)
+    elif method == 1:
+        # 膨胀
+        img_gray = cv2.dilate(img_gray, (kernel_size, kernel_size), iterations=2)
+    else:
+        if kernel_type == 0:
+            k_type = cv2.MORPH_RECT
+        elif kernel_type == 1:
+            k_type = cv2.MORPH_ELLIPSE
+        else:
+            k_type = cv2.MORPH_CROSS
+        kernel = cv2.getStructuringElement(k_type, (kernel_size, kernel_size))
+        if method == 2:
+            # 开运算
+            img_gray = cv2.morphologyEx(img_gray, cv2.MORPH_OPEN, kernel)
+        else:
+            # 闭运算
+            img_gray = cv2.morphologyEx(img_gray, cv2.MORPH_CLOSE, kernel)
+    return img_gray
+
 
 
 def find_object(img_bin, img, approximate_method=0, draw=False):
@@ -225,8 +261,32 @@ def cut_roi():
         cv2.destroyAllWindows()
 
 
+def test():
+    """
+    试验
+    """
+    img_list = os.listdir(IMG_DIR)
+    img_name = img_list[17]
+    print('image name:', img_name)
+    gray_img = open_img(os.path.join(IMG_DIR, img_name), False)
+    gray_img = gray_img[105:205, 160:440]
+    gray_img = 255 - gray_img
+    # cv2.THRESH_BINARY + cv2.THRESH_OTSU
+    # thresh_img = img_thresh(gray_img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    thresh_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 31, 10)
+    dst = img_morphology(thresh_img, 5, 3)
+
+    cv2.imshow('src', gray_img)
+    cv2.imshow('thresh', thresh_img)
+    cv2.imshow('dst', dst)
+
+    cv2.waitKey()
+    cv2.destroyAllWindows()
+
+
 if __name__ == '__main__':
     print('run cv.base: ')
-    seg_object()
+    # seg_object()
     # img_compare()
     # cut_roi()
+    test()

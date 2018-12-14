@@ -127,16 +127,35 @@ def img_thresh(img_gray, thresh, max_val):
     return dst
 
 
-def img_morphology(img_gray):
+def img_morphology(img_gray, method=0, kernel_size=3, kernel_type=0):
     """
     形态学操作
-    :param img_gray:
+    :param img_gray: 灰度图
+    :param method: 方法，0：腐蚀，1：膨胀，2：开运算，3：闭运算
+    :param kernel_size: 窗口的大小
+    :param kernel_type: 窗口的类型，0：矩形，1：椭圆形，2：交叉形
     :return:
     """
-    # 腐蚀
-    # img_gray = cv2.erode(img_gray, (5, 5), iterations=2)
-    # 膨胀
-    img_gray = cv2.dilate(img_gray, (3, 3), iterations=2)
+    if method == 0:
+        # 腐蚀
+        img_gray = cv2.erode(img_gray, (kernel_size, kernel_size), iterations=2)
+    elif method == 1:
+        # 膨胀
+        img_gray = cv2.dilate(img_gray, (kernel_size, kernel_size), iterations=2)
+    else:
+        if kernel_type == 0:
+            k_type = cv2.MORPH_RECT
+        elif kernel_type == 1:
+            k_type = cv2.MORPH_ELLIPSE
+        else:
+            k_type = cv2.MORPH_CROSS
+        kernel = cv2.getStructuringElement(k_type, (kernel_size, kernel_size))
+        if method == 2:
+            # 开运算
+            img_gray = cv2.morphologyEx(img_gray, cv2.MORPH_OPEN, kernel)
+        else:
+            # 闭运算
+            img_gray = cv2.morphologyEx(img_gray, cv2.MORPH_CLOSE, kernel)
     return img_gray
 
 
