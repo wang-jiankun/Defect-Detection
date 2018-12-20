@@ -76,13 +76,22 @@ def random_crop(image, crop_ratio, num):
     return image_list
 
 
-def horizon_flip(image):
+def horizontal_flip(image):
     """
     对图片进行水平翻转
     """
     original_image = image
-    flip = cv2.flip(original_image, 1)
-    return flip
+    flip_h = cv2.flip(original_image, 1)
+    return flip_h
+
+
+def vertical_flip(image):
+    """
+    对图片进行垂直翻转
+    """
+    original_image = image
+    flip_v = cv2.flip(original_image, 0)
+    return flip_v
 
 
 def rotate(image):
@@ -141,7 +150,7 @@ def geometry_enhance(image_path_list, save_path):
     for path in image_path_list:
         original_image = cv2.imread(path, 1)
         image_list = []
-        flip = horizon_flip(original_image)
+        flip = horizontal_flip(original_image)
         rotate_list = rotate(original_image)
         crop_list = five_crop(original_image, 0.8)
         image_list.append(flip)

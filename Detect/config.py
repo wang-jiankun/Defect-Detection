@@ -8,8 +8,9 @@ import tensorflow as tf
 from nets import alexnet, mobilenet_v1, vgg, inception_v4, resnet_v2, inception_resnet_v2
 from Detect import mynet
 
-CLASSES = 2
-IMG_SIZE = 128
+CLASSES = 5
+IMG_SIZE = 224
 CHANNEL = 1
-GLOBAL_POOL = False
-MODEL_NAME = 'My'
+GLOBAL_POOL = True
+MODEL_NAME = 'Mobile'
+

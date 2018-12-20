@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 
 # 读图出错的解决方法
 ImageFile.LOAD_TRUNCATED_IMAGES = True
-IMG_SIZE = 128    # 299
+IMG_SIZE = 224    # 299
 
 
 def phone_to_npy(data_path, save_path):
@@ -67,9 +67,11 @@ def alum_to_npy(data_path, save_path):
     """
     data, label = [], []
     per_class_num = {}
+    save_name = 'cig_'
 
     # 图片类型
-    class_dic = {'正常': 0, '不导电': 1, '擦花': 2, '角位漏底': 3, '桔皮': 4, '漏底': 5, '起坑': 6, '脏点': 7}
+    # class_dic = {'正常': 0, '不导电': 1, '擦花': 2, '角位漏底': 3, '桔皮': 4, '漏底': 5, '起坑': 6, '脏点': 7}
+    class_dic = {'normal': 0, 'nothing': 1, 'lack_cotton': 2, 'lack_piece': 3, 'wire_fail': 4}
     # 遍历文件夹
     folder_list = os.listdir(data_path)
     for folder in folder_list:
@@ -99,8 +101,8 @@ def alum_to_npy(data_path, save_path):
     print('data set shape is: ', np.shape(data), np.shape(label))
 
     # 数组保存为npy
-    data_save_path = save_path+'/'+'data_'+str(IMG_SIZE)+'.npy'
-    label_save_path = save_path + '/' + 'label_' + str(IMG_SIZE) + '.npy'
+    data_save_path = save_path+'/'+save_name+'data_'+str(IMG_SIZE)+'.npy'
+    label_save_path = save_path+'/'+save_name+'label_'+str(IMG_SIZE)+'.npy'
     np.save(data_save_path, data)
     np.save(label_save_path, label)
 
@@ -136,7 +138,8 @@ def array_to_image(sample, sample_label):
 if __name__ == '__main__':
     print('running image2npy:')
     # alum_to_npy('../data/alum', '../data')
-    phone_to_npy('../data/crop', '../data')
+    alum_to_npy('../data/cigarette', '../data')
+    # phone_to_npy('../data/crop', '../data')
 
 
 

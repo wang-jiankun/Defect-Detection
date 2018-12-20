@@ -8,21 +8,21 @@ import numpy as np
 import time
 import os
 
-OBJECT = 'ocr'
+OBJECT = 'cig'
 if OBJECT == 'phone':
     IMG_H_SIZE = 2000   # 2592
     IMG_V_SIZE = 1000   # 1994
     THRESH = 50     # 40
-    IMG_DIR = '../data/phone'
+    IMG_DIR = '../data/phone/'
     SIZE_RATIO = 3
 elif OBJECT == 'cig':
-    IMG_H_SIZE = 1000
-    IMG_V_SIZE = 514
-    THRESH = 60
-    IMG_DIR = '../data/cigarette'
-    SIZE_RATIO = 30
+    IMG_H_SIZE = 500
+    IMG_V_SIZE = 300
+    THRESH = 50
+    IMG_DIR = '../data/cigarette/'
+    SIZE_RATIO = 3
 else:
-    IMG_DIR = '../data/ocr/Cam1'
+    IMG_DIR = '../data/ocr/Cam1/'
 
 
 def open_img(img_path, resize=False):
@@ -36,6 +36,18 @@ def open_img(img_path, resize=False):
     if resize:
         img = cv2.resize(img, (IMG_H_SIZE, IMG_V_SIZE))
     return img
+
+
+def resize_img():
+    """
+    缩放文件夹路径下的所有图像，并保存
+    :return:
+    """
+    img_list = os.listdir(IMG_DIR)
+    for img_name in img_list:
+        print('image name:', img_name)
+        gray_img = open_img(os.path.join(IMG_DIR, img_name), True)
+        cv2.imwrite(os.path.join(IMG_DIR, img_name), gray_img)
 
 
 def img_gradient(img_gray):
@@ -117,28 +129,27 @@ def img_morphology(img_gray, method=0, kernel_size=3, kernel_type=0):
     return img_gray
 
 
-
 def find_object(img_bin, img, approximate_method=0, draw=False):
     """
     查找目标物体的轮廓
     :param img_bin: 二值化图
     :param img: 原图
-    :param approximate_method: 轮廓近似方式
-    :param draw: 图像显示标志位
+    :param approximate_method: 轮廓近似方式，0：矩形，1：最小矩形，2：点集
+    :param draw: 绘制边界框标志位
     :return:
     """
     _, contours, hierarchy = cv2.findContours(img_bin, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     print(len(contours))
+    box = None
     # 轮廓是近似方式，0：矩形，1：最小矩形，2：点集
     if approximate_method == 0:
         area_thresh = img.shape[0] * img.shape[1] / SIZE_RATIO
         for contour in contours:
             area = cv2.contourArea(contour)
             if area > area_thresh:
-                x, y, w, h = cv2.boundingRect(contour)
-                print(x, y, w, h)
-                cv2.rectangle(img, (x, y), (x + w, y + h), 255, 2)
-        box = None
+                box = x, y, w, h = cv2.boundingRect(contour)
+                cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 3)
+
     elif approximate_method == 1:
         contour = 0
         area_thresh = img.shape[0] * img.shape[1] / SIZE_RATIO
@@ -154,7 +165,6 @@ def find_object(img_bin, img, approximate_method=0, draw=False):
     else:
         if draw:
             cv2.drawContours(img, contours, -1, 255, 1)
-        box = None
     return box
 
 
@@ -200,35 +210,63 @@ def img_compare():
     cv2.destroyAllWindows()
 
 
+def vertical_flip(image):
+    """
+    对图片进行水平垂直翻转
+    """
+    original_image = image
+    flip_v = cv2.flip(original_image, -1)
+    return flip_v
+
+
+def image_enhance():
+    """
+    对图片进行数据增强，包括：水平垂直翻转
+    """
+    img_list = os.listdir(IMG_DIR)
+    for img_name in img_list:
+        print('image name:', img_name)
+        gray_img = open_img(os.path.join(IMG_DIR, img_name))
+        flip_img = vertical_flip(gray_img)
+        img_name = 'v_' + img_name
+
+        cv2.imwrite(os.path.join(IMG_DIR, img_name), flip_img)
+        # cv2.imshow('flip_img', flip_img)
+        # cv2.waitKey()
+        # cv2.destroyAllWindows()
+
+
 def seg_object(method=0):
     """
-    分割出目标，0: 梯度法, 1: 阈值法
+    分割出目标，0:阈值法 , 1: 梯度法
     :return:
     """
     # 打开图片
-    img_list = os.listdir(IMG_DIR)
-    img_name = img_list[-5]
+    img_list = os.listdir(IMG_DIR + '0')
+    img_name = img_list[3]
     print('image name:', img_name)
-    gray_img = open_img(os.path.join(IMG_DIR, img_name))
+    gray_img = open_img(os.path.join(IMG_DIR + '0', img_name))
 
     start_time = time.clock()
 
-    # 梯度->二值化
+    # 二值化
     if method == 0:
         thresh_img = img_thresh(gray_img, THRESH, 255)
+    # 梯度->二值化
     else:
         gradient_img = img_gradient(gray_img)
         cv2.imshow('gradient', gradient_img)
         thresh_img = img_thresh(gradient_img, THRESH, 255)
-    box = find_object(thresh_img, gray_img, 1, True)
-    dst = perspective_transform(gray_img, box, True)
+    thresh_img = img_morphology(thresh_img, 2, 3)
+    box = find_object(thresh_img, gray_img, 0, True)
+    # dst = perspective_transform(gray_img, box, True)
     # blur_img = img_filter(thresh_img, 1)
 
     end_time = time.clock()
     print('run time: ', end_time - start_time)
 
     # 保存，显示图片
-    cv2.imwrite(os.path.join(IMG_DIR, '1.jpg'), dst)
+    # cv2.imwrite(os.path.join(IMG_DIR, '1.jpg'), dst)
     cv2.imshow('src', gray_img)
     cv2.imshow('thresh', thresh_img)
     # cv2.imshow('dst', blur_img)
@@ -241,21 +279,32 @@ def cut_roi():
     根据位置，裁剪出装配电子烟的 ROI，并保存
     """
     # 打开图片
-    img_list = os.listdir(IMG_DIR)
+    img_list = os.listdir(IMG_DIR+'2')
+    i = 1000
     for img_name in img_list:
         print('image name:', img_name)
-        gray_img = open_img(os.path.join(IMG_DIR, img_name), True)
+        gray_img = open_img(os.path.join(IMG_DIR+'2', img_name))
 
         # 两个工位的 ROI
-        left = gray_img[250:410, 150:410]
-        right = gray_img[250:410, 600:860]
+        # 0
+        # left = gray_img[1580:2780, 850:2850]
+        # right = gray_img[1580:2780, 3800:5800]
+
+        # 1
+        # left = gray_img[1700:2900, 870:2870]
+        # right = gray_img[1700:2900, 3820:5820]
+
+        # 2
+        left = gray_img[1540:2740, 870:2870]
+        right = gray_img[1540:2740, 3840:5840]
 
         cv2.imshow('l', left)
         cv2.imshow('r', right)
-        img1_name = 'l_' + img_name
-        img2_name = 'r``_' + img_name
-        cv2.imwrite(os.path.join(IMG_DIR, img1_name), left)
-        cv2.imwrite(os.path.join(IMG_DIR, img2_name), right)
+        img1_name = str(i) + '.jpg'
+        img2_name = str(i+1) + '.jpg'
+        i += 2
+        # cv2.imwrite(os.path.join(IMG_DIR, img1_name), left)
+        # cv2.imwrite(os.path.join(IMG_DIR, img2_name), right)
 
         cv2.waitKey()
         cv2.destroyAllWindows()
@@ -266,19 +315,20 @@ def test():
     试验
     """
     img_list = os.listdir(IMG_DIR)
-    img_name = img_list[17]
+    img_name = img_list[-1]
     print('image name:', img_name)
     gray_img = open_img(os.path.join(IMG_DIR, img_name), False)
-    gray_img = gray_img[105:205, 160:440]
-    gray_img = 255 - gray_img
+    # gray_img = gray_img[105:205, 160:440]
+    # gray_img = 255 - gray_img
     # cv2.THRESH_BINARY + cv2.THRESH_OTSU
-    # thresh_img = img_thresh(gray_img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    thresh_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 31, 10)
-    dst = img_morphology(thresh_img, 5, 3)
+    thresh_img = img_thresh(gray_img, 250, 0, cv2.THRESH_BINARY)
+    print(np.sum(thresh_img))
+    # thresh_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 31, 10)
+    # dst = img_morphology(thresh_img, 5, 3)
 
     cv2.imshow('src', gray_img)
     cv2.imshow('thresh', thresh_img)
-    cv2.imshow('dst', dst)
+    # cv2.imshow('dst', dst)
 
     cv2.waitKey()
     cv2.destroyAllWindows()
@@ -287,6 +337,6 @@ def test():
 if __name__ == '__main__':
     print('run cv.base: ')
     # seg_object()
-    # img_compare()
     # cut_roi()
-    test()
+    # test()
+    image_enhance()

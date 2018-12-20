@@ -14,10 +14,10 @@ MAX_STEP = 10000
 LEARNING_RATE_BASE = 0.001
 LEARNING_RATE_DECAY = 0.95
 # 训练信息和保存权重的gap
-INFO_STEP = 1000
-SAVE_STEP = 5000
+INFO_STEP = 200
+SAVE_STEP = 2000
 # 类别数和图片尺寸
-BATCH_SIZE = 128
+BATCH_SIZE = 16
 
 
 def train(model=MODEL_NAME, inherit=False, fine_tune=False):
@@ -35,11 +35,11 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
 
     # 加载数据集
     # 铝型材
-    # images = np.load('../data/data_' + str(IMG_SIZE) + '.npy')
-    # labels = np.load('../data/label_' + str(IMG_SIZE) + '.npy')
+    images = np.load('../data/cig_data_' + str(IMG_SIZE) + '.npy')
+    labels = np.load('../data/cig_label_' + str(IMG_SIZE) + '.npy')
     # 手机壳
-    images = np.load('../data/phone_data.npy')
-    labels = np.load('../data/phone_label.npy')
+    # images = np.load('../data/phone_data.npy')
+    # labels = np.load('../data/phone_label.npy')
     train_data, val_data, train_label, val_label = train_test_split(images, labels, test_size=0.2, random_state=222)
     # 如果输入是灰色图，要增加一维
     if CHANNEL == 1:
