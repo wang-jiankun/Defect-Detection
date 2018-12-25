@@ -1,7 +1,7 @@
 """
-Detect 配置文件，全局参数
+Siamese 配置文件，全局参数
 author: 王建坤
-date: 2018-12-3
+date: 2018-12-20
 """
 import numpy as np
 import tensorflow as tf

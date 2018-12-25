@@ -19,7 +19,7 @@ elif OBJECT == 'cig':
     IMG_H_SIZE = 500
     IMG_V_SIZE = 300
     THRESH = 50
-    IMG_DIR = '../data/cigarette/'
+    IMG_DIR = '../data/cigarette/normal/'
     SIZE_RATIO = 3
 else:
     IMG_DIR = '../data/ocr/Cam1/'
@@ -48,6 +48,19 @@ def resize_img():
         print('image name:', img_name)
         gray_img = open_img(os.path.join(IMG_DIR, img_name), True)
         cv2.imwrite(os.path.join(IMG_DIR, img_name), gray_img)
+
+
+def single_sobel(img_gray, x, y):
+    """
+    单方向 sobel 算子
+    :param img_gray:灰度图
+    :param x:
+    :param y:
+    :return:
+    """
+    sobel = cv2.Sobel(img_gray, cv2.CV_16S, x, y)
+    abs_sobel = cv2.convertScaleAbs(sobel)
+    return abs_sobel
 
 
 def img_gradient(img_gray):
@@ -148,7 +161,7 @@ def find_object(img_bin, img, approximate_method=0, draw=False):
             area = cv2.contourArea(contour)
             if area > area_thresh:
                 box = x, y, w, h = cv2.boundingRect(contour)
-                cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 3)
+                cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
 
     elif approximate_method == 1:
         contour = 0
@@ -317,18 +330,20 @@ def test():
     img_list = os.listdir(IMG_DIR)
     img_name = img_list[-1]
     print('image name:', img_name)
-    gray_img = open_img(os.path.join(IMG_DIR, img_name), False)
+    gray_img = open_img(os.path.join(IMG_DIR, img_name), True)
     # gray_img = gray_img[105:205, 160:440]
     # gray_img = 255 - gray_img
     # cv2.THRESH_BINARY + cv2.THRESH_OTSU
-    thresh_img = img_thresh(gray_img, 250, 0, cv2.THRESH_BINARY)
-    print(np.sum(thresh_img))
+    # thresh_img = img_thresh(gray_img, 250, 0, cv2.THRESH_BINARY)
+    # print(np.sum(thresh_img))
     # thresh_img = cv2.adaptiveThreshold(gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 31, 10)
     # dst = img_morphology(thresh_img, 5, 3)
+    dst = single_sobel(gray_img, 0, 1)
+    dst = img_gradient(gray_img)
 
     cv2.imshow('src', gray_img)
-    cv2.imshow('thresh', thresh_img)
-    # cv2.imshow('dst', dst)
+    # cv2.imshow('thresh', thresh_img)
+    cv2.imshow('dst', dst)
 
     cv2.waitKey()
     cv2.destroyAllWindows()
@@ -338,5 +353,5 @@ if __name__ == '__main__':
     print('run cv.base: ')
     # seg_object()
     # cut_roi()
-    # test()
-    image_enhance()
+    test()
+    # image_enhance()

@@ -22,13 +22,10 @@ def evaluate(model=MODEL_NAME):
     true_pos = np.zeros(CLASSES, dtype=np.uint16)
 
     # 加载测试集
-    # 铝型材
-    images = np.load('../data/data_' + str(IMG_SIZE) + '.npy')
-    labels = np.load('../data/label_' + str(IMG_SIZE) + '.npy')
-    # 手机壳
-    # images = np.load('../data/phone_data.npy')
-    # labels = np.load('../data/phone_label.npy')
-    _, val_data, _, val_label = train_test_split(images, labels, test_size=0.4, random_state=222)
+    images = np.load(images_path)
+    labels = np.load(labels_path)
+
+    _, val_data, _, val_label = train_test_split(images, labels, test_size=0.2, random_state=222)
     # 如果输入是灰色图，要增加一维
     if CHANNEL == 1:
         val_data = np.expand_dims(val_data, axis=3)

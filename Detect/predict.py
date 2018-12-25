@@ -7,17 +7,11 @@ from Detect.config import *
 from PIL import Image
 import time
 
-# 选择 CPU 来运行程序
-import os
-# os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-# os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-
+# 图像目录路径
 # IMG_DIR = '../data/crop/pos/'
 # IMG_DIR = '../data/phone/'
 IMG_DIR = '../data/cigarette/nothing/'      # normal
 IS_TRAINING = False
-
-IMG_SIZE = 224
 
 
 def predict(img_path, model=MODEL_NAME):
@@ -118,11 +112,10 @@ def predict(img_path, model=MODEL_NAME):
             start_time = time.clock()
             predictions = sess.run(y, feed_dict={x: img})
             pre = np.argmax(predictions, 1)
-            # print(np.sum(pre), pre.shape)
             end_time = time.clock()
             runtime = end_time - start_time
             print('prediction is:', predictions)
-            print('predict class is:', pre)     # [:, 6:13, 13:30]
+            print('predict class is:', pre)
             print('run time:', runtime)
 
 
