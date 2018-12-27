@@ -35,7 +35,7 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
     # 加载数据集
     images = np.load(images_path)
     labels = np.load(labels_path)
-    train_data, val_data, train_label, val_label = train_test_split(images, labels, test_size=0.2, random_state=222)
+    train_data, val_data, train_label, val_label = train_test_split(images, labels, test_size=0.4, random_state=222)
     # 如果输入是灰色图，要增加一维
     if CHANNEL == 1:
         train_data = np.expand_dims(train_data, axis=3)
