@@ -450,7 +450,6 @@ class AssembleDetection:
         end_time = time.clock()
         print('run time: ', end_time - start_time)
 
-
         # 显示图片
         cv2.imshow('src', self.color_img)
         cv2.imwrite(os.path.join(SAVE_PATH, 'set_roi' + '.jpg'), self.color_img)
