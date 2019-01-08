@@ -8,13 +8,17 @@ import numpy as np
 import time
 import os
 import matplotlib.pyplot as plt
+import matplotlib
 
+# matplotlib.rcParams['font.family'] = 'SimHei'
+# matplotlib.rcParams['font.size'] = 20
 IMG_H_SIZE = 2000
 IMG_V_SIZE = 1200
 IMG_DIR = '../data/cigarette/normal/'
 # normal, nothing, lack_cotton, lack_piece, wire_fail
 TEMPL_DIR = '../data/cigarette/template/'
 SIZE_RATIO = 3
+SAVE_PATH = 'E:/1/'
 
 
 class AssembleDetection:
@@ -22,7 +26,7 @@ class AssembleDetection:
     装配正确性检测类
     """
     def __init__(self, img_path):
-        self.gray_img = self.open_img(img_path, resize=True)
+        self.gray_img = self.open_img(img_path, resize=False)
         self.color_img = cv2.cvtColor(self.gray_img, cv2.COLOR_GRAY2BGR)
         self.roi = {}
 
@@ -39,6 +43,17 @@ class AssembleDetection:
             img = cv2.resize(img, (int(img.shape[1] / 2), int(img.shape[0] / 2)))
         return img
 
+    @staticmethod
+    def show_save_img(img, name):
+        """
+        显示并保存图片
+        :param img:
+        :param name:
+        :return:
+        """
+        cv2.imshow(name, img)
+        cv2.imwrite(os.path.join(SAVE_PATH, name+'.jpg'), img)
+
     def find_position(self, thresh=55):
         """
         找到检测目标的位置
@@ -47,10 +62,12 @@ class AssembleDetection:
         """
         # 二值化
         thresh_img = self.img_thresh(self.gray_img, thresh, 255)
+        # self.show_save_img(thresh_img, 'object_thresh')
         # 开运算
-        thresh_img = self.img_morphology(thresh_img, 2, 21)
+        open_img = self.img_morphology(thresh_img, 2, 21)
+        # self.show_save_img(open_img, 'object_open')
         # 找到工件的位置
-        box = self.find_object(thresh_img, self.color_img, 0, True)
+        box = self.find_object(open_img, self.color_img, 0, True)
         return box
 
     @staticmethod
@@ -119,7 +136,7 @@ class AssembleDetection:
                 area = cv2.contourArea(contour)
                 if area > area_thresh:
                     box = x, y, w, h = cv2.boundingRect(contour)
-                    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
+                    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 3)
 
         elif approximate_method == 1:
             contour = 0
@@ -147,9 +164,9 @@ class AssembleDetection:
         """
         x, y, w, h = box
         # 正中间
-        center_roi = {'x1': int(x+2/5*w), 'y1': int(y+2/5*h), 'x2': int(x+3/5*w), 'y2': int(y+3/5*h)}
-        center_img = self.intercept_roi(center_roi)
-        self.roi['c'] = center_img
+        # center_roi = {'x1': int(x+2/5*w), 'y1': int(y+2/5*h), 'x2': int(x+3/5*w), 'y2': int(y+3/5*h)}
+        # center_img = self.intercept_roi(center_roi)
+        # self.roi['c'] = center_img
 
         # 左中
         lc_roi = {'x1': int(x+1/7*w), 'y1': int(y+3/7*h), 'x2': int(x+3/14*w), 'y2': int(y+4/7*h)}
@@ -192,7 +209,7 @@ class AssembleDetection:
         self.roi['rb'] = rb_img
 
         if draw:
-            self.draw_roi(center_roi)
+            # self.draw_roi(center_roi)
             self.draw_roi(lc_roi)
             self.draw_roi(rc_roi)
             self.draw_roi(top_roi)
@@ -203,7 +220,7 @@ class AssembleDetection:
             self.draw_roi(rb_roi)
 
         if show:
-            cv2.imshow('center', center_img)
+            # cv2.imshow('center', center_img)
             cv2.imshow('lc', lc_img)
             cv2.imshow('rc', rc_img)
             cv2.imshow('top', top_img)
@@ -282,15 +299,17 @@ class AssembleDetection:
             print('Detect object:', 'NG')
             return 1
 
-    def cotton_detect(self, thresh=240):
+    def cotton_detect(self, thresh=230):
         """
         棉芯检测
         :param thresh:
         :return:
         """
         lc_img = self.roi['lc']
+        # self.show_save_img(lc_img, 'cotton_ng')
         rc_img = self.roi['rc']
-        lc_img = self.img_thresh(lc_img, thresh, 1)
+        lc_img = self.img_thresh(lc_img, thresh, 255)
+        # self.show_save_img(lc_img, 'cotton_thresh')
         rc_img = self.img_thresh(rc_img, thresh, 1)
         area = lc_img.shape[0]*lc_img.shape[1]
         lc_sum = np.sum(lc_img)
@@ -309,9 +328,13 @@ class AssembleDetection:
         :return:
         """
         top_img = self.roi['top']
+        self.show_save_img(top_img, 'top_wire')
         bottom_img = self.roi['bottom']
+        # self.show_save_img(bottom_img, 'bottom_wire')
         top_img = self.img_thresh(top_img, thresh, 1)
+        # self.show_save_img(top_img, 'top_thresh')
         bottom_img = self.img_thresh(bottom_img, thresh, 1)
+        # self.show_save_img(bottom_img, 'bottom_thresh')
         lc_sum = np.sum(top_img)
         rc_sum = np.sum(bottom_img)
         if lc_sum < 10:
@@ -330,17 +353,24 @@ class AssembleDetection:
         :return:
         """
         roi_img = self.roi[roi_name]
+        # self.show_save_img(roi_img, roi_name)
         roi_img = self.roi_pre(roi_img)
-        roi_img = self.img_thresh(roi_img, thresh, 1)
+        # self.show_save_img(roi_img, roi_name+'_pre')
+        roi_img = self.img_thresh(roi_img, thresh, 255)
         # roi_img = roi_img.astype(np.float32)
-        templ_img = self.img_thresh(templ_img, thresh, 1)
+        templ_img = self.img_thresh(templ_img, thresh, 255)
+        # self.show_save_img(roi_img, roi_name+'_thresh')
         dst = self.template_match(roi_img, templ_img, 1)
         min_value = np.min(dst)
+        # row = int(np.argmin(dst)/dst.shape[1])
+        # col = np.argmin(dst) % dst.shape[1]
+        # cv2.rectangle(self.roi[roi_name], (col, row), (col+60, row+70), (0, 0, 255), 2)
+        # self.show_save_img(self.roi[roi_name], roi_name + '_match')
         # print(dst)
         if min_value < 0.3:
             print(roi_name, 'Piece detect:', 'OK', 'match -', min_value)
         else:
-            print(roi_name, 'Piece detect:', 'NG','match -', min_value)
+            print(roi_name, 'Piece detect:', 'NG', 'match -', min_value)
 
     def wire_detect(self, roi_name, thresh=240):
         """
@@ -350,16 +380,29 @@ class AssembleDetection:
         :return:
         """
         roi_img = self.roi[roi_name]
+        # self.show_save_img(roi_img, roi_name)
         roi_img = self.roi_pre(roi_img)
+        # self.show_save_img(roi_img, roi_name + '_pre')
         roi_img = self.img_thresh(roi_img, thresh, 1)
+        # self.show_save_img(roi_img, roi_name + '_thresh')
         v_sum = np.sum(roi_img, 0, dtype=np.float)
+        # plt.plot(v_sum)
+        # plt.axis([0, 250, 0, 140])
+        # plt.xlabel('列坐标', fontproperties='SimHei', fontsize=14)
+        # plt.ylabel('白点数量', fontproperties='SimHei', fontsize=14)
+        # plt.show()
         v_sum[v_sum < roi_img.shape[0]/2] = 0.0
+        # plt.plot(v_sum)
+        # plt.axis([0, 250, 0, 140])
+        # plt.xlabel('列坐标', fontproperties='SimHei', fontsize=14)
+        # plt.ylabel('白点数量', fontproperties='SimHei', fontsize=14)
+        # plt.show()
         v_sum = np.convolve(v_sum, [0.1, 0.2, 0.4, 0.2, 0.1])
         # print(v_sum)
         pos_list = self.find_extreme_index(v_sum)
         if len(pos_list) == 2:
             dist = pos_list[1] - pos_list[0]
-            if 19 < dist < 28:
+            if 38 < dist < 56:
                 print(roi_name, 'Wire detect: ', 'OK', 'dist -', dist)
             else:
                 print(roi_name, 'Wire detect: ', 'NG', 'dist -', dist)
@@ -367,8 +410,11 @@ class AssembleDetection:
             print(roi_name, 'Wire detect: ', 'NG')
 
         # v_grad = np.gradient(v_sum)
-        plt.plot(v_sum)
-        plt.show()
+        # plt.plot(v_sum)
+        # plt.axis([0, 250, 0, 140])
+        # plt.xlabel('列坐标', fontproperties='SimHei', fontsize=14)
+        # plt.ylabel('白点数量', fontproperties='SimHei', fontsize=14)
+        # plt.show()
 
     def detect(self):
         """
@@ -386,19 +432,19 @@ class AssembleDetection:
         # 设置 ROI
         self.set_roi(box, False)
         # 棉芯检测
-        self.cotton_detect()
+        # self.cotton_detect()
         # 金属线检测
-        self.limit_detect()
+        # self.limit_detect()
         # 左上 ROI 检测
-        templ_img1 = self.open_img(TEMPL_DIR + 'lt.jpg', True)
-        self.piece_detect('lt', templ_img1)
+        # templ_img1 = self.open_img(TEMPL_DIR + 'lt.jpg', False)
+        # self.piece_detect('lt', templ_img1)
         # 右下 ROI 检测
-        templ_img2 = self.open_img(TEMPL_DIR + 'rb.jpg', True)
-        self.piece_detect('rb', templ_img2)
+        # templ_img2 = self.open_img(TEMPL_DIR + 'rb.jpg', False)
+        # self.piece_detect('rb', templ_img2)
         # 左下 ROI 检测
-        self.wire_detect('lb')
+        # self.wire_detect('lb')
         # 右上 ROI 检测
-        self.wire_detect('rt')
+        # self.wire_detect('rt')
 
         # 结束计时
         end_time = time.clock()
@@ -406,6 +452,7 @@ class AssembleDetection:
 
         # 显示图片
         cv2.imshow('src', self.color_img)
+        cv2.imwrite(os.path.join(SAVE_PATH, 'set_roi' + '.jpg'), self.color_img)
         cv2.waitKey()
         cv2.destroyAllWindows()
 
@@ -416,7 +463,8 @@ def single_img():
     :return:
     """
     img_list = os.listdir(IMG_DIR)
-    img_name = img_list[0]
+    # img_name = img_list[1]
+    img_name = '24.jpg'
     print()
     print('Detecting image:', img_name)
     img_path = os.path.join(IMG_DIR, img_name)
@@ -439,6 +487,7 @@ def folder_img():
 
 
 if __name__ == '__main__':
+    # single_img()
     folder_img()
 
 
