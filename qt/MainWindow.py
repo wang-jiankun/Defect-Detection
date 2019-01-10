@@ -33,8 +33,8 @@ class Detect(QMainWindow):
         self.connection = pymysql.connect(host='localhost', user='root', password='1234',
                                           db='detection_data', charset='utf8')
         self.cursor = self.connection.cursor()
-        self.class_name_dic = {0: '正常', 1: '不导电', 2: '划痕', 3: '污渍', 4: '桔皮', 5: '漏底', 6: '起坑', 7: '脏点'}
-
+        # self.class_name_dic = {0: '正常', 1: '不导电', 2: '划痕', 3: '污渍', 4: '桔皮', 5: '漏底', 6: '起坑', 7: '脏点'}
+        self.class_name_dic = {0: 'normal', 1: 'nothing', 2: 'lack_cotton', 3: 'lack_piece', 4: 'wire_fail'}
         # 主窗口，信号与槽绑定，初始化设置
         self.ac_exit.triggered.connect(QApplication.exit)
         self.ac_detect_log.triggered.connect(self.action_detect_log)
@@ -45,7 +45,9 @@ class Detect(QMainWindow):
         self.pb_file_browse.clicked.connect(self.slot_file_browser)
         self.pb_open_file.clicked.connect(self.slot_open_file)
         self.pb_load_model.clicked.connect(self.slot_load_model)
+        # self.pb_load_model.hide()
         self.pb_close_model.clicked.connect(self.slot_close_model)
+        # self.pb_close_model.hide()
         self.pb_save_image.clicked.connect(self.slot_save_image)
         self.pb_close_model.setDisabled(True)
         self.pb_detect.setDisabled(True)
@@ -55,8 +57,11 @@ class Detect(QMainWindow):
         # self.table_history.horizontalHeaderItem(0).setBackground(QBrush(QColor(0,0,0))
 
         # print 输出重定向
-        sys.stdout = EmittingStream(textWritten=self.my_output)
-        sys.stderr = EmittingStream(textWritten=self.my_output)
+        # sys.stdout = EmittingStream(textWritten=self.my_output)
+        # sys.stderr = EmittingStream(textWritten=self.my_output)
+
+        # 初始化
+        # self.slot_load_model()
 
         self.statusBar().showMessage('   就绪')
 
@@ -97,7 +102,10 @@ class Detect(QMainWindow):
         if img_path == '':
             QMessageBox.information(self, 'Error', '请选择文件')
             return
-        pre, run_time = predict.predict(img_path)
+        if self.cb_method.currentText() == '深度学习':
+            pre, run_time = predict.predict(img_path)
+        else:
+            pre, run_time = 0, 0
         # 在历史记录表中插入信息
         row_count = self.table_history.rowCount()
         self.table_history.insertRow(row_count)
@@ -118,16 +126,14 @@ class Detect(QMainWindow):
         加载模型槽函数
         :return:
         """
-        self.refresh_para()
-        model = self.cb_model.currentText()
-        flag = predict.load_model(model)
+        # model = self.cb_model.currentText()
+        flag = predict.load_model()
         if flag == -1:
             predict.close_sess()
             return
         self.pb_load_model.setDisabled(True)
         self.pb_detect.setEnabled(True)
         self.pb_close_model.setEnabled(True)
-        self.le_image_size.setDisabled(True)
 
     def slot_close_model(self):
         """
@@ -272,7 +278,7 @@ class Detect(QMainWindow):
 
     def refresh_para(self):
         """
-        更新图片尺寸参数
+        更新参数
         :return:
         """
         predict.IMG_SIZE = int(self.le_image_size.text())
@@ -288,8 +294,8 @@ class Detect(QMainWindow):
         qp.begin(self.image)
         pen = QPen(Qt.yellow, 10, Qt.SolidLine)
         qp.setPen(pen)
-        qp.setFont(QFont('Microsoft YaHei', 80))
-        qp.drawText(200, 200, self.class_name_dic[pre])
+        qp.setFont(QFont('Microsoft YaHei', 30))
+        qp.drawText(550, 50, self.class_name_dic[pre])
         qp.end()
         self.lb_image.setPixmap(QPixmap.fromImage(self.image))
 

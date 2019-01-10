@@ -10,7 +10,7 @@ import time
 # 图像目录路径
 # IMG_DIR = '../data/crop/pos/'
 # IMG_DIR = '../data/phone/'
-IMG_DIR = '../data/cigarette/nothing/'      # normal
+IMG_DIR = '../data/cigarette/normal/'      # normal
 IS_TRAINING = False
 
 

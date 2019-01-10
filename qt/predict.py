@@ -5,37 +5,43 @@ date: 2018-9-25
 """
 import numpy as np
 import tensorflow as tf
-from nets import alexnet, vgg
+from nets import alexnet, mobilenet_v1
 from PIL import Image
 import time
 
-CLASSES = 12
+CLASSES = 5
 IMG_SIZE = 224
-GLOBAL_POOL = True
+GLOBAL_POOL = False
 
 
-def load_model(model='Alex'):
+def load_model(model='Mobile'):
     global x, y, sess
     # 占位符
-    x = tf.placeholder(tf.float32, [None, IMG_SIZE, IMG_SIZE, 3])
+    x = tf.placeholder(tf.float32, [None, IMG_SIZE, IMG_SIZE, 1])
 
     # 模型保存路径，前向传播
     if model == 'Alex':
         log_path = 'weight/Alex'
         y, _ = alexnet.alexnet_v2(x,
                                   num_classes=CLASSES,      # 分类的类别
-                                  is_training=True,         # 是否在训练
+                                  is_training=False,         # 是否在训练
                                   dropout_keep_prob=1.0,    # 保留比率
                                   spatial_squeeze=True,     # 压缩掉1维的维度
                                   global_pool=GLOBAL_POOL)  # 输入不是规定的尺寸时，需要global_pool
-    elif model == 'VGG':
-        log_path = 'weight/VGG'
-        y, _ = vgg.vgg_16(x,
-                          num_classes=CLASSES,
-                          is_training=True,
-                          dropout_keep_prob=1.0,
-                          spatial_squeeze=True,
-                          global_pool=GLOBAL_POOL)
+    elif model == 'Mobile':
+        log_path = 'weight/Mobile'
+        y, _ = mobilenet_v1.mobilenet_v1(x,
+                                         num_classes=CLASSES,
+                                         dropout_keep_prob=1.0,
+                                         is_training=False,
+                                         min_depth=8,
+                                         depth_multiplier=1.0,
+                                         conv_defs=None,
+                                         prediction_fn=None,
+                                         spatial_squeeze=True,
+                                         reuse=None,
+                                         scope='MobilenetV1',
+                                         global_pool=GLOBAL_POOL)
     else:
         print('Error: model name not exist')
         return
@@ -64,12 +70,13 @@ def close_sess():
 
 def predict(img_path):
     img = Image.open(img_path)
-    if img.mode != 'RGB':
+    if img.mode != 'L':
         print('Error: the image format is not support')
         return -1, -1
     img = img.resize((IMG_SIZE, IMG_SIZE))
     img = np.array(img, np.float32)
     img = np.expand_dims(img, axis=0)
+    img = np.expand_dims(img, axis=3)
     start_time = time.clock()
     predictions = sess.run(y, feed_dict={x: img})
     pre = np.argmax(predictions)
@@ -82,3 +89,4 @@ def predict(img_path):
 
 if __name__ == '__main__':
     print('run predict:')
+    # load_model()

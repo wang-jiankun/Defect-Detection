@@ -29,7 +29,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Defect detection</string>
+   <string>Detection</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -97,7 +97,7 @@
          </font>
         </property>
         <property name="title">
-         <string>参数</string>
+         <string>选项</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_7">
          <item>
@@ -122,12 +122,12 @@
                 </font>
                </property>
                <property name="text">
-                <string>模型</string>
+                <string>算法</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="cb_model">
+              <widget class="QComboBox" name="cb_method">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
                  <horstretch>0</horstretch>
@@ -148,12 +148,12 @@
                </property>
                <item>
                 <property name="text">
-                 <string>Alex</string>
+                 <string>图像处理</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>VGG</string>
+                 <string>深度学习</string>
                 </property>
                </item>
               </widget>
@@ -200,12 +200,12 @@
                </property>
                <item>
                 <property name="text">
-                 <string>1</string>
+                 <string>Mobile</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>2</string>
+                 <string>Alex</string>
                 </property>
                </item>
               </widget>
@@ -217,47 +217,6 @@
              <property name="spacing">
               <number>12</number>
              </property>
-             <item>
-              <widget class="QLabel" name="label_7">
-               <property name="enabled">
-                <bool>true</bool>
-               </property>
-               <property name="font">
-                <font>
-                 <family>微软雅黑</family>
-                 <pointsize>14</pointsize>
-                 <weight>50</weight>
-                 <italic>false</italic>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>尺寸</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="le_image_size">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>微软雅黑</family>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
-               <property name="inputMask">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>224</string>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
           </layout>
@@ -483,24 +442,53 @@
         <property name="title">
          <string/>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="8,0">
-         <property name="leftMargin">
-          <number>6</number>
-         </property>
-         <property name="topMargin">
-          <number>3</number>
-         </property>
-         <property name="rightMargin">
-          <number>6</number>
-         </property>
-         <property name="bottomMargin">
-          <number>3</number>
-         </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="12,2">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_2">
-           <property name="sizeConstraint">
-            <enum>QLayout::SetDefaultConstraint</enum>
-           </property>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QLabel" name="label_2">
+               <property name="font">
+                <font>
+                 <pointsize>14</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>图片路径 </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="le_file">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <family>微软雅黑</family>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="inputMask">
+                <string/>
+               </property>
+               <property name="text">
+                <string>E:\Defect_Detection\data\1.jpg</string>
+               </property>
+               <property name="placeholderText">
+                <string>图片路径</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
            <item>
             <widget class="QWidget" name="widget_image" native="true">
              <property name="sizePolicy">
@@ -576,6 +564,28 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
+            <widget class="QPushButton" name="pb_open_file">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>微软雅黑</family>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>打开</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QPushButton" name="pb_file_browse">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -601,85 +611,6 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="le_file">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>微软雅黑</family>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="inputMask">
-              <string/>
-             </property>
-             <property name="text">
-              <string>E:\Defect_Detection\data\1.jpg</string>
-             </property>
-             <property name="placeholderText">
-              <string>图片路径</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pb_open_file">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>微软雅黑</family>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>打开</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pb_load_model">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>微软雅黑</family>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>加载模型</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pb_close_model">
-             <property name="font">
-              <font>
-               <family>微软雅黑</family>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>关闭模型</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="pb_detect">
              <property name="font">
               <font>
@@ -692,6 +623,25 @@
              </property>
              <property name="text">
               <string>检测</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pb_next">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>微软雅黑</family>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>下一张</string>
              </property>
             </widget>
            </item>
@@ -715,25 +665,6 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pb_draw">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>微软雅黑</family>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>画图</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="pb_load_model_4">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -748,7 +679,45 @@
               </font>
              </property>
              <property name="text">
-              <string>xxxxxx</string>
+              <string>xxx</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pb_load_model">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <family>微软雅黑</family>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>加载模型</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pb_close_model">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="font">
+              <font>
+               <family>微软雅黑</family>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>关闭模型</string>
              </property>
             </widget>
            </item>

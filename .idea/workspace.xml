@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4256552a-cf68-4251-944f-476e81a1b257" name="Default" comment="218-12-28">
-      <change beforePath="$PROJECT_DIR$/Image_preprocessing/image_augmentation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image_preprocessing/image_augmentation.py" afterDir="false" />
+    <list default="true" id="4256552a-cf68-4251-944f-476e81a1b257" name="Default" comment="2019-1-8">
+      <change afterPath="$PROJECT_DIR$/qt/nets/mobilenet_v1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Detect/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/Detect/predict.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mv/cig_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/mv/cig_detection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qt/MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/qt/MainWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qt/nets/vgg.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/qt/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/qt/predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qt/ui_detection.ui" beforeDir="false" afterPath="$PROJECT_DIR$/qt/ui_detection.ui" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,12 +19,13 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/Defect_Detection$evaluate.coverage" NAME="evaluate Coverage Results" MODIFIED="1545872624431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Detect" />
-    <SUITE FILE_PATH="coverage/Defect_Detection$cig_detection.coverage" NAME="cig_detection Coverage Results" MODIFIED="1545985285900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mv" />
-    <SUITE FILE_PATH="coverage/Defect_Detection$predict.coverage" NAME="predict Coverage Results" MODIFIED="1545287436077" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Detect" />
+    <SUITE FILE_PATH="coverage/Defect_Detection$predict__1_.coverage" NAME="predict (1) Coverage Results" MODIFIED="1547083150579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Detect" />
+    <SUITE FILE_PATH="coverage/Defect_Detection$cig_detection.coverage" NAME="cig_detection Coverage Results" MODIFIED="1547004559844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mv" />
+    <SUITE FILE_PATH="coverage/Defect_Detection$predict.coverage" NAME="predict Coverage Results" MODIFIED="1547026832159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/qt" />
     <SUITE FILE_PATH="coverage/Defect_Detection$image_segmentation.coverage" NAME="image_segmentation Coverage Results" MODIFIED="1543907274083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Image_preprocessing" />
     <SUITE FILE_PATH="coverage/Defect_Detection$image_augmentation.coverage" NAME="image_augmentation Coverage Results" MODIFIED="1546247559337" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Image_preprocessing" />
     <SUITE FILE_PATH="coverage/Defect_Detection$base.coverage" NAME="base Coverage Results" MODIFIED="1545360618985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mv" />
-    <SUITE FILE_PATH="coverage/Defect_Detection$main.coverage" NAME="main Coverage Results" MODIFIED="1543486699322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/qt" />
+    <SUITE FILE_PATH="coverage/Defect_Detection$main.coverage" NAME="main Coverage Results" MODIFIED="1547082155318" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/qt" />
     <SUITE FILE_PATH="coverage/Defect_Detection$train.coverage" NAME="train Coverage Results" MODIFIED="1545872579761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Detect" />
     <SUITE FILE_PATH="coverage/Defect_Detection$image_crop.coverage" NAME="image_crop Coverage Results" MODIFIED="1544076668862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Image_preprocessing" />
     <SUITE FILE_PATH="coverage/Defect_Detection$image2npy.coverage" NAME="image2npy Coverage Results" MODIFIED="1545813351879" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Image_preprocessing" />
@@ -46,21 +53,21 @@
         <counts>
           <entry key="project.closed" value="8" />
           <entry key="project.open.time.0" value="7" />
-          <entry key="project.open.time.11" value="3" />
-          <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.11" value="4" />
+          <entry key="project.open.time.13" value="2" />
           <entry key="project.open.time.4" value="1" />
-          <entry key="project.opened" value="12" />
+          <entry key="project.opened" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="checkpoint" value="3" />
+          <entry key="checkpoint" value="5" />
           <entry key="dll" value="3" />
           <entry key="jpg" value="35" />
           <entry key="json" value="1" />
           <entry key="md" value="3" />
           <entry key="png" value="2" />
-          <entry key="py" value="264" />
+          <entry key="py" value="278" />
           <entry key="txt" value="3" />
         </counts>
       </usages-collector>
@@ -69,22 +76,22 @@
           <entry key="Image" value="37" />
           <entry key="JSON" value="1" />
           <entry key="Markdown" value="3" />
-          <entry key="PLAIN_TEXT" value="9" />
-          <entry key="Python" value="264" />
+          <entry key="PLAIN_TEXT" value="11" />
+          <entry key="Python" value="278" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="checkpoint" value="6" />
           <entry key="dummy" value="12" />
-          <entry key="py" value="12522" />
-          <entry key="txt" value="25" />
+          <entry key="py" value="13047" />
+          <entry key="txt" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="43" />
-          <entry key="Python" value="12522" />
+          <entry key="PLAIN_TEXT" value="46" />
+          <entry key="Python" value="13047" />
         </counts>
       </usages-collector>
     </session>
@@ -97,52 +104,25 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mv/cig_detection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="454" column="80" lean-forward="true" selection-start-line="454" selection-start-column="8" selection-end-line="454" selection-end-column="80" />
+            <state relative-caret-position="286">
+              <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
               <folding>
                 <element signature="e#53#63#0" expanded="true" />
-                <element signature="e#421#568#0" />
-                <element signature="e#638#918#0" />
-                <element signature="e#1000#1176#0" />
-                <element signature="e#1232#1674#0" />
-                <element signature="e#1403#1719#0" />
-                <element signature="e#1821#2862#0" />
-                <element signature="e#2959#4285#0" />
-                <element signature="e#6980#7168#0" />
-                <element signature="e#7207#7378#0" />
-                <element signature="e#7651#7965#0" />
-                <element signature="e#8028#8297#0" />
-                <element signature="e#8353#8579#0" />
-                <element signature="e#9002#9585#0" />
-                <element signature="e#9234#9760#0" />
-                <element signature="e#10524#11611#0" />
-                <element signature="e#10543#11420#0" />
-                <marker date="1545985273161" expanded="true" signature="504:695" ph="..." />
-                <marker date="1545985273161" expanded="true" signature="1782:1787" ph="..." />
-                <marker date="1545985273161" expanded="true" signature="8508:8792" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Image_preprocessing/image_augmentation.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="233" column="33" selection-start-line="233" selection-start-column="33" selection-end-line="233" selection-end-column="33" />
-              <folding>
-                <element signature="e#43#61#0" expanded="true" />
-                <marker date="1546247559325" expanded="true" signature="8906:9258" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/qt/main.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Image_preprocessing/image2npy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="36" column="20" selection-start-line="35" selection-start-column="8" selection-end-line="36" selection-end-column="20" />
+            <state relative-caret-position="702">
+              <caret line="30" column="94" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="94" />
               <folding>
                 <element signature="e#51#69#0" expanded="true" />
               </folding>
@@ -151,12 +131,33 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mv/base.py">
+        <entry file="file://$PROJECT_DIR$/qt/MainWindow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-623">
-              <caret line="283" column="36" selection-start-line="283" selection-start-column="36" selection-end-line="283" selection-end-column="36" />
+            <state relative-caret-position="7358">
+              <caret line="297" column="26" selection-start-line="297" selection-start-column="26" selection-end-line="297" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/qt/predict.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1638">
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
               <folding>
-                <element signature="e#46#56#0" expanded="true" />
+                <element signature="e#51#69#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Detect/predict.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="78">
+              <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+              <folding>
+                <element signature="e#46#73#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -209,8 +210,6 @@
         <option value="$PROJECT_DIR$/log/Alex/checkpoint" />
         <option value="$PROJECT_DIR$/qt/test.py" />
         <option value="$PROJECT_DIR$/qt/main.py" />
-        <option value="$PROJECT_DIR$/qt/predict.py" />
-        <option value="$PROJECT_DIR$/qt/MainWindow.py" />
         <option value="$PROJECT_DIR$/qt/LogDialog.py" />
         <option value="$PROJECT_DIR$/qt/cv.py" />
         <option value="$PROJECT_DIR$/log/Mobile/checkpoint" />
@@ -223,7 +222,6 @@
         <option value="$PROJECT_DIR$/Image_preprocessing/image_segmentation.py" />
         <option value="$PROJECT_DIR$/Detect/phone_seg.py" />
         <option value="$PROJECT_DIR$/Detect/config.py" />
-        <option value="$PROJECT_DIR$/Detect/predict.py" />
         <option value="$PROJECT_DIR$/Siamese/config.py" />
         <option value="$PROJECT_DIR$/Siamese/train.py" />
         <option value="$PROJECT_DIR$/Siamese/inference.py" />
@@ -231,8 +229,11 @@
         <option value="$PROJECT_DIR$/Image_preprocessing/image2npy.py" />
         <option value="$PROJECT_DIR$/Detect/train.py" />
         <option value="$PROJECT_DIR$/Detect/evaluate.py" />
-        <option value="$PROJECT_DIR$/mv/cig_detection.py" />
         <option value="$PROJECT_DIR$/Image_preprocessing/image_augmentation.py" />
+        <option value="$PROJECT_DIR$/mv/cig_detection.py" />
+        <option value="$PROJECT_DIR$/qt/predict.py" />
+        <option value="$PROJECT_DIR$/qt/MainWindow.py" />
+        <option value="$PROJECT_DIR$/Detect/predict.py" />
       </list>
     </option>
   </component>
@@ -264,13 +265,7 @@
             <path>
               <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="cigarette" type="462c0819:PsiDirectoryNode" />
+              <item name="Detect" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
@@ -285,7 +280,19 @@
             <path>
               <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="mv" type="462c0819:PsiDirectoryNode" />
+              <item name="qt" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
+              <item name="qt" type="462c0819:PsiDirectoryNode" />
+              <item name="nets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
+              <item name="qt" type="462c0819:PsiDirectoryNode" />
+              <item name="weight" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -301,19 +308,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Defect_Detection\qt\nets" />
+      <recent name="E:\Defect_Detection\qt\weight\Mobile" />
+      <recent name="E:\Defect_Detection\Siamese" />
+      <recent name="E:\Defect_Detection\camera" />
+      <recent name="E:\Defect_Detection\data" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Defect_Detection\qt\nets" />
       <recent name="E:\Defect_Detection\Image_preprocessing" />
       <recent name="E:\Defect_Detection\Detect" />
       <recent name="E:\WJK_File\Python_File\Defect_Detection" />
       <recent name="E:\WJK_File\Python_File\Defect_Detection\Detect\submit" />
-      <recent name="E:\WJK_File\Python_File\Defect_Detection\AlexNet\submit" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Defect_Detection\Siamese" />
-      <recent name="E:\Defect_Detection\camera" />
-      <recent name="E:\Defect_Detection\data" />
-      <recent name="E:\WJK_File\Python_File\Defect_Detection\Detect" />
-      <recent name="E:\WJK_File\Python_File\Defect_Detection\Net" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -328,7 +335,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.image_augmentation">
+  <component name="RunManager" selected="Python.predict (1)">
     <configuration name="cig_detection" type="PythonConfigurationType" factoryName="Python" singleton="true" temporary="true">
       <module name="Defect_Detection" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -343,50 +350,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mv/cig_detection.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="evaluate" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Defect_Detection" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Detect" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Detect/evaluate.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="image2npy" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Defect_Detection" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Image_preprocessing" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Image_preprocessing/image2npy.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -417,7 +380,29 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Defect_Detection" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/qt" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/qt/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="predict (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Defect_Detection" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -430,7 +415,29 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Detect/train.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Detect/predict.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="predict" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Defect_Detection" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/qt" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/qt/predict.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -441,18 +448,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.cig_detection" />
-      <item itemvalue="Python.image2npy" />
-      <item itemvalue="Python.train" />
-      <item itemvalue="Python.evaluate" />
       <item itemvalue="Python.image_augmentation" />
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.predict" />
+      <item itemvalue="Python.predict (1)" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.image_augmentation" />
+        <item itemvalue="Python.predict (1)" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.predict" />
         <item itemvalue="Python.cig_detection" />
-        <item itemvalue="Python.evaluate" />
-        <item itemvalue="Python.train" />
-        <item itemvalue="Python.image2npy" />
+        <item itemvalue="Python.image_augmentation" />
       </list>
     </recent_temporary>
   </component>
@@ -551,7 +558,28 @@
       <option name="project" value="LOCAL" />
       <updated>1545962407012</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="2018-1-8">
+      <created>1546924482404</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1546924482404</updated>
+    </task>
+    <task id="LOCAL-00014" summary="2019-1-8">
+      <created>1546924637812</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1546924637812</updated>
+    </task>
+    <task id="LOCAL-00015" summary="2019-1-8">
+      <created>1546924660351</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1546924660351</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -572,12 +600,12 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4988764" visible="true" weight="0.18133047" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4988764" visible="true" weight="0.18669528" />
       <window_info id="Structure" order="1" sideWeight="0.5011236" side_tool="true" weight="0.22251585" />
       <window_info id="Favorites" order="2" sideWeight="0.5011236" side_tool="true" weight="0.22251585" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3281075" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49839056" weight="0.28779396" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49839056" visible="true" weight="0.27659574" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.28555432" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -635,7 +663,9 @@
     <MESSAGE value="218-12-25" />
     <MESSAGE value="218-12-27" />
     <MESSAGE value="218-12-28" />
-    <option name="LAST_COMMIT_MESSAGE" value="218-12-28" />
+    <MESSAGE value="2018-1-8" />
+    <MESSAGE value="2019-1-8" />
+    <option name="LAST_COMMIT_MESSAGE" value="2019-1-8" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -672,43 +702,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mv/cig_detection.py</url>
-          <line>374</line>
+          <line>382</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://E:/Python36/Lib/collections/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="356" column="4" selection-start-line="356" selection-start-column="4" selection-end-line="356" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/Python36/Lib/site-packages/tensorflow/contrib/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/seg/alum/正常20180912142719对照样本.jpg" />
-    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/-965805770/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="4167" column="8" selection-start-line="4167" selection-start-column="8" selection-end-line="4167" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nets/alexnet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="135" column="53" selection-start-line="135" selection-start-column="46" selection-end-line="135" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nets/mobilenet_v1_eval.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3425" />
-      </provider>
-    </entry>
     <entry file="file://E:/Python36/Lib/site-packages/tensorflow/python/training/saver.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-872">
@@ -823,30 +823,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Detect/predict.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3042">
-          <caret line="117" column="43" selection-start-line="117" selection-start-column="43" selection-end-line="117" selection-end-column="43" />
-          <folding>
-            <element signature="e#46#73#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Siamese/config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="727">
           <caret line="28" column="11" selection-start-line="28" selection-end-line="28" selection-end-column="11" />
-          <folding>
-            <element signature="e#53#71#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nets/mobilenet_v1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="888">
-          <caret line="308" column="34" selection-start-line="308" selection-start-column="17" selection-end-line="308" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -873,9 +853,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-416">
           <caret line="32" column="33" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
-          <folding>
-            <element signature="e#59#111#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -914,26 +891,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/test.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Detect/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
-          <folding>
-            <element signature="e#53#71#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Detect/evaluate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="27" column="79" selection-start-line="27" selection-start-column="79" selection-end-line="27" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/data/test.jpg" />
     <entry file="file://$PROJECT_DIR$/Detect/mynet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-364">
@@ -941,26 +899,6 @@
           <folding>
             <element signature="e#49#72#0" expanded="true" />
             <marker date="1544403935591" expanded="true" signature="228:229" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Detect/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="e#46#73#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mv/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-623">
-          <caret line="283" column="36" selection-start-line="283" selection-start-column="36" selection-end-line="283" selection-end-column="36" />
-          <folding>
-            <element signature="e#46#56#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -984,16 +922,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Image_preprocessing/image2npy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="36" column="20" selection-start-line="35" selection-start-column="8" selection-end-line="36" selection-end-column="20" />
-          <folding>
-            <element signature="e#51#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/-965805770/numpy/random/mtrand.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -1001,42 +929,110 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mv/cig_detection.py">
+    <entry file="file://$PROJECT_DIR$/mv/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="454" column="80" lean-forward="true" selection-start-line="454" selection-start-column="8" selection-end-line="454" selection-end-column="80" />
-          <folding>
-            <element signature="e#53#63#0" expanded="true" />
-            <element signature="e#421#568#0" />
-            <element signature="e#638#918#0" />
-            <element signature="e#1000#1176#0" />
-            <element signature="e#1232#1674#0" />
-            <element signature="e#1403#1719#0" />
-            <element signature="e#1821#2862#0" />
-            <element signature="e#2959#4285#0" />
-            <element signature="e#6980#7168#0" />
-            <element signature="e#7207#7378#0" />
-            <element signature="e#7651#7965#0" />
-            <element signature="e#8028#8297#0" />
-            <element signature="e#8353#8579#0" />
-            <element signature="e#9002#9585#0" />
-            <element signature="e#9234#9760#0" />
-            <element signature="e#10524#11611#0" />
-            <element signature="e#10543#11420#0" />
-            <marker date="1545985273161" expanded="true" signature="504:695" ph="..." />
-            <marker date="1545985273161" expanded="true" signature="1782:1787" ph="..." />
-            <marker date="1545985273161" expanded="true" signature="8508:8792" ph="..." />
-          </folding>
+        <state relative-caret-position="7280">
+          <caret line="283" column="36" selection-start-line="283" selection-start-column="36" selection-end-line="283" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Image_preprocessing/image_augmentation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
+        <state relative-caret-position="-104">
           <caret line="233" column="33" selection-start-line="233" selection-start-column="33" selection-end-line="233" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Detect/evaluate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2027">
+          <caret line="27" column="79" selection-start-line="27" selection-start-column="79" selection-end-line="27" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/-965805770/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="526" column="4" selection-start-line="526" selection-start-column="4" selection-end-line="526" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qt/weight/Mobile/checkpoint">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Detect/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
           <folding>
-            <element signature="e#43#61#0" expanded="true" />
-            <marker date="1546247559325" expanded="true" signature="8906:9258" ph="..." />
+            <element signature="e#53#71#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Detect/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3614">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nets/mobilenet_v1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="308" column="34" selection-start-line="308" selection-start-column="17" selection-end-line="308" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qt/nets/mobilenet_v1.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mv/cig_detection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
+          <folding>
+            <element signature="e#53#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qt/main.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Image_preprocessing/image2npy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="30" column="94" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="94" />
+          <folding>
+            <element signature="e#51#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qt/MainWindow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7358">
+          <caret line="297" column="26" selection-start-line="297" selection-start-column="26" selection-end-line="297" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qt/predict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1638">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
+          <folding>
+            <element signature="e#51#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Detect/predict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+          <folding>
+            <element signature="e#46#73#0" expanded="true" />
           </folding>
         </state>
       </provider>
