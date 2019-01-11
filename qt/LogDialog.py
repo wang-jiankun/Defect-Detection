@@ -23,14 +23,14 @@ class DetectLog(QDialog):
                                           db='detection_data', charset='utf8')
         self.cursor = self.connection.cursor()
         # 检索数据库中所有检测记录
-        sql = "SELECT id,time,detect_class FROM detection_log"
+        sql = "SELECT path,time,detect_class FROM detection_log"
         self.cursor.execute(sql)
         self.detect_logs = self.cursor.fetchall()
 
         self.setWindowFlags(Qt.WindowMinimizeButtonHint | Qt.WindowCloseButtonHint)
         self.table_log.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.table_log.horizontalHeader().setStyleSheet("QHeaderView::section{background-color:lightgray;};")
-        self.table_log.verticalHeader().setStyleSheet("QHeaderView::section{background-color:lightgray;};")
+        # self.table_log.horizontalHeader().setStyleSheet("QHeaderView::section{background-color:lightgray;};")
+        # self.table_log.verticalHeader().setStyleSheet("QHeaderView::section{background-color:lightgray;};")
         self.pb_clear.clicked.connect(self.slot_clear)
         self.pb_save.clicked.connect(self.slot_save)
 
@@ -79,19 +79,20 @@ class DefectLog(QDialog):
         super(DefectLog, self).__init__()
         loadUi('ui_defect_log.ui', self)
 
-        self.name_class_dic = {'正常': 0, '不导电': 1, '划痕': 2, '污渍': 3, '桔皮': 4, '漏底': 5, '起坑': 6, '脏点': 7}
-
+        # self.name_class_dic = {'正常': 0, '不导电': 1, '划痕': 2, '污渍': 3, '桔皮': 4, '漏底': 5, '起坑': 6, '脏点': 7}
+        self.name_class_dic = {'normal': 0, 'nothing': 1, 'lack_cotton': 2, 'lack_piece': 3, 'wire_fail': 4}
         # 连接数据库
         self.connection = pymysql.connect(host='localhost', user='root', password='1234',
                                           db='detection_data', charset='utf8')
         self.cursor = self.connection.cursor()
         # 检索数据库中所有检测为缺陷的记录
-        sql = "SELECT id,time,detect_class FROM detection_log WHERE detect_class != '正常'"
+        sql = "SELECT path,time,detect_class FROM detection_log WHERE detect_class != 'normal'"
         self.cursor.execute(sql)
         self.defect_logs = self.cursor.fetchall()
 
         self.setWindowFlags(Qt.WindowMinimizeButtonHint | Qt.WindowCloseButtonHint)
-        self.table_defect.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.table_defect.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        # self.table_defect.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table_defect.resizeColumnsToContents()
         self.table_statistics.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.pb_save.clicked.connect(self.slot_save)
@@ -105,11 +106,11 @@ class DefectLog(QDialog):
             self.table_defect.setItem(i, 2, QTableWidgetItem(self.defect_logs[i][2]))
 
         # 生成缺陷统计表
-        self.class_num_list = [0] * 8
+        self.class_num_list = [0] * 4
         # 统计不同缺陷的个数，并填充到相应的单元格
         for j in self.defect_logs:
             defect_class = self.name_class_dic[j[2]]
-            if -1 < defect_class < 8:
+            if -1 < defect_class < 5:
                 self.class_num_list[defect_class] += 1
         # 计算各缺陷的占比，并填充到相应的单元格
         for k in range(len(self.class_num_list)):

@@ -46,6 +46,9 @@
      <attribute name="horizontalHeaderMinimumSectionSize">
       <number>80</number>
      </attribute>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
      <column>
       <property name="text">
        <string>图片路径</string>

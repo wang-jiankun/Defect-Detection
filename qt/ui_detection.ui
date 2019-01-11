@@ -53,7 +53,7 @@
      <number>10</number>
     </property>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_6" stretch="2,2,2,4">
+     <layout class="QVBoxLayout" name="verticalLayout_6" stretch="2,2,2,5">
       <item>
        <widget class="QLabel" name="lb_icon">
         <property name="sizePolicy">
@@ -255,7 +255,7 @@
          </font>
         </property>
         <property name="title">
-         <string>结果</string>
+         <string>检测结果</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <item>
@@ -436,7 +436,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="8,2">
+     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="5,2">
       <item>
        <widget class="QGroupBox" name="groupBox">
         <property name="title">
@@ -445,6 +445,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="12,2">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_2">
+           <property name="spacing">
+            <number>10</number>
+           </property>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
@@ -586,7 +589,23 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pb_file_browse">
+            <widget class="QPushButton" name="pb_detect">
+             <property name="font">
+              <font>
+               <family>微软雅黑</family>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="statusTip">
+              <string>检测图片</string>
+             </property>
+             <property name="text">
+              <string>检测</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pb_choose_image">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -606,28 +625,31 @@
               <string> 打开文件浏览器</string>
              </property>
              <property name="text">
-              <string>浏览</string>
+              <string>选择图片</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pb_detect">
+            <widget class="QPushButton" name="pb_choose_folder">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="font">
               <font>
                <family>微软雅黑</family>
                <pointsize>14</pointsize>
               </font>
              </property>
-             <property name="statusTip">
-              <string>检测图片</string>
-             </property>
              <property name="text">
-              <string>检测</string>
+              <string>选择目录</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pb_next">
+            <widget class="QPushButton" name="pb_next_image">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -661,25 +683,6 @@
              </property>
              <property name="text">
               <string>保存图片</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pb_load_model_4">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>微软雅黑</family>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>xxx</string>
              </property>
             </widget>
            </item>
@@ -816,7 +819,7 @@
    <widget class="QMenu" name="menu_start">
     <property name="geometry">
      <rect>
-      <x>209</x>
+      <x>240</x>
       <y>133</y>
       <width>170</width>
       <height>81</height>

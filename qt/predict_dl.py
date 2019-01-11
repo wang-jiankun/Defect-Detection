@@ -51,12 +51,12 @@ def load_model(model='Mobile'):
 
     sess = tf.Session()
     # 恢复模型权重
-    print('Reading checkpoints from: ', model)
+    # print('Reading checkpoints from: ', model)
     ckpt = tf.train.get_checkpoint_state(log_path)
     if ckpt and ckpt.model_checkpoint_path:
         global_step = ckpt.model_checkpoint_path.split('/')[-1].split('-')[-1]
         saver.restore(sess, ckpt.model_checkpoint_path)
-        print('Loading success, global_step is %s' % global_step)
+        # print('Loading success, global_step is %s' % global_step)
     else:
         print('Error: no checkpoint file found')
         return -1

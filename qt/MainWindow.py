@@ -8,7 +8,7 @@ from PyQt5.uic import loadUi
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import QImage, QPixmap, QPainter, QFont, QPen, QBrush, QColor
 from PyQt5.QtCore import Qt
-from qt import predict, LogDialog
+from qt import predict_dl, LogDialog
 import pandas as pd
 import threading as th
 from urllib import request
@@ -28,6 +28,9 @@ class Detect(QMainWindow):
         # 在窗口中加载界面
         loadUi('ui_detection.ui', self)
         self.image = None
+        self.image_list = []
+        self.image_index = 0
+        self.folder_path = None
 
         # 连接数据库
         self.connection = pymysql.connect(host='localhost', user='root', password='1234',
@@ -42,43 +45,66 @@ class Detect(QMainWindow):
         self.ac_update_model.triggered.connect(self.action_update_model)
         self.ac_open_website.triggered.connect(self.action_open_website)
         self.pb_detect.clicked.connect(self.slot_detect)
-        self.pb_file_browse.clicked.connect(self.slot_file_browser)
-        self.pb_open_file.clicked.connect(self.slot_open_file)
+        self.pb_choose_image.clicked.connect(self.slot_image_browser)
+        self.pb_choose_folder.clicked.connect(self.slot_folder_browser)
+        self.pb_open_file.clicked.connect(self.slot_open_image)
+        self.pb_next_image.clicked.connect(self.slot_next_image)
         self.pb_load_model.clicked.connect(self.slot_load_model)
-        # self.pb_load_model.hide()
+        self.pb_load_model.hide()
         self.pb_close_model.clicked.connect(self.slot_close_model)
-        # self.pb_close_model.hide()
+        self.pb_close_model.hide()
         self.pb_save_image.clicked.connect(self.slot_save_image)
-        self.pb_close_model.setDisabled(True)
         self.pb_detect.setDisabled(True)
+        self.pb_next_image.setDisabled(True)
         self.pb_save_image.setDisabled(True)
+        self.pb_close_model.setDisabled(True)
         self.table_history.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table_history.horizontalHeader().setStyleSheet("QHeaderView::section{background-color:lightgray;};")
         # self.table_history.horizontalHeaderItem(0).setBackground(QBrush(QColor(0,0,0))
 
         # print 输出重定向
-        # sys.stdout = EmittingStream(textWritten=self.my_output)
-        # sys.stderr = EmittingStream(textWritten=self.my_output)
+        sys.stdout = EmittingStream(textWritten=self.my_output)
+        sys.stderr = EmittingStream(textWritten=self.my_output)
+        print('Welcome to use detection system.')
 
         # 初始化
-        # self.slot_load_model()
-
+        self.slot_load_model()
+        print('Initialization complete')
         self.statusBar().showMessage('   就绪')
 
-    def slot_file_browser(self):
+    def slot_image_browser(self):
         """
-        打开文件浏览器槽函数
+        选择图片槽函数
         :return:
         """
         # 打开文件浏览器，获得选择的文件
-        file_name = QFileDialog.getOpenFileName(self, '选择文件', '', 'JPEG(*.jpg) ;; PNG(*.png)')
+        image_path = QFileDialog.getOpenFileName(self, '选择图片', '/Defect_Detection/data/cigarette',
+                                                 'JPEG(*.jpg) ;; PNG(*.png)')
         # 判断是否选择了文件
-        if file_name[0] != '':
+        if image_path[0] != '':
             # 显示文件名
-            self.le_file.setText(file_name[0])
-            self.slot_open_file()
+            self.le_file.setText(image_path[0])
+            self.slot_open_image()
+            self.slot_detect()
 
-    def slot_open_file(self):
+    def slot_folder_browser(self):
+        """
+        选择目录槽函数
+        :return:
+        """
+        # 打开文件浏览器，获得选择的文件
+        self.folder_path = QFileDialog.getExistingDirectory(self, '选择目录', '/Defect_Detection/data/cigarette')
+        # 判断是否选择了文件
+        if self.folder_path != '':
+            # 显示文件名
+            self.image_index = 0
+            self.image_list = os.listdir(self.folder_path)
+            self.le_file.setText(self.folder_path + '/' + self.image_list[0])
+            self.slot_open_image()
+            self.slot_detect()
+            self.pb_next_image.setEnabled(True)
+
+    def slot_open_image(self):
         """
         打开文件槽函数
         :return:
@@ -92,6 +118,17 @@ class Detect(QMainWindow):
         self.image = self.image.scaled(self.lb_image.size(), Qt.KeepAspectRatio)
         self.lb_image.setPixmap(QPixmap.fromImage(self.image))
         self.pb_save_image.setEnabled(True)
+        self.pb_detect.setEnabled(True)
+
+    def slot_next_image(self):
+        """
+        检测下一张图片
+        :return:
+        """
+        self.image_index += 1
+        self.le_file.setText(self.folder_path + '/' + self.image_list[self.image_index])
+        self.slot_open_image()
+        self.slot_detect()
 
     def slot_detect(self):
         """
@@ -103,17 +140,17 @@ class Detect(QMainWindow):
             QMessageBox.information(self, 'Error', '请选择文件')
             return
         if self.cb_method.currentText() == '深度学习':
-            pre, run_time = predict.predict(img_path)
+            pre, run_time = predict_dl.predict(img_path)
         else:
-            pre, run_time = 0, 0
-        # 在历史记录表中插入信息
+            pre, run_time = 0, 1
+        # 在界面的历史记录表中插入信息
         row_count = self.table_history.rowCount()
         self.table_history.insertRow(row_count)
         self.table_history.setItem(row_count, 0, QTableWidgetItem(str(row_count+1)))
         self.table_history.item(row_count, 0).setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
         self.table_history.setItem(row_count, 1, QTableWidgetItem(self.class_name_dic[pre]))
         # 数据库插入一条检测记录
-        self.insert_log(pre)
+        self.insert_log(pre, img_path)
         # temp_log = [img_path, str(pre), time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())]
         if pre == -1:
             return
@@ -127,12 +164,12 @@ class Detect(QMainWindow):
         :return:
         """
         # model = self.cb_model.currentText()
-        flag = predict.load_model()
+        flag = predict_dl.load_model()
         if flag == -1:
-            predict.close_sess()
+            predict_dl.close_sess()
             return
         self.pb_load_model.setDisabled(True)
-        self.pb_detect.setEnabled(True)
+        # self.pb_detect.setEnabled(True)
         self.pb_close_model.setEnabled(True)
 
     def slot_close_model(self):
@@ -141,7 +178,7 @@ class Detect(QMainWindow):
         :return:
         """
         self.pb_close_model.setDisabled(True)
-        predict.close_sess()
+        predict_dl.close_sess()
         self.pb_detect.setDisabled(True)
         self.pb_load_model.setEnabled(True)
         self.le_image_size.setEnabled(True)
@@ -281,7 +318,7 @@ class Detect(QMainWindow):
         更新参数
         :return:
         """
-        predict.IMG_SIZE = int(self.le_image_size.text())
+        predict_dl.IMG_SIZE = int(self.le_image_size.text())
         # print('refresh: ', predict.IMG_SIZE)
 
     def put_text(self, pre):
@@ -299,15 +336,16 @@ class Detect(QMainWindow):
         qp.end()
         self.lb_image.setPixmap(QPixmap.fromImage(self.image))
 
-    def insert_log(self, pre):
+    def insert_log(self, pre, img_path):
         """
         向数据库中插入一条检测记录
         :param pre:
+        :param img_path:
         :return:
         """
         # 插入一行
-        sql = "INSERT INTO detection_log(detect_class) VALUES(%s)"
-        self.cursor.execute(sql, (self.class_name_dic[pre],))
+        sql = "INSERT INTO detection_log(detect_class, path) VALUES(%s, %s)"
+        self.cursor.execute(sql, (self.class_name_dic[pre], img_path))
         # 提交事务
         self.connection.commit()
 

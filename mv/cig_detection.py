@@ -453,9 +453,9 @@ class AssembleDetection:
         # templ_img2 = self.open_img(TEMPL_DIR + 'rb.jpg')
         # self.piece_detect('rb', templ_img2)
         # 左下 ROI 检测
-        self.wire_detect('lb')
+        # self.wire_detect('lb')
         # 右上 ROI 检测
-        self.wire_detect('rt')
+        # self.wire_detect('rt')
 
         # 结束计时
         end_time = time.clock()
@@ -463,9 +463,9 @@ class AssembleDetection:
 
         # 显示图片
         # cv2.imwrite(os.path.join(SAVE_PATH, 'set_roi' + '.jpg'), self.color_img)
-        # cv2.imshow('src', self.color_img)
-        # cv2.waitKey()
-        # cv2.destroyAllWindows()
+        cv2.imshow('src', self.color_img)
+        cv2.waitKey()
+        cv2.destroyAllWindows()
         return
 
 

@@ -13,7 +13,6 @@ app = QApplication(sys.argv)
 win = MainWindow.Detect()
 # 显示窗口
 win.show()
-print('Welcome to use defect detection system.')
 # 进入主循环
 sys.exit(app.exec())
 
