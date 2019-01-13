@@ -19,6 +19,7 @@ IMG_DIR = '../data/cigarette/normal/'
 TEMPL_DIR = '../data/cigarette/template/'
 SIZE_RATIO = 3
 SAVE_PATH = 'E:/1/'
+DETECT_CLASS = 4
 
 
 class AssembleDetection:
@@ -55,7 +56,7 @@ class AssembleDetection:
         cv2.imshow(name, img)
         cv2.imwrite(os.path.join(SAVE_PATH, name+'.jpg'), img)
 
-    def find_position(self, thresh=50):
+    def find_position(self, thresh=55):
         """
         找到检测目标的位置
         :param thresh: 阈值
@@ -324,7 +325,7 @@ class AssembleDetection:
             print('Cotton detect: OK')
             self.res[1] = 0
 
-    def limit_detect(self, thresh=250):
+    def limit_detect(self, thresh=200):
         """
         金属丝的限位检测
         :param thresh:
@@ -343,7 +344,7 @@ class AssembleDetection:
         if lc_sum < 10:
             print('Limit detect: NG ', 'top')
             self.res[2] = 1
-        elif rc_sum < 10:
+        elif not rc_sum or rc_sum < 10:
             print('Limit detect: NG ', 'bottom')
             self.res[2] = 1
         else:
@@ -394,30 +395,44 @@ class AssembleDetection:
         roi_img = self.img_thresh(roi_img, thresh, 1)
         # self.show_save_img(roi_img, roi_name + '_thresh')
         v_sum = np.sum(roi_img, 0, dtype=np.float)
+
         # plt.plot(v_sum)
         # plt.axis([0, 250, 0, 140])
         # plt.xlabel('列坐标', fontproperties='SimHei', fontsize=14)
         # plt.ylabel('白点数量', fontproperties='SimHei', fontsize=14)
         # plt.show()
+
         v_sum[v_sum < roi_img.shape[0]/2] = 0.0
         # plt.plot(v_sum)
         # plt.axis([0, 250, 0, 140])
         # plt.xlabel('列坐标', fontproperties='SimHei', fontsize=14)
         # plt.ylabel('白点数量', fontproperties='SimHei', fontsize=14)
         # plt.show()
-        v_sum = np.convolve(v_sum, [0.1, 0.2, 0.4, 0.2, 0.1])
+        # v_sum = np.convolve(v_sum, [0.1, 0.2, 0.4, 0.2, 0.1])
         # print(v_sum)
-        pos_list = self.find_extreme_index(v_sum)
-        if len(pos_list) == 2:
-            dist = pos_list[1] - pos_list[0]
-            if 18 < dist < 28:
-                print(roi_name, 'Wire detect: ', 'OK', 'dist -', dist)
-                self.res[4] += 0
-            else:
-                print(roi_name, 'Wire detect: ', 'NG', 'dist -', dist)
-                self.res[4] = 1
+
+        # pos_list = self.find_extreme_index(v_sum)
+        # if len(pos_list) == 2:
+        #     dist = pos_list[1] - pos_list[0]
+        #     if 18 < dist < 28:
+        #         print(roi_name, 'Wire detect: ', 'OK', 'dist -', dist)
+        #         self.res[4] += 0
+        #     else:
+        #         print(roi_name, 'Wire detect: ', 'NG', 'dist -', dist)
+        #         self.res[4] = 1
+        nonzero_index = v_sum.nonzero()
+        dist = nonzero_index[0][-1] - nonzero_index[0][0]
+        if 24 < dist < 35:
+            print(roi_name, 'Wire detect: ', 'OK', 'dist -', dist)
+            self.res[4] += 0
         else:
-            print(roi_name, 'Wire detect: ', 'NG')
+            # print(pos_list)
+            # plt.plot(v_sum)
+            # plt.axis([0, 250, 0, 140])
+            # plt.xlabel('列坐标', fontproperties='SimHei', fontsize=14)
+            # plt.ylabel('白点数量', fontproperties='SimHei', fontsize=14)
+            # plt.show()
+            print(roi_name, 'Wire detect: ', 'NG', 'dist -', dist)
             self.res[4] = 1
 
         # v_grad = np.gradient(v_sum)
@@ -427,9 +442,10 @@ class AssembleDetection:
         # plt.ylabel('白点数量', fontproperties='SimHei', fontsize=14)
         # plt.show()
 
-    def detect(self):
+    def detect(self, image_name):
         """
         装配正确性检测
+        :param image_name:
         :return:
         """
         # 开始计时
@@ -443,29 +459,31 @@ class AssembleDetection:
         # 设置 ROI
         self.set_roi(box, False)
         # 棉芯检测
-        # self.cotton_detect()
+        self.cotton_detect()
         # 金属线检测
-        # self.limit_detect()
+        self.limit_detect()
         # 左上 ROI 检测
-        # templ_img1 = self.open_img(TEMPL_DIR + 'lt.jpg')
-        # self.piece_detect('lt', templ_img1)
+        templ_img1 = self.open_img(TEMPL_DIR + 'lt.jpg')
+        self.piece_detect('lt', templ_img1)
         # 右下 ROI 检测
-        # templ_img2 = self.open_img(TEMPL_DIR + 'rb.jpg')
-        # self.piece_detect('rb', templ_img2)
+        templ_img2 = self.open_img(TEMPL_DIR + 'rb.jpg')
+        self.piece_detect('rb', templ_img2)
         # 左下 ROI 检测
-        # self.wire_detect('lb')
+        self.wire_detect('lb')
         # 右上 ROI 检测
-        # self.wire_detect('rt')
+        self.wire_detect('rt')
 
         # 结束计时
         end_time = time.clock()
         print('run time: ', end_time - start_time)
 
         # 显示图片
-        # cv2.imwrite(os.path.join(SAVE_PATH, 'set_roi' + '.jpg'), self.color_img)
-        cv2.imshow('src', self.color_img)
-        cv2.waitKey()
-        cv2.destroyAllWindows()
+        # if self.res[DETECT_CLASS] == 1:
+        if sum(self.res):
+            cv2.imwrite(os.path.join(SAVE_PATH, image_name), self.color_img)
+            cv2.imshow('src', self.color_img)
+            cv2.waitKey()
+            cv2.destroyAllWindows()
         return
 
 
@@ -474,7 +492,7 @@ def single_detect():
     检测单张图片
     :return:
     """
-    img_list = os.listdir(IMG_DIR)
+    # img_list = os.listdir(IMG_DIR)
     # img_name = img_list[1]
     img_name = '126.jpg'
     print()
@@ -497,16 +515,14 @@ def folder_detect():
         print('Detecting image:', img_name)
         img_path = os.path.join(IMG_DIR, img_name)
         detector = AssembleDetection(img_path)
-        detector.detect()
-        if detector.res[4] == 1:
+        detector.detect(img_name)
+        # if detector.res[DETECT_CLASS] == 1:
+        if sum(detector.res):
             true_num += 1
+
     print('总数：', sample_num, '正确数：', true_num, '准确率：', true_num/sample_num)
 
 
 if __name__ == '__main__':
     # single_detect()
     folder_detect()
-
-
-
-
