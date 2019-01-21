@@ -215,76 +215,86 @@ def alum_enhance():
         # color_enhance(image_path_list, save_path)
 
 
-def gray_enhance(image_path_list, save_path):
+def gray_enhance(image_path_list, save_path, num=2):
     """
     灰度增强，对图片进行亮度、对比度变换增强
     :param image_path_list:
     :param save_path:
+    :param num:
     :return:
     """
     print('gray augmentation:')
     for path in image_path_list:
+        print(path)
         original_image = Image.open(path)
-        for i in range(2):
+        for i in range(num):
             # 亮度
-            brightness_factor = 1.0
-            # brightness_factor = np.random.randint(9, 11) / 10.
+            # brightness_factor = 1.0
+            brightness_factor = np.random.randint(98, 106) / 100.
             brightness_image = ImageEnhance.Brightness(original_image).enhance(brightness_factor)
             # 对比度
-            contrast_factor = 1.5
-            # contrast_factor = np.random.randint(9, 11) / 10.
+            # contrast_factor = 1.5
+            contrast_factor = np.random.randint(95, 105) / 100.
             contrast_image = ImageEnhance.Contrast(brightness_image).enhance(contrast_factor)
-            prefix = path.split('\\')[-1]
+            prefix = path.split('/')[-1]
             prefix = prefix.split('.')[0]
-            prefix = save_path + '/' + prefix + '_g%d.jpg' % (i+1)
-            contrast_image.save(prefix)
+            save_name = save_path + '/' + prefix + '_g%d.jpg' % (i+1)
+            contrast_image.save(save_name)
 
             # 显示图片
             # brightness_image.show()
             # brightness_image.save('../data/cigarette/aug/bright.jpg')
-            cv2.waitKey()
-            cv2.destroyAllWindows()
+            # cv2.waitKey()
+            # cv2.destroyAllWindows()
 
 
-def translation_enhance(image_path_list, save_path):
+def translation_enhance(image_path_list, save_path, num=2):
     print('translation augmentation:')
-    tx = np.random.randint(10, 50)
-    ty = np.random.randint(10, 30)
-    # tx, ty = 50, 60
     for path in image_path_list:
         print(path)
         original_image = cv2.imread(path)
-        M = np.float32([[1, 0, tx], [0, 1, ty]])
-        rows, cols = original_image.shape[0], original_image.shape[1]
-        trans_img = cv2.warpAffine(original_image, M, (cols, rows))
-        cv2.imshow('trans', trans_img)
-        cv2.imwrite(os.path.join(save_path, 'trans.jpg'), trans_img)
-        cv2.waitKey()
-        cv2.destroyAllWindows()
+        for i in range(num):
+            tx = np.random.randint(10, 50)
+            ty = np.random.randint(10, 30)
+            # tx, ty = 50, 60
+            M = np.float32([[1, 0, tx], [0, 1, ty]])
+            rows, cols = original_image.shape[0], original_image.shape[1]
+            trans_img = cv2.warpAffine(original_image, M, (cols, rows))
+            prefix = path.split('/')[-1]
+            prefix = prefix.split('.')[0]
+            save_name = save_path + '/' + prefix + '_t%d.jpg' % (i+1)
+            cv2.imwrite(save_name, trans_img)
+
+            # cv2.imshow('trans', trans_img)
+            # cv2.waitKey()
+            # cv2.destroyAllWindows()
 
 
 def cig_enhance():
     """
-    对电子烟装配数据集进行数据增强
+    对电子烟数据集进行数据增强
     :return:
     """
-    data_root_path = '../data/cigarette/'
-    save_root_path = '../data/cigarette/aug'
-    class_list = ['normal', 'nothing', 'lack_cotton', 'lack_piece', 'wire_fail']
+    data_root_path = '../data/cigarette'
+    save_path = False
+    class_list = ['normal', 'nothing', 'lack_cotton', 'lack_piece', 'wire_fail', 'aug']
     folder_list = os.listdir(data_root_path)
-    for folder in ['normal']:
+    for folder in ['aug']:
         if folder not in class_list:
             continue
         print('The folder in processing is', folder)
-        save_path = save_root_path
         image_root_path = data_root_path + '/' + folder
+        if save_path:
+            save_path = '../data/cigarette/aug'
+        else:
+            save_path = image_root_path
         image_name_list = os.listdir(image_root_path)
         image_path_list = []
         for image_name in image_name_list:
-            image_path = os.path.join(image_root_path, image_name)
+            image_path = image_root_path + '/' + image_name
             image_path_list.append(image_path)
         gray_enhance(image_path_list, save_path)
-        # translation_enhance(image_path_list, save_path)
+        translation_enhance(image_path_list, save_path)
 
 
 if __name__ == '__main__':
