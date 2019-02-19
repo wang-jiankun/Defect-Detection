@@ -18,6 +18,7 @@ def evaluate(model=MODEL_NAME):
     :return: none
     """
     # 预测为某类的样本个数，某类预测正确的样本个数
+    sample_labels = np.zeros(CLASSES, dtype=np.uint16)
     pre_pos = np.zeros(CLASSES, dtype=np.uint16)
     true_pos = np.zeros(CLASSES, dtype=np.uint16)
 
@@ -25,7 +26,7 @@ def evaluate(model=MODEL_NAME):
     images = np.load(images_path)
     labels = np.load(labels_path)
 
-    _, val_data, _, val_label = train_test_split(images, labels, test_size=0.2, random_state=222)
+    _, val_data, _, val_label = train_test_split(images, labels, test_size=0.99999, random_state=222)
     # 如果输入是灰色图，要增加一维
     if CHANNEL == 1:
         val_data = np.expand_dims(val_data, axis=3)
@@ -132,6 +133,7 @@ def evaluate(model=MODEL_NAME):
     normal_num = 0
     for i in range(test_num):
         pre_pos[res[i]] += 1
+        sample_labels[val_label[i]] += 1
         if res[i] == val_label[i]:
             true_pos[res[i]] += 1
         if val_label[i] == 0:
@@ -139,6 +141,7 @@ def evaluate(model=MODEL_NAME):
 
     precision = true_pos/pre_pos
     print('测试样本数：', test_num)
+    print('测试数：', sample_labels)
     print('预测数：', pre_pos)
     print('正确数：', true_pos)
     print('各类精度：', precision)

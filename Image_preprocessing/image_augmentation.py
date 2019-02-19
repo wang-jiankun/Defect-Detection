@@ -249,6 +249,13 @@ def gray_enhance(image_path_list, save_path, num=2):
 
 
 def translation_enhance(image_path_list, save_path, num=2):
+    """
+    平移增强，上下左右进行微小的平移
+    :param image_path_list:
+    :param save_path:
+    :param num:
+    :return:
+    """
     print('translation augmentation:')
     for path in image_path_list:
         print(path)

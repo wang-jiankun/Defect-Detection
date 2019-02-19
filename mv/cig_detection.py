@@ -480,7 +480,7 @@ class AssembleDetection:
         # 显示图片
         # if self.res[DETECT_CLASS] == 1:
         if sum(self.res):
-            cv2.imwrite(os.path.join(SAVE_PATH, image_name), self.color_img)
+            # cv2.imwrite(os.path.join(SAVE_PATH, image_name), self.color_img)
             cv2.imshow('src', self.color_img)
             cv2.waitKey()
             cv2.destroyAllWindows()

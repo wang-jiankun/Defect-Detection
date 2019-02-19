@@ -69,7 +69,7 @@ class Detect(QMainWindow):
 
         # 初始化
         self.slot_load_model()
-        print('Initialization complete')
+        print('Initialization complete!')
         self.statusBar().showMessage('   就绪')
 
     def slot_image_browser(self):
@@ -106,7 +106,7 @@ class Detect(QMainWindow):
 
     def slot_open_image(self):
         """
-        打开文件槽函数
+        打开图片槽函数
         :return:
         """
         # 获取文件名
@@ -126,6 +126,10 @@ class Detect(QMainWindow):
         :return:
         """
         self.image_index += 1
+        if self.image_index == len(self.image_list):
+            QMessageBox.information(self, '提示', '没有图片了  ')
+            self.image_index -= 1
+            return
         self.le_file.setText(self.folder_path + '/' + self.image_list[self.image_index])
         self.slot_open_image()
         self.slot_detect()
@@ -143,7 +147,6 @@ class Detect(QMainWindow):
             pre, run_time = predict_dl.predict(img_path)
         else:
             pre, run_time = 0, 1
-        # 在界面的历史记录表中插入信息
         row_count = self.table_history.rowCount()
         self.table_history.insertRow(row_count)
         self.table_history.setItem(row_count, 0, QTableWidgetItem(str(row_count+1)))
@@ -154,6 +157,7 @@ class Detect(QMainWindow):
         # temp_log = [img_path, str(pre), time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())]
         if pre == -1:
             return
+        # 在界面的历史记录表中插入信息
         self.le_class.setText(str(pre))
         self.le_time.setText(str(run_time))
         self.put_text(pre)
