@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4256552a-cf68-4251-944f-476e81a1b257" name="Default" comment="2019-1-21">
-      <change beforePath="$PROJECT_DIR$/.idea/Defect_Detection.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Defect_Detection.iml" afterDir="false" />
+    <list default="true" id="4256552a-cf68-4251-944f-476e81a1b257" name="Default" comment="2019-02-19">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Detect/evaluate.py" beforeDir="false" afterPath="$PROJECT_DIR$/Detect/evaluate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image_preprocessing/image_augmentation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image_preprocessing/image_augmentation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mv/cig_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/mv/cig_detection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qt/MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/qt/MainWindow.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Defect_Detection$evaluate.coverage" NAME="evaluate Coverage Results" MODIFIED="1550478318690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Detect" />
+    <SUITE FILE_PATH="coverage/Defect_Detection$evaluate.coverage" NAME="evaluate Coverage Results" MODIFIED="1550544472630" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Detect" />
     <SUITE FILE_PATH="coverage/Defect_Detection$predict__1_.coverage" NAME="predict (1) Coverage Results" MODIFIED="1547083150579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Detect" />
     <SUITE FILE_PATH="coverage/Defect_Detection$cig_detection.coverage" NAME="cig_detection Coverage Results" MODIFIED="1547350567032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mv" />
     <SUITE FILE_PATH="coverage/Defect_Detection$predict.coverage" NAME="predict Coverage Results" MODIFIED="1547026832159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/qt" />
@@ -53,8 +49,9 @@
           <entry key="project.open.time.0" value="7" />
           <entry key="project.open.time.11" value="4" />
           <entry key="project.open.time.13" value="3" />
+          <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.4" value="2" />
-          <entry key="project.opened" value="16" />
+          <entry key="project.opened" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -65,7 +62,7 @@
           <entry key="json" value="1" />
           <entry key="md" value="3" />
           <entry key="png" value="2" />
-          <entry key="py" value="310" />
+          <entry key="py" value="311" />
           <entry key="txt" value="3" />
         </counts>
       </usages-collector>
@@ -75,21 +72,21 @@
           <entry key="JSON" value="1" />
           <entry key="Markdown" value="3" />
           <entry key="PLAIN_TEXT" value="12" />
-          <entry key="Python" value="310" />
+          <entry key="Python" value="311" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="checkpoint" value="12" />
           <entry key="dummy" value="15" />
-          <entry key="py" value="14404" />
-          <entry key="txt" value="35" />
+          <entry key="py" value="14405" />
+          <entry key="txt" value="39" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="62" />
-          <entry key="Python" value="14404" />
+          <entry key="PLAIN_TEXT" value="66" />
+          <entry key="Python" value="14405" />
         </counts>
       </usages-collector>
     </session>
@@ -100,24 +97,24 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Image_preprocessing/image_augmentation.py">
+        <entry file="file://$PROJECT_DIR$/Detect/evaluate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="306" selection-start-line="306" selection-end-line="308" selection-end-column="17" />
+            <state relative-caret-position="676">
+              <caret line="28" column="78" selection-start-line="28" selection-start-column="78" selection-end-line="28" selection-end-column="78" />
               <folding>
-                <element signature="e#43#61#0" expanded="true" />
+                <element signature="e#48#75#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Detect/evaluate.py">
+        <entry file="file://$PROJECT_DIR$/Image_preprocessing/image_augmentation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="143" column="31" selection-start-line="143" selection-start-column="31" selection-end-line="143" selection-end-column="31" />
+            <state relative-caret-position="756">
+              <caret line="309" selection-start-line="309" selection-end-line="309" />
               <folding>
-                <element signature="e#48#75#0" expanded="true" />
+                <element signature="e#43#61#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -192,8 +189,8 @@
         <option value="$PROJECT_DIR$/mv/cig_detection.py" />
         <option value="$PROJECT_DIR$/qt/weight/Mobile/checkpoint" />
         <option value="$PROJECT_DIR$/qt/MainWindow.py" />
-        <option value="$PROJECT_DIR$/Detect/evaluate.py" />
         <option value="$PROJECT_DIR$/Image_preprocessing/image_augmentation.py" />
+        <option value="$PROJECT_DIR$/Detect/evaluate.py" />
       </list>
     </option>
   </component>
@@ -295,6 +292,9 @@
       <module name="Defect_Detection" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mv" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -358,6 +358,9 @@
       <module name="Defect_Detection" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/qt" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -563,7 +566,14 @@
       <option name="project" value="LOCAL" />
       <updated>1548041407045</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="2019-02-19">
+      <created>1550538075814</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1550538075814</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -581,15 +591,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4988764" visible="true" weight="0.19313304" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4988764" visible="true" weight="0.19581544" />
       <window_info id="Structure" order="1" sideWeight="0.5011236" side_tool="true" weight="0.22251585" />
       <window_info id="Favorites" order="2" sideWeight="0.5011236" side_tool="true" weight="0.22251585" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3281075" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49839056" visible="true" weight="0.24300112" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49839056" visible="true" weight="0.10078388" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.28555432" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -600,12 +610,12 @@
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50160944" side_tool="true" weight="0.14893617" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
-      <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" side_tool="true" weight="0.3299356" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" weight="0.27306867" />
       <window_info anchor="right" id="Database" order="4" weight="0.3299356" />
+      <window_info anchor="right" x="0" y="0" width="434" height="856" id="Documentation" order="5" side_tool="true" weight="0.3299356" />
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4988764" visible="true" weight="0.22263949" />
@@ -655,7 +665,8 @@
     <MESSAGE value="2019-1-13" />
     <MESSAGE value="2019-1-15" />
     <MESSAGE value="2019-1-21" />
-    <option name="LAST_COMMIT_MESSAGE" value="2019-1-21" />
+    <MESSAGE value="2019-02-19" />
+    <option name="LAST_COMMIT_MESSAGE" value="2019-02-19" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -824,10 +835,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-364">
           <caret line="10" column="8" lean-forward="true" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
-          <folding>
-            <element signature="e#49#72#0" expanded="true" />
-            <marker date="1544403935591" expanded="true" signature="228:229" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -893,9 +900,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="30" column="84" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="94" />
-          <folding>
-            <element signature="e#51#69#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -903,9 +907,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="18" column="14" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
-          <folding>
-            <element signature="e#46#73#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -934,9 +935,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="121" selection-start-line="121" selection-end-line="121" />
-          <folding>
-            <element signature="e#56#135#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -996,9 +994,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="521">
           <caret line="86" selection-start-line="86" selection-end-line="86" />
-          <folding>
-            <element signature="e#51#69#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1006,9 +1001,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="421" column="33" selection-start-line="421" selection-start-column="33" selection-end-line="421" selection-end-column="33" />
-          <folding>
-            <element signature="e#53#63#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1016,28 +1008,25 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
           <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Detect/evaluate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="676">
+          <caret line="28" column="78" selection-start-line="28" selection-start-column="78" selection-end-line="28" selection-end-column="78" />
           <folding>
-            <element signature="e#53#71#0" expanded="true" />
+            <element signature="e#48#75#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Image_preprocessing/image_augmentation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="306" selection-start-line="306" selection-end-line="308" selection-end-column="17" />
+        <state relative-caret-position="756">
+          <caret line="309" selection-start-line="309" selection-end-line="309" />
           <folding>
             <element signature="e#43#61#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Detect/evaluate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="143" column="31" selection-start-line="143" selection-start-column="31" selection-end-line="143" selection-end-column="31" />
-          <folding>
-            <element signature="e#48#75#0" expanded="true" />
           </folding>
         </state>
       </provider>
