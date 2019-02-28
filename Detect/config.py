@@ -25,8 +25,8 @@ if not USE_GPU:
 # 模型名称
 MODEL_NAME = 'Mobile'
 # 数据集路径
-images_path = '../data/cig_data_' + str(IMG_SIZE) + '.npy'
-labels_path = '../data/cig_label_' + str(IMG_SIZE) + '.npy'
+images_path = '../data/b_cig_data_' + str(IMG_SIZE) + '.npy'
+labels_path = '../data/b_cig_label_' + str(IMG_SIZE) + '.npy'
 
 
 

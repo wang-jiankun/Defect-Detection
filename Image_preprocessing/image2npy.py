@@ -22,7 +22,7 @@ def multi_class_to_npy(data_path, save_path):
     """
     data, label = [], []
     per_class_num = {}
-    save_name = 'cig_'
+    save_name = 'b_cig_'
 
     # 图片类型
     # 铝型材类别
@@ -98,7 +98,6 @@ if __name__ == '__main__':
     print('running image2npy:')
     # alum_to_npy('../data/alum', '../data')
     multi_class_to_npy('../data/cigarette', '../data')
-    # phone_to_npy('../data/crop', '../data')
 
 
 

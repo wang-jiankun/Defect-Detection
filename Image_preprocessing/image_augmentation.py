@@ -230,11 +230,11 @@ def gray_enhance(image_path_list, save_path, num=2):
         for i in range(num):
             # 亮度
             # brightness_factor = 1.0
-            brightness_factor = np.random.randint(98, 106) / 100.
+            brightness_factor = np.random.randint(98, 103) / 100.
             brightness_image = ImageEnhance.Brightness(original_image).enhance(brightness_factor)
             # 对比度
             # contrast_factor = 1.5
-            contrast_factor = np.random.randint(95, 105) / 100.
+            contrast_factor = np.random.randint(98, 103) / 100.
             contrast_image = ImageEnhance.Contrast(brightness_image).enhance(contrast_factor)
             prefix = path.split('/')[-1]
             prefix = prefix.split('.')[0]
@@ -259,10 +259,10 @@ def translation_enhance(image_path_list, save_path, num=2):
     print('translation augmentation:')
     for path in image_path_list:
         print(path)
-        original_image = cv2.imread(path)
+        original_image = cv2.imread(path, 0)
         for i in range(num):
-            tx = np.random.randint(10, 50)
-            ty = np.random.randint(10, 30)
+            tx = np.random.randint(1, 20)
+            ty = np.random.randint(1, 10)
             # tx, ty = 50, 60
             M = np.float32([[1, 0, tx], [0, 1, ty]])
             rows, cols = original_image.shape[0], original_image.shape[1]
@@ -283,15 +283,15 @@ def cig_enhance():
     :return:
     """
     data_root_path = '../data/cigarette'
-    save_path = False
+    test = False
     class_list = ['normal', 'nothing', 'lack_cotton', 'lack_piece', 'wire_fail', 'aug']
     folder_list = os.listdir(data_root_path)
-    for folder in ['aug']:
+    for folder in folder_list:
         if folder not in class_list:
             continue
         print('The folder in processing is', folder)
         image_root_path = data_root_path + '/' + folder
-        if save_path:
+        if test:
             save_path = '../data/cigarette/aug'
         else:
             save_path = image_root_path
@@ -300,7 +300,7 @@ def cig_enhance():
         for image_name in image_name_list:
             image_path = image_root_path + '/' + image_name
             image_path_list.append(image_path)
-        gray_enhance(image_path_list, save_path)
+        # gray_enhance(image_path_list, save_path)
         translation_enhance(image_path_list, save_path)
 
 
