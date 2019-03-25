@@ -140,15 +140,20 @@ def evaluate(model=MODEL_NAME):
             normal_num += 1
 
     precision = true_pos/pre_pos
+    recall = true_pos/sample_labels
+    f1 = 2*precision*recall/(precision+recall)
+    error = (pre_pos - true_pos) / (test_num - sample_labels)
     print('测试样本数：', test_num)
     print('测试数：', sample_labels)
     print('预测数：', pre_pos)
     print('正确数：', true_pos)
-    print('各类精度：', precision)
+    print('Precision：', precision)
+    print('Recall：', recall)
+    print('F1：', f1)
+    print('误检率：', error)
     print('准确率：', np.sum(true_pos)/test_num)
-    print('平均准确率：', np.mean(precision))
-    print('漏检率：', (pre_pos[0]-true_pos[0])/(test_num-normal_num))
-    print('过杀率：', (normal_num-true_pos[0])/normal_num)
+    print('总漏检率：', (pre_pos[0]-true_pos[0])/(test_num-normal_num))
+    print('总过杀率：', (normal_num-true_pos[0])/normal_num)
 
 
 if __name__ == '__main__':

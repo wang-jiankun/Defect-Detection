@@ -14,12 +14,10 @@ import matplotlib
 # matplotlib.rcParams['font.size'] = 20
 IMG_H_SIZE = 2000
 IMG_V_SIZE = 1200
-IMG_DIR = '../data/cigarette/normal/'
-# normal, nothing, lack_cotton, lack_piece, wire_fail
 TEMPL_DIR = '../data/cigarette/template/'
 SIZE_RATIO = 3
 SAVE_PATH = 'E:/1/'
-DETECT_CLASS = 4
+DETECT_CLASS = 3
 
 
 class AssembleDetection:
@@ -421,18 +419,21 @@ class AssembleDetection:
         #         print(roi_name, 'Wire detect: ', 'NG', 'dist -', dist)
         #         self.res[4] = 1
         nonzero_index = v_sum.nonzero()
-        dist = nonzero_index[0][-1] - nonzero_index[0][0]
-        if 24 < dist < 35:
-            print(roi_name, 'Wire detect: ', 'OK', 'dist -', dist)
-            self.res[4] += 0
-        else:
-            # print(pos_list)
-            # plt.plot(v_sum)
-            # plt.axis([0, 250, 0, 140])
-            # plt.xlabel('列坐标', fontproperties='SimHei', fontsize=14)
-            # plt.ylabel('白点数量', fontproperties='SimHei', fontsize=14)
-            # plt.show()
-            print(roi_name, 'Wire detect: ', 'NG', 'dist -', dist)
+        try:
+            dist = nonzero_index[0][-1] - nonzero_index[0][0]
+            if 24 < dist < 38:
+                print(roi_name, 'Wire detect: ', 'OK', 'dist -', dist)
+                self.res[4] += 0
+            else:
+                # print(pos_list)
+                # plt.plot(v_sum)
+                # plt.axis([0, 250, 0, 140])
+                # plt.xlabel('列坐标', fontproperties='SimHei', fontsize=14)
+                # plt.ylabel('白点数量', fontproperties='SimHei', fontsize=14)
+                # plt.show()
+                print(roi_name, 'Wire detect: ', 'NG', 'dist -', dist)
+                self.res[4] = 1
+        except:
             self.res[4] = 1
 
         # v_grad = np.gradient(v_sum)
@@ -442,10 +443,9 @@ class AssembleDetection:
         # plt.ylabel('白点数量', fontproperties='SimHei', fontsize=14)
         # plt.show()
 
-    def detect(self, image_name):
+    def detect(self):
         """
         装配正确性检测
-        :param image_name:
         :return:
         """
         # 开始计时
@@ -487,7 +487,7 @@ class AssembleDetection:
         return
 
 
-def single_detect():
+def single_detect(folder_dir):
     """
     检测单张图片
     :return:
@@ -497,32 +497,35 @@ def single_detect():
     img_name = '126.jpg'
     print()
     print('Detecting image:', img_name)
-    img_path = os.path.join(IMG_DIR, img_name)
+    img_path = os.path.join(folder_dir, img_name)
     detector = AssembleDetection(img_path)
     detector.detect()
 
 
-def folder_detect():
+def folder_detect(folder_dir):
     """
     检测目录下的所有图片
     :return:
     """
     sample_num = 0
     true_num = 0
-    img_list = os.listdir(IMG_DIR)
+    img_list = os.listdir(folder_dir)
     for img_name in img_list:
         sample_num += 1
         print('Detecting image:', img_name)
-        img_path = os.path.join(IMG_DIR, img_name)
+        img_path = os.path.join(folder_dir, img_name)
         detector = AssembleDetection(img_path)
-        detector.detect(img_name)
-        # if detector.res[DETECT_CLASS] == 1:
-        if sum(detector.res):
+        detector.detect()
+        if detector.res[DETECT_CLASS] == 1:
+        # if sum(detector.res):
             true_num += 1
 
     print('总数：', sample_num, '正确数：', true_num, '准确率：', true_num/sample_num)
 
 
 if __name__ == '__main__':
-    # single_detect()
-    folder_detect()
+    # normal, nothing, lack_cotton, lack_piece, wire_fail
+    folder = 'E:/backup/cigarette/lack_piece/'
+    # folder = '../data/cigarette/normal/'
+    # single_detect(folder)
+    folder_detect(folder)
