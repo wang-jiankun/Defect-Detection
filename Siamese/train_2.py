@@ -6,8 +6,8 @@ date: 2018-8-14
 import tensorflow as tf
 import numpy as np
 import os
-from Siamese_multi import inference, utils
-
+from Siamese_multi import utils
+from Siamese import inference_2
 
 learning_rate = 0.01
 iterations = 100
@@ -30,7 +30,7 @@ def multi_classify_train():
     keep_prob = tf.placeholder(tf.float32, name='multi_keep_prob')
 
     # 前向传播
-    result = inference.inference(input_vectors, keep_prob)
+    result = inference_2.inference(input_vectors, keep_prob)
 
     # 损失函数和优化器
     cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels=y, logits=result, name='multi_entropy')

@@ -57,7 +57,19 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
     elif model == 'My':
         log_dir = "../log/My"
         model_name = 'my.ckpt'
-        y = mynet.mynet_v1(x, is_training=True, num_classes=CLASSES)
+        # y = mynet.mynet_v1(x, is_training=True, num_classes=CLASSES)
+        y, _ = mobilenet_v1.mobilenet_v1(x,
+                                         num_classes=CLASSES,
+                                         dropout_keep_prob=1.0,
+                                         is_training=True,
+                                         min_depth=8,
+                                         depth_multiplier=1.0,
+                                         conv_defs=None,
+                                         prediction_fn=None,
+                                         spatial_squeeze=True,
+                                         reuse=None,
+                                         scope='MobilenetV1',
+                                         global_pool=GLOBAL_POOL)
     elif model == 'Mobile':
         log_dir = "../log/Mobile"
         model_name = 'mobile.ckpt'
@@ -135,7 +147,7 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
     loss = tf.reduce_mean(cross_entropy, name='loss')
     learning_rate = tf.train.exponential_decay(LEARNING_RATE_BASE, my_global_step, 100, LEARNING_RATE_DECAY)
     optimizer = tf.train.AdamOptimizer(learning_rate)
-    # 保证 train_op 在 update_ops执行之后再执行。
+    # 保证 train_op 在 update_ops执行之后再执行。BN中的滑动平均值操作。
     update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
     with tf.control_dependencies([tf.group(*update_ops)]):
         train_op = optimizer.minimize(loss, global_step=my_global_step)

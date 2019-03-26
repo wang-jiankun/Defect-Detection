@@ -17,7 +17,7 @@ IMG_V_SIZE = 1200
 TEMPL_DIR = '../data/cigarette/template/'
 SIZE_RATIO = 3
 SAVE_PATH = 'E:/1/'
-DETECT_CLASS = 3
+DETECT_CLASS = 4
 
 
 class AssembleDetection:
@@ -479,11 +479,11 @@ class AssembleDetection:
 
         # 显示图片
         # if self.res[DETECT_CLASS] == 1:
-        if sum(self.res):
+        # if sum(self.res):
             # cv2.imwrite(os.path.join(SAVE_PATH, image_name), self.color_img)
-            cv2.imshow('src', self.color_img)
-            cv2.waitKey()
-            cv2.destroyAllWindows()
+            # cv2.imshow('src', self.color_img)
+            # cv2.waitKey()
+            # cv2.destroyAllWindows()
         return
 
 
@@ -525,7 +525,7 @@ def folder_detect(folder_dir):
 
 if __name__ == '__main__':
     # normal, nothing, lack_cotton, lack_piece, wire_fail
-    folder = 'E:/backup/cigarette/lack_piece/'
+    folder = 'E:/backup/cigarette/normal'
     # folder = '../data/cigarette/normal/'
     # single_detect(folder)
     folder_detect(folder)
