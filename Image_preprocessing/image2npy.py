@@ -81,17 +81,17 @@ def siamese_sample_to_npy(data_path, save_path):
     # 电子烟装配类别
     class_dic = {'normal': 0, 'nothing': 1, 'lack_cotton': 2, 'lack_piece': 3, 'wire_fail': 4}
 
-    # 正常类别
-    normal_class_path = os.path.join(data_path, 'normal')
-    normal_img_list = os.listdir(normal_class_path)
-    normal_img_list = rd.sample(normal_img_list, 300)
-    for normal_img_name in normal_img_list:
-        normal_img = Image.open(os.path.join(normal_class_path, normal_img_name))
+    # 标准图片
+    std_class_path = os.path.join(data_path, 'std')
+    std_img_list = os.listdir(std_class_path)
+    # std_img_list = rd.sample(std_img_list, 300)
+    for std_img_name in std_img_list:
+        std_img = Image.open(os.path.join(std_class_path, std_img_name))
         # img.convert('L')
         # print(img.mode)
-        normal_img = normal_img.resize((IMG_SIZE, IMG_SIZE))
+        std_img = std_img.resize((IMG_SIZE, IMG_SIZE))
         # 添加数据和标签，根据文件夹名确定样本的标签
-        normal_img = np.array(normal_img)
+        std_img = np.array(std_img)
 
         # 遍历文件夹
         folder_list = os.listdir(data_path)
@@ -103,8 +103,8 @@ def siamese_sample_to_npy(data_path, save_path):
             class_path = os.path.join(data_path, folder)
             img_list = os.listdir(class_path)
             # 对正常类别进行降采样
-            if folder == 'normal':
-                img_list = rd.sample(img_list, 200)
+            # if folder == 'normal':
+            #     img_list = rd.sample(img_list, 200)
             for img_name in img_list:
                 print(img_name)
                 # 读取图片并缩放
@@ -113,7 +113,7 @@ def siamese_sample_to_npy(data_path, save_path):
                 # print(img.mode)
                 img = img.resize((IMG_SIZE, IMG_SIZE))
                 # 添加数据和标签，根据文件夹名确定样本的标签
-                sample = np.stack((normal_img, img), axis=-1)
+                sample = np.stack((std_img, img), axis=-1)
                 data.append(sample)
                 label.append(class_dic[folder])
                 per_class_num[folder] += 1

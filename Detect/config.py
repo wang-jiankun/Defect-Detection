@@ -26,8 +26,8 @@ if not USE_GPU:
 MODEL_NAME = 'My'
 # 数据集路径
 date_set_name = 'sia_cig_'  # b_cig_data_
-images_path = '../data/' + date_set_name + str(IMG_SIZE) + '.npy'
-labels_path = '../data/' + date_set_name + str(IMG_SIZE) + '.npy'
+images_path = '../data/' + date_set_name + 'data_' + str(IMG_SIZE) + '.npy'
+labels_path = '../data/' + date_set_name + 'label_' + str(IMG_SIZE) + '.npy'
 
 
 

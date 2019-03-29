@@ -15,9 +15,9 @@ import matplotlib
 IMG_H_SIZE = 2000
 IMG_V_SIZE = 1200
 TEMPL_DIR = '../data/cigarette/template/'
-SIZE_RATIO = 3
+SIZE_RATIO = 4
 SAVE_PATH = 'E:/1/'
-DETECT_CLASS = 4
+DETECT_CLASS = 1
 
 
 class AssembleDetection:
@@ -54,24 +54,29 @@ class AssembleDetection:
         cv2.imshow(name, img)
         cv2.imwrite(os.path.join(SAVE_PATH, name+'.jpg'), img)
 
-    def find_position(self, thresh=55):
+    def find_position(self, thresh=61):
         """
         找到检测目标的位置
         :param thresh: 阈值
         :return:
         """
         # 二值化
-        thresh_img = self.img_thresh(self.gray_img, thresh, 255)
+        thresh_img = self.img_thresh(self.gray_img, thresh, 255, 1)
+
         # self.show_save_img(thresh_img, 'object_thresh')
         # 开运算
         open_img = self.img_morphology(thresh_img, 2, 15)
+
+        # cv2.imshow('11', open_img)
+        # cv2.waitKey()
+        # cv2.destroyAllWindows()
         # self.show_save_img(open_img, 'object_open')
         # 找到工件的位置
         box = self.find_object(open_img, self.color_img, 0, True)
         return box
 
     @staticmethod
-    def img_thresh(img_gray, thresh, max_val, method=cv2.THRESH_BINARY):
+    def img_thresh(img_gray, thresh, max_val, method):
         """
         图像二值化
         :param img_gray: 灰度图
@@ -80,8 +85,14 @@ class AssembleDetection:
         :param method: 方法
         :return:
         """
-        # 普通阈值：cv2.THRESH_BINARY,自适应阈值：cv2.THRESH_OTSU, cv2.THRESH_TRUNC
-        _, dst = cv2.threshold(img_gray, thresh, max_val, method)
+        # 自适应阈值
+        # dst = cv2.adaptiveThreshold(img_gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 3)
+        # 普通阈值：cv2.THRESH_BINARY,最佳阈值：cv2.THRESH_OTSU+cv2.THRESH_BINARY,
+        if method == 2:
+            thresh = int(np.max(img_gray[0:100, 220]))
+        _, dst = cv2.threshold(img_gray, thresh, max_val, cv2.THRESH_BINARY)
+
+
         return dst
 
     @staticmethod
@@ -307,9 +318,9 @@ class AssembleDetection:
         lc_img = self.roi['lc']
         # self.show_save_img(lc_img, 'cotton_ng')
         rc_img = self.roi['rc']
-        lc_img = self.img_thresh(lc_img, thresh, 255)
+        lc_img = self.img_thresh(lc_img, thresh, 1, 1)
         # self.show_save_img(lc_img, 'cotton_thresh')
-        rc_img = self.img_thresh(rc_img, thresh, 1)
+        rc_img = self.img_thresh(rc_img, thresh, 1, 1)
         area = lc_img.shape[0]*lc_img.shape[1]
         lc_sum = np.sum(lc_img)
         rc_sum = np.sum(rc_img)
@@ -333,9 +344,9 @@ class AssembleDetection:
         # self.show_save_img(top_img, 'top_wire')
         bottom_img = self.roi['bottom']
         # self.show_save_img(bottom_img, 'bottom_wire')
-        top_img = self.img_thresh(top_img, thresh, 1)
+        top_img = self.img_thresh(top_img, thresh, 1, 1)
         # self.show_save_img(top_img, 'top_thresh')
-        bottom_img = self.img_thresh(bottom_img, thresh, 1)
+        bottom_img = self.img_thresh(bottom_img, thresh, 1, 1)
         # self.show_save_img(bottom_img, 'bottom_thresh')
         lc_sum = np.sum(top_img)
         rc_sum = np.sum(bottom_img)
@@ -361,9 +372,9 @@ class AssembleDetection:
         # self.show_save_img(roi_img, roi_name)
         roi_img = self.roi_pre(roi_img)
         # self.show_save_img(roi_img, roi_name+'_pre')
-        roi_img = self.img_thresh(roi_img, thresh, 1)
+        roi_img = self.img_thresh(roi_img, thresh, 1, 1)
         # roi_img = roi_img.astype(np.float32)
-        templ_img = self.img_thresh(templ_img, thresh, 1)
+        templ_img = self.img_thresh(templ_img, thresh, 1, 1)
         # self.show_save_img(roi_img, roi_name+'_thresh')
         dst = self.template_match(roi_img, templ_img, 1)
         min_value = np.min(dst)
@@ -372,7 +383,7 @@ class AssembleDetection:
         # cv2.rectangle(self.roi[roi_name], (col, row), (col+60, row+70), (0, 0, 255), 2)
         # self.show_save_img(self.roi[roi_name], roi_name + '_match')
         # print(dst)
-        if min_value < 0.45:
+        if min_value < 0.4:
             print(roi_name, 'Piece detect:', 'OK', 'match -', min_value)
             self.res[3] += 0
         else:
@@ -390,7 +401,7 @@ class AssembleDetection:
         # self.show_save_img(roi_img, roi_name)
         roi_img = self.roi_pre(roi_img)
         # self.show_save_img(roi_img, roi_name + '_pre')
-        roi_img = self.img_thresh(roi_img, thresh, 1)
+        roi_img = self.img_thresh(roi_img, thresh, 1, 1)
         # self.show_save_img(roi_img, roi_name + '_thresh')
         v_sum = np.sum(roi_img, 0, dtype=np.float)
 
@@ -455,6 +466,9 @@ class AssembleDetection:
         box = self.find_position()
         self.object_detect(box)
         if self.res[0]:
+            cv2.imshow('src', self.color_img)
+            cv2.waitKey()
+            cv2.destroyAllWindows()
             return
         # 设置 ROI
         self.set_roi(box, False)
@@ -477,13 +491,17 @@ class AssembleDetection:
         end_time = time.clock()
         print('run time: ', end_time - start_time)
 
+        # cv2.imshow('src', self.color_img)
+        # cv2.waitKey()
+        # cv2.destroyAllWindows()
+
         # 显示图片
         # if self.res[DETECT_CLASS] == 1:
-        # if sum(self.res):
-            # cv2.imwrite(os.path.join(SAVE_PATH, image_name), self.color_img)
-            # cv2.imshow('src', self.color_img)
-            # cv2.waitKey()
-            # cv2.destroyAllWindows()
+        if sum(self.res):
+        #     cv2.imwrite(os.path.join(SAVE_PATH, image_name), self.color_img)
+            cv2.imshow('src', self.color_img)
+            cv2.waitKey()
+            cv2.destroyAllWindows()
         return
 
 
@@ -525,7 +543,7 @@ def folder_detect(folder_dir):
 
 if __name__ == '__main__':
     # normal, nothing, lack_cotton, lack_piece, wire_fail
-    folder = 'E:/backup/cigarette/normal'
+    folder = 'E:/backup/cigarette/lack_cotton'
     # folder = '../data/cigarette/normal/'
     # single_detect(folder)
     folder_detect(folder)

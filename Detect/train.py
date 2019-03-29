@@ -9,7 +9,7 @@ import tensorflow.contrib.slim as slim
 from sklearn.model_selection import train_test_split
 import time
 
-MAX_STEP = 10000
+MAX_STEP = 20000
 LEARNING_RATE_BASE = 0.001
 LEARNING_RATE_DECAY = 0.95
 # 训练信息和保存权重的gap
@@ -19,7 +19,7 @@ SAVE_STEP = 2000
 BATCH_SIZE = 2
 
 
-def train(model=MODEL_NAME, inherit=False, fine_tune=False):
+def train(model=MODEL_NAME, inherit=True, fine_tune=False):
     """
     train a specified model
     :param model: the train model name
@@ -194,10 +194,10 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
         # 迭代
         while step < MAX_STEP:
             start_time = time.clock()
-            image_batch, label_batch = utils.get_batch(train_data, train_label, BATCH_SIZE)
+            train_image_batch, train_label_batch = utils.get_batch(train_data, train_label, BATCH_SIZE)
 
             # 训练，损失值和准确率
-            _ = sess.run(train_op, feed_dict={x: image_batch, y_: label_batch})
+            _ = sess.run(train_op, feed_dict={x: train_image_batch, y_: train_label_batch})
             end_time = time.clock()
             runtime = end_time - start_time
 
@@ -205,8 +205,12 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
             # 训练信息和保存模型
             if step % INFO_STEP == 0 or step == MAX_STEP:
                 train_loss, train_ac, train_summary = sess.run([loss, accuracy, merged_summary_op],
-                                                               feed_dict={x: image_batch, y_: label_batch})
+                                                               feed_dict={x: train_image_batch, y_: train_label_batch})
                 train_summary_writer.add_summary(train_summary, step)
+                # 如果训练集太大，分出来的测试集也只能选择一部分来测试
+                # test_image_batch, test_label_batch = utils.get_batch(val_data, val_label, 100)
+                # test_loss, test_ac, test_summary = sess.run([loss, accuracy, merged_summary_op],
+                #                                             feed_dict={x: test_image_batch, y_: test_label_batch})
                 test_loss, test_ac, test_summary = sess.run([loss, accuracy, merged_summary_op],
                                                             feed_dict={x: val_data, y_: val_label})
                 test_summary_writer.add_summary(test_summary, step)

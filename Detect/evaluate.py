@@ -50,7 +50,19 @@ def evaluate(model=MODEL_NAME):
                                   global_pool=GLOBAL_POOL)  # 输入不是规定的尺寸时，需要global_pool
     elif model == 'My':
         log_dir = "../log/My"
-        y = mynet.mynet_v1(x, is_training=IS_TRAINING, num_classes=CLASSES)
+        # y = mynet.mynet_v1(x, is_training=IS_TRAINING, num_classes=CLASSES)
+        y, _ = mobilenet_v1.mobilenet_v1(x,
+                                         num_classes=CLASSES,
+                                         dropout_keep_prob=1.0,
+                                         is_training=IS_TRAINING,
+                                         min_depth=8,
+                                         depth_multiplier=1.0,
+                                         conv_defs=None,
+                                         prediction_fn=None,
+                                         spatial_squeeze=True,
+                                         reuse=None,
+                                         scope='MobilenetV1',
+                                         global_pool=GLOBAL_POOL)
     elif model == 'Mobile':
         log_dir = "../log/Mobile"
         y, _ = mobilenet_v1.mobilenet_v1(x,
