@@ -18,6 +18,11 @@ TEMPL_DIR = '../data/cigarette/template/'
 SIZE_RATIO = 4
 SAVE_PATH = 'E:/1/'
 DETECT_CLASS = 1
+# 边框的颜色和线宽
+COLOR_1 = (0, 0, 255)
+LINE_1 = 5
+COLOR_2 = (0, 255, 0)
+LINE_2 = 4
 
 
 class AssembleDetection:
@@ -147,7 +152,7 @@ class AssembleDetection:
                 area = cv2.contourArea(contour)
                 if area > area_thresh:
                     box = x, y, w, h = cv2.boundingRect(contour)
-                    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 3)
+                    cv2.rectangle(img, (x, y), (x + w, y + h), COLOR_1, LINE_1)
 
         elif approximate_method == 1:
             contour = 0
@@ -255,7 +260,7 @@ class AssembleDetection:
         :param roi:
         :return:
         """
-        cv2.rectangle(self.color_img, (roi['x1'], roi['y1']), (roi['x2'], roi['y2']), (0, 0, 255), 2)
+        cv2.rectangle(self.color_img, (roi['x1'], roi['y1']), (roi['x2'], roi['y2']), COLOR_2, LINE_2)
 
     def roi_pre(self, img):
         """
@@ -491,31 +496,26 @@ class AssembleDetection:
         end_time = time.clock()
         print('run time: ', end_time - start_time)
 
-        # cv2.imshow('src', self.color_img)
-        # cv2.waitKey()
-        # cv2.destroyAllWindows()
+        cv2.imshow('src', self.color_img)
+        cv2.waitKey()
+        cv2.destroyAllWindows()
+        cv2.imwrite(os.path.join(SAVE_PATH, '11.jpg'), self.color_img)
 
         # 显示图片
         # if self.res[DETECT_CLASS] == 1:
         if sum(self.res):
-        #     cv2.imwrite(os.path.join(SAVE_PATH, image_name), self.color_img)
             cv2.imshow('src', self.color_img)
             cv2.waitKey()
             cv2.destroyAllWindows()
         return
 
 
-def single_detect(folder_dir):
+def single_detect(img_path):
     """
     检测单张图片
     :return:
     """
-    # img_list = os.listdir(IMG_DIR)
-    # img_name = img_list[1]
-    img_name = '126.jpg'
-    print()
-    print('Detecting image:', img_name)
-    img_path = os.path.join(folder_dir, img_name)
+    print('Detecting image:', img_path)
     detector = AssembleDetection(img_path)
     detector.detect()
 
@@ -543,7 +543,7 @@ def folder_detect(folder_dir):
 
 if __name__ == '__main__':
     # normal, nothing, lack_cotton, lack_piece, wire_fail
-    folder = 'E:/backup/cigarette/lack_cotton'
+    # single_detect('E:/1/find_obj_ok/src.jpg')
+    folder = 'E:/backup/cigarette/wire_fail'
     # folder = '../data/cigarette/normal/'
-    # single_detect(folder)
     folder_detect(folder)

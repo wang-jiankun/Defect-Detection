@@ -9,17 +9,17 @@ import tensorflow.contrib.slim as slim
 from sklearn.model_selection import train_test_split
 import time
 
-MAX_STEP = 20000
+MAX_STEP = 10000
 LEARNING_RATE_BASE = 0.001
 LEARNING_RATE_DECAY = 0.95
 # 训练信息和保存权重的gap
-INFO_STEP = 500
-SAVE_STEP = 2000
+INFO_STEP = 100
+SAVE_STEP = 9000
 # 图像尺寸
-BATCH_SIZE = 2
+BATCH_SIZE = 32
 
 
-def train(model=MODEL_NAME, inherit=True, fine_tune=False):
+def train(model=MODEL_NAME, inherit=False, fine_tune=False):
     """
     train a specified model
     :param model: the train model name
@@ -57,6 +57,7 @@ def train(model=MODEL_NAME, inherit=True, fine_tune=False):
     elif model == 'My':
         log_dir = "../log/My"
         model_name = 'my.ckpt'
+        fine_tune_path = '../log/weight/mobilenet_v1_1.0_224/mobilenet_v1_1.0_224.ckpt'
         # y = mynet.mynet_v1(x, is_training=True, num_classes=CLASSES)
         y, _ = mobilenet_v1.mobilenet_v1(x,
                                          num_classes=CLASSES,
@@ -70,12 +71,14 @@ def train(model=MODEL_NAME, inherit=True, fine_tune=False):
                                          reuse=None,
                                          scope='MobilenetV1',
                                          global_pool=GLOBAL_POOL)
+        variables_to_restore = slim.get_variables_to_restore(exclude=['MobilenetV1/Logits'])
     elif model == 'Mobile':
         log_dir = "../log/Mobile"
         model_name = 'mobile.ckpt'
+        fine_tune_path = '../log/weight/mobilenet_v1_1.0_224/mobilenet_v1_1.0_224.ckpt'
         y, _ = mobilenet_v1.mobilenet_v1(x,
                                          num_classes=CLASSES,
-                                         dropout_keep_prob=1.0,
+                                         dropout_keep_prob=0.8,
                                          is_training=True,
                                          min_depth=8,
                                          depth_multiplier=1.0,
@@ -208,11 +211,11 @@ def train(model=MODEL_NAME, inherit=True, fine_tune=False):
                                                                feed_dict={x: train_image_batch, y_: train_label_batch})
                 train_summary_writer.add_summary(train_summary, step)
                 # 如果训练集太大，分出来的测试集也只能选择一部分来测试
-                # test_image_batch, test_label_batch = utils.get_batch(val_data, val_label, 100)
-                # test_loss, test_ac, test_summary = sess.run([loss, accuracy, merged_summary_op],
-                #                                             feed_dict={x: test_image_batch, y_: test_label_batch})
+                test_image_batch, test_label_batch = utils.get_batch(val_data, val_label, 100)
                 test_loss, test_ac, test_summary = sess.run([loss, accuracy, merged_summary_op],
-                                                            feed_dict={x: val_data, y_: val_label})
+                                                            feed_dict={x: test_image_batch, y_: test_label_batch})
+                # test_loss, test_ac, test_summary = sess.run([loss, accuracy, merged_summary_op],
+                #                                             feed_dict={x: val_data, y_: val_label})
                 test_summary_writer.add_summary(test_summary, step)
 
                 print('step: %d, runtime: %.2f, train_loss: %.4f, test_loss: %.4f,train accuracy: %.4f, '

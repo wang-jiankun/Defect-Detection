@@ -10,7 +10,7 @@ import time
 # 图像目录路径
 # IMG_DIR = '../data/crop/pos/'
 # IMG_DIR = '../data/phone/'
-IMG_DIR = '../data/cigarette/normal/'      # normal
+IMG_DIR = '../data/cigarette/template/'      # normal
 IS_TRAINING = False
 
 
@@ -99,8 +99,11 @@ def predict(img_path, model=MODEL_NAME):
         # img = read_img(img_path)
         # # 第一次运行时间会较长
         # sess.run(y, feed_dict={x: img})
-        img_list = os.listdir(IMG_DIR)
-        for img_name in img_list[0:-1]:
+        if img_path:
+            img_list = [img_path]
+        else:
+            img_list = os.listdir(IMG_DIR)
+        for img_name in img_list:
             # img_name = '1.jpg'
             print(img_name)
             img_path = IMG_DIR + img_name
@@ -139,7 +142,7 @@ def read_img(img_path):
     :param img_path: 图片的路径
     :return: numpy array of image
     """
-    img = Image.open(img_path)
+    img = Image.open(img_path).convert('L')
     img = img.resize((IMG_SIZE, IMG_SIZE))
     # img = np.array(img)
     img = np.expand_dims(img, axis=0)
@@ -147,5 +150,5 @@ def read_img(img_path):
 
 
 if __name__ == '__main__':
-    predict('../data/test.jpg')
+    predict('1.jpg')
 
