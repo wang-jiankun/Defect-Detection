@@ -25,7 +25,7 @@ if not USE_GPU:
 # 模型名称 'Mobile' 'My'
 MODEL_NAME = 'Mobile'
 # 数据集路径
-date_set_name = 'b_cig_'  # sia_cig_
+date_set_name = 'b_cig_'  # b_cig_, sia_cig_, s_sia_cig_
 images_path = '../data/' + date_set_name + 'data_' + str(IMG_SIZE) + '.npy'
 labels_path = '../data/' + date_set_name + 'label_' + str(IMG_SIZE) + '.npy'
 

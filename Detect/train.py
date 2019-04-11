@@ -14,9 +14,9 @@ LEARNING_RATE_BASE = 0.001
 LEARNING_RATE_DECAY = 0.95
 # 训练信息和保存权重的gap
 INFO_STEP = 100
-SAVE_STEP = 9000
+SAVE_STEP = 1000
 # 图像尺寸
-BATCH_SIZE = 32
+BATCH_SIZE = 2
 
 
 def train(model=MODEL_NAME, inherit=False, fine_tune=False):
@@ -78,7 +78,7 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
         fine_tune_path = '../log/weight/mobilenet_v1_1.0_224/mobilenet_v1_1.0_224.ckpt'
         y, _ = mobilenet_v1.mobilenet_v1(x,
                                          num_classes=CLASSES,
-                                         dropout_keep_prob=0.8,
+                                         dropout_keep_prob=1.0,
                                          is_training=True,
                                          min_depth=8,
                                          depth_multiplier=1.0,
@@ -95,7 +95,7 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
         y, _ = vgg.vgg_16(x,
                           num_classes=CLASSES,
                           is_training=True,
-                          dropout_keep_prob=0.8,
+                          dropout_keep_prob=1.0,
                           spatial_squeeze=True,
                           global_pool=GLOBAL_POOL)
         variables_to_restore = slim.get_variables_to_restore(exclude=['vgg_16/fc8'])
@@ -211,7 +211,7 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
                                                                feed_dict={x: train_image_batch, y_: train_label_batch})
                 train_summary_writer.add_summary(train_summary, step)
                 # 如果训练集太大，分出来的测试集也只能选择一部分来测试
-                test_image_batch, test_label_batch = utils.get_batch(val_data, val_label, 100)
+                test_image_batch, test_label_batch = utils.get_batch(val_data, val_label, 50)
                 test_loss, test_ac, test_summary = sess.run([loss, accuracy, merged_summary_op],
                                                             feed_dict={x: test_image_batch, y_: test_label_batch})
                 # test_loss, test_ac, test_summary = sess.run([loss, accuracy, merged_summary_op],

@@ -10,7 +10,7 @@ import time
 # 图像目录路径
 # IMG_DIR = '../data/crop/pos/'
 # IMG_DIR = '../data/phone/'
-IMG_DIR = '../data/cigarette/template/'      # normal
+IMG_DIR = '../data/'      # normal
 IS_TRAINING = False
 
 
@@ -35,7 +35,18 @@ def predict(img_path, model=MODEL_NAME):
                                   global_pool=GLOBAL_POOL)        # 输入不是规定的尺寸时，需要global_pool
     elif model == 'My':
         log_dir = "../log/My"
-        y = mynet.mynet_v1(x, is_training=IS_TRAINING, num_classes=CLASSES)
+        y, _ = mobilenet_v1.mobilenet_v1(x,
+                                         num_classes=CLASSES,
+                                         dropout_keep_prob=1.0,
+                                         is_training=IS_TRAINING,
+                                         min_depth=8,
+                                         depth_multiplier=1.0,
+                                         conv_defs=None,
+                                         prediction_fn=None,
+                                         spatial_squeeze=True,
+                                         reuse=None,
+                                         scope='MobilenetV1',
+                                         global_pool=GLOBAL_POOL)
     elif model == 'Mobile':
         log_dir = "../log/Mobile"
         y, _ = mobilenet_v1.mobilenet_v1(x,
@@ -100,7 +111,7 @@ def predict(img_path, model=MODEL_NAME):
         # # 第一次运行时间会较长
         # sess.run(y, feed_dict={x: img})
         if img_path:
-            img_list = [img_path]
+            img_list = img_path
         else:
             img_list = os.listdir(IMG_DIR)
         for img_name in img_list:
@@ -111,6 +122,10 @@ def predict(img_path, model=MODEL_NAME):
             # 如果输入是灰色图，要增加一维
             if CHANNEL == 1:
                 img = np.expand_dims(img, axis=3)
+            if MODEL_NAME == 'My':
+                std_img_path = IMG_DIR + 'std.jpg'
+                std_img = read_img(std_img_path)
+                img = np.stack((std_img, img), axis=-1)
 
             start_time = time.clock()
             predictions = sess.run(y, feed_dict={x: img})
@@ -150,5 +165,5 @@ def read_img(img_path):
 
 
 if __name__ == '__main__':
-    predict('1.jpg')
+    predict(['1.jpg', '1.jpg'])
 

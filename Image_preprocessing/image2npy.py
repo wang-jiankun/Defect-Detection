@@ -76,7 +76,7 @@ def siamese_sample_to_npy(data_path, save_path):
     """
     data, label = [], []
     per_class_num = {'normal': 0, 'nothing': 0, 'lack_cotton': 0, 'lack_piece': 0, 'wire_fail': 0}
-    save_name = 'sia_cig_'
+    save_name = 's_sia_cig_'
 
     # 电子烟装配类别
     class_dic = {'normal': 0, 'nothing': 1, 'lack_cotton': 2, 'lack_piece': 3, 'wire_fail': 4}
@@ -163,7 +163,8 @@ if __name__ == '__main__':
     print('running image2npy:')
     # alum_to_npy('../data/alum', '../data')
     # multi_class_to_npy('../data/cigarette', '../data')
-    siamese_sample_to_npy('../data/cigarette', '../data')
+    # siamese_sample_to_npy('../data/cigarette', '../data')
+    siamese_sample_to_npy('E:/backup/cigarette', '../data')
 
 
 
