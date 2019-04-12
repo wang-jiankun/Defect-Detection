@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4256552a-cf68-4251-944f-476e81a1b257" name="Default" comment="2019-4-4">
+    <list default="true" id="4256552a-cf68-4251-944f-476e81a1b257" name="Default" comment="2019-4-11">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Detect/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/Detect/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Detect/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/Detect/predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Detect/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/Detect/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image_preprocessing/image2npy.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image_preprocessing/image2npy.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -93,12 +89,12 @@
           <entry key="dummy" value="21" />
           <entry key="evaluate (1)" value="42" />
           <entry key="py" value="16881" />
-          <entry key="txt" value="50" />
+          <entry key="txt" value="52" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="92" />
+          <entry key="PLAIN_TEXT" value="94" />
           <entry key="Python" value="16927" />
         </counts>
       </usages-collector>
@@ -139,8 +135,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Detect/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="546">
-              <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+            <state relative-caret-position="716">
+              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
               <folding>
                 <element signature="e#53#71#0" expanded="true" />
               </folding>
@@ -251,30 +247,7 @@
             <path>
               <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="cigarette" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="cigarette" type="462c0819:PsiDirectoryNode" />
-              <item name="std" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
               <item name="Detect" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="Image_preprocessing" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
@@ -285,6 +258,11 @@
               <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
               <item name="mv" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
+              <item name="nets" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -677,7 +655,14 @@
       <option name="project" value="LOCAL" />
       <updated>1554370862998</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="2019-4-11">
+      <created>1554971222803</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1554971222803</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -696,9 +681,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4988764" visible="true" weight="0.23523094" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4988764" visible="true" weight="0.23523094" />
       <window_info id="Structure" order="1" sideWeight="0.5011236" side_tool="true" weight="0.22251585" />
       <window_info id="Favorites" order="2" sideWeight="0.5011236" side_tool="true" weight="0.22251585" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -710,7 +694,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32922733" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32922733" />
       <window_info anchor="bottom" id="Python Console" order="8" weight="0.49048153" />
-      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3295964" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50160944" side_tool="true" weight="0.14893617" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
@@ -748,6 +732,32 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -776,7 +786,8 @@
     <MESSAGE value="2019-3-26" />
     <MESSAGE value="2019-3-29" />
     <MESSAGE value="2019-4-4" />
-    <option name="LAST_COMMIT_MESSAGE" value="2019-4-4" />
+    <MESSAGE value="2019-4-11" />
+    <option name="LAST_COMMIT_MESSAGE" value="2019-4-11" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1090,6 +1101,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="582">
           <caret line="74" column="17" lean-forward="true" selection-start-line="74" selection-start-column="17" selection-end-line="74" selection-end-column="17" />
+          <folding>
+            <element signature="e#51#69#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1116,8 +1130,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Detect/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+        <state relative-caret-position="716">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
           <folding>
             <element signature="e#53#71#0" expanded="true" />
           </folding>
