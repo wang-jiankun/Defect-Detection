@@ -65,7 +65,7 @@ class AssembleDetection:
         :param thresh: 阈值
         :return:
         """
-        # 二值化
+        #  二值化
         thresh_img = self.img_thresh(self.gray_img, thresh, 255, 1)
 
         # self.show_save_img(thresh_img, 'object_thresh')
