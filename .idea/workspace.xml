@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4256552a-cf68-4251-944f-476e81a1b257" name="Default" comment="2019-4-11">
+    <list default="true" id="4256552a-cf68-4251-944f-476e81a1b257" name="Default" comment="2019-4-12">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image_preprocessing/image_augmentation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image_preprocessing/image_augmentation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mv/cig_detection.py" beforeDir="false" afterPath="$PROJECT_DIR$/mv/cig_detection.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,10 +15,10 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/Defect_Detection$evaluate.coverage" NAME="evaluate Coverage Results" MODIFIED="1554875265409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Detect" />
     <SUITE FILE_PATH="coverage/Defect_Detection$predict__1_.coverage" NAME="predict (1) Coverage Results" MODIFIED="1547083150579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Detect" />
-    <SUITE FILE_PATH="coverage/Defect_Detection$cig_detection.coverage" NAME="cig_detection Coverage Results" MODIFIED="1554363589459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mv" />
+    <SUITE FILE_PATH="coverage/Defect_Detection$cig_detection.coverage" NAME="cig_detection Coverage Results" MODIFIED="1555488619426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mv" />
     <SUITE FILE_PATH="coverage/Defect_Detection$predict.coverage" NAME="predict Coverage Results" MODIFIED="1554875015678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Detect" />
     <SUITE FILE_PATH="coverage/Defect_Detection$image_segmentation.coverage" NAME="image_segmentation Coverage Results" MODIFIED="1543907274083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Image_preprocessing" />
-    <SUITE FILE_PATH="coverage/Defect_Detection$image_augmentation.coverage" NAME="image_augmentation Coverage Results" MODIFIED="1551259122002" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Image_preprocessing" />
+    <SUITE FILE_PATH="coverage/Defect_Detection$image_augmentation.coverage" NAME="image_augmentation Coverage Results" MODIFIED="1555299658548" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Image_preprocessing" />
     <SUITE FILE_PATH="coverage/Defect_Detection$base.coverage" NAME="base Coverage Results" MODIFIED="1545360618985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mv" />
     <SUITE FILE_PATH="coverage/Defect_Detection$main.coverage" NAME="main Coverage Results" MODIFIED="1550475175007" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/qt" />
     <SUITE FILE_PATH="coverage/Defect_Detection$evaluate__1_.coverage" NAME="evaluate (1) Coverage Results" MODIFIED="1553749475029" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Detect" />
@@ -67,7 +69,7 @@
           <entry key="json" value="1" />
           <entry key="md" value="3" />
           <entry key="png" value="2" />
-          <entry key="py" value="410" />
+          <entry key="py" value="418" />
           <entry key="pyi" value="1" />
           <entry key="txt" value="3" />
         </counts>
@@ -78,7 +80,7 @@
           <entry key="JSON" value="1" />
           <entry key="Markdown" value="3" />
           <entry key="PLAIN_TEXT" value="17" />
-          <entry key="Python" value="410" />
+          <entry key="Python" value="418" />
           <entry key="PythonStub" value="1" />
         </counts>
       </usages-collector>
@@ -88,14 +90,14 @@
           <entry key="cig_detection" value="4" />
           <entry key="dummy" value="21" />
           <entry key="evaluate (1)" value="42" />
-          <entry key="py" value="16881" />
-          <entry key="txt" value="52" />
+          <entry key="py" value="16993" />
+          <entry key="txt" value="53" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="94" />
-          <entry key="Python" value="16927" />
+          <entry key="PLAIN_TEXT" value="95" />
+          <entry key="Python" value="17039" />
         </counts>
       </usages-collector>
     </session>
@@ -114,32 +116,44 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Detect/evaluate.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3224">
-              <caret line="126" column="44" selection-start-line="126" selection-start-column="44" selection-end-line="126" selection-end-column="44" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Detect/predict.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4290">
-              <caret line="167" column="24" selection-start-line="167" selection-start-column="24" selection-end-line="167" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Detect/config.py">
+        <entry file="file://$PROJECT_DIR$/mv/cig_detection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="716">
-              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+            <state relative-caret-position="310">
+              <caret line="45" column="21" selection-start-line="45" selection-start-column="21" selection-end-line="45" selection-end-column="21" />
               <folding>
-                <element signature="e#53#71#0" expanded="true" />
+                <element signature="e#53#63#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://E:/Python36/Lib/site-packages/cv2/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="182">
+              <caret line="7" column="33" lean-forward="true" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://E:/Python36/Lib/importlib/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="125" column="27" selection-start-line="125" selection-start-column="27" selection-end-line="125" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://E:/Python36/Lib/importlib/_bootstrap.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="25">
+              <caret line="935" column="4" selection-start-line="935" selection-start-column="4" selection-end-line="935" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -202,19 +216,19 @@
         <option value="$PROJECT_DIR$/qt/LogDialog.py" />
         <option value="$PROJECT_DIR$/qt/weight/Mobile/checkpoint" />
         <option value="$PROJECT_DIR$/qt/MainWindow.py" />
-        <option value="$PROJECT_DIR$/Image_preprocessing/image_augmentation.py" />
         <option value="$PROJECT_DIR$/mv/evaluate.py" />
         <option value="$PROJECT_DIR$/Siamese_multi/train.py" />
         <option value="$PROJECT_DIR$/Siamese/train_2.py" />
         <option value="$PROJECT_DIR$/Detect/evaluate.py" />
         <option value="$PROJECT_DIR$/log/My/checkpoint" />
         <option value="$PROJECT_DIR$/mv/ps.py" />
-        <option value="$PROJECT_DIR$/mv/cig_detection.py" />
         <option value="$PROJECT_DIR$/log/Mobile/checkpoint" />
         <option value="$PROJECT_DIR$/Detect/train.py" />
         <option value="$PROJECT_DIR$/Detect/predict.py" />
         <option value="$PROJECT_DIR$/Image_preprocessing/image2npy.py" />
         <option value="$PROJECT_DIR$/Detect/config.py" />
+        <option value="$PROJECT_DIR$/Image_preprocessing/image_augmentation.py" />
+        <option value="$PROJECT_DIR$/mv/cig_detection.py" />
       </list>
     </option>
   </component>
@@ -252,17 +266,12 @@
             <path>
               <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="log" type="462c0819:PsiDirectoryNode" />
+              <item name="Image_preprocessing" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
               <item name="mv" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Defect_Detection" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Defect_Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="nets" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -305,7 +314,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.evaluate">
+  <component name="RunManager" selected="Python.cig_detection">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="Defect_Detection" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -372,7 +381,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="image2npy" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="image_augmentation" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Defect_Detection" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -385,7 +394,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Image_preprocessing/image2npy.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Image_preprocessing/image_augmentation.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -441,17 +450,17 @@
     <list>
       <item itemvalue="Python.train" />
       <item itemvalue="Python.evaluate" />
-      <item itemvalue="Python.cig_detection" />
       <item itemvalue="Python.predict" />
-      <item itemvalue="Python.image2npy" />
+      <item itemvalue="Python.image_augmentation" />
+      <item itemvalue="Python.cig_detection" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.cig_detection" />
+        <item itemvalue="Python.image_augmentation" />
         <item itemvalue="Python.evaluate" />
         <item itemvalue="Python.predict" />
         <item itemvalue="Python.train" />
-        <item itemvalue="Python.image2npy" />
-        <item itemvalue="Python.cig_detection" />
       </list>
     </recent_temporary>
   </component>
@@ -662,7 +671,14 @@
       <option name="project" value="LOCAL" />
       <updated>1554971222803</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="2019-4-12">
+      <created>1555060826096</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1555060826096</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -680,15 +696,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4988764" visible="true" weight="0.23523094" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4988764" visible="true" weight="0.23523094" />
       <window_info id="Structure" order="1" sideWeight="0.5011236" side_tool="true" weight="0.22251585" />
       <window_info id="Favorites" order="2" sideWeight="0.5011236" side_tool="true" weight="0.22251585" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32735425" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49839056" visible="true" weight="0.43609866" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.28555432" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49839056" visible="true" weight="0.32174888" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.28475335" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32922733" />
@@ -762,7 +779,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="11-26" />
     <MESSAGE value="218-11-29" />
     <MESSAGE value="218-12-4" />
     <MESSAGE value="218-12-6" />
@@ -787,7 +803,8 @@
     <MESSAGE value="2019-3-29" />
     <MESSAGE value="2019-4-4" />
     <MESSAGE value="2019-4-11" />
-    <option name="LAST_COMMIT_MESSAGE" value="2019-4-11" />
+    <MESSAGE value="2019-4-12" />
+    <option name="LAST_COMMIT_MESSAGE" value="2019-4-12" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -826,30 +843,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://E:/Python36/Lib/site-packages/PIL/_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/Python36/Lib/site-packages/pymysql/err.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="108" selection-start-line="108" selection-end-line="108" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/qt/MainWindow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1076">
-          <caret line="69" column="13" lean-forward="true" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
-          <folding>
-            <element signature="e#51#161#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/qt/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
@@ -857,24 +850,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/-965805770/cv2/cv2/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="7131" column="4" selection-start-line="7131" selection-start-column="4" selection-end-line="7131" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://E:/Python36/Lib/site-packages/PIL/Image.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
           <caret line="2548" column="4" selection-start-line="2548" selection-start-column="4" selection-end-line="2548" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Image_preprocessing/image_augmentation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="286" column="81" selection-start-line="286" selection-start-column="81" selection-end-line="286" selection-end-column="81" />
         </state>
       </provider>
     </entry>
@@ -1090,13 +1069,6 @@
     <entry file="file://$PROJECT_DIR$/data/cigarette/std/38.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/mv/cig_detection.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="546" column="44" selection-start-line="546" selection-start-column="13" selection-end-line="546" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Image_preprocessing/image2npy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="582">
@@ -1121,19 +1093,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Detect/predict.py">
+    <entry file="file://$PROJECT_DIR$/Image_preprocessing/image_augmentation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4290">
-          <caret line="167" column="24" selection-start-line="167" selection-start-column="24" selection-end-line="167" selection-end-column="24" />
+        <state relative-caret-position="157">
+          <caret line="265" column="28" selection-start-line="265" selection-start-column="28" selection-end-line="265" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Detect/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="716">
+        <state relative-caret-position="832">
           <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
           <folding>
             <element signature="e#53#71#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Detect/predict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="167" column="24" selection-start-line="167" selection-start-column="24" selection-end-line="167" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Python36/Lib/importlib/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="125" column="27" selection-start-line="125" selection-start-column="27" selection-end-line="125" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Python36/Lib/importlib/_bootstrap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="935" column="4" selection-start-line="935" selection-start-column="4" selection-end-line="935" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Python36/Lib/site-packages/cv2/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="7" column="33" lean-forward="true" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/-965805770/cv2/cv2/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="858">
+          <caret line="7131" column="25" selection-start-line="7131" selection-start-column="25" selection-end-line="7131" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mv/cig_detection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="45" column="21" selection-start-line="45" selection-start-column="21" selection-end-line="45" selection-end-column="21" />
+          <folding>
+            <element signature="e#53#63#0" expanded="true" />
           </folding>
         </state>
       </provider>

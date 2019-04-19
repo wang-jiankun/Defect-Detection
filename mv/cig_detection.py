@@ -16,8 +16,8 @@ IMG_H_SIZE = 2000
 IMG_V_SIZE = 1200
 TEMPL_DIR = '../data/cigarette/template/'
 SIZE_RATIO = 4
-SAVE_PATH = 'E:/1/'
-DETECT_CLASS = 1
+SAVE_PATH = 'E:/paper/'
+DETECT_CLASS = 4
 # 边框的颜色和线宽
 COLOR_1 = (0, 0, 255)
 LINE_1 = 5
@@ -471,9 +471,6 @@ class AssembleDetection:
         box = self.find_position()
         self.object_detect(box)
         if self.res[0]:
-            cv2.imshow('src', self.color_img)
-            cv2.waitKey()
-            cv2.destroyAllWindows()
             return
         # 设置 ROI
         self.set_roi(box, False)
@@ -496,14 +493,14 @@ class AssembleDetection:
         end_time = time.clock()
         print('run time: ', end_time - start_time)
 
-        cv2.imshow('src', self.color_img)
-        cv2.waitKey()
-        cv2.destroyAllWindows()
-        cv2.imwrite(os.path.join(SAVE_PATH, '11.jpg'), self.color_img)
+        # cv2.imshow('src', self.color_img)
+        # cv2.waitKey()
+        # cv2.destroyAllWindows()
+        # cv2.imwrite(os.path.join(SAVE_PATH, 'ob.jpg'), self.color_img)
 
         # 显示图片
-        # if self.res[DETECT_CLASS] == 1:
-        if sum(self.res):
+        if self.res[DETECT_CLASS] != 1:
+        # if sum(self.res):
             cv2.imshow('src', self.color_img)
             cv2.waitKey()
             cv2.destroyAllWindows()
@@ -543,7 +540,7 @@ def folder_detect(folder_dir):
 
 if __name__ == '__main__':
     # normal, nothing, lack_cotton, lack_piece, wire_fail
-    # single_detect('E:/1/find_obj_ok/src.jpg')
+    # single_detect('E:/paper/find_obj_ng/src.jpg')
     folder = 'E:/backup/cigarette/wire_fail'
     # folder = '../data/cigarette/normal/'
     folder_detect(folder)
