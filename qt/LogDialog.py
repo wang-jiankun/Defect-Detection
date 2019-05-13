@@ -111,13 +111,12 @@ class DefectLog(QDialog):
         for j in self.defect_logs:
             defect_class = self.name_class_dic[j[2]]
             if -1 < defect_class < 5:
-                self.class_num_list[defect_class] += 1
+                self.class_num_list[defect_class-1] += 1
         # 计算各缺陷的占比，并填充到相应的单元格
-        for k in range(len(self.class_num_list)):
-            self.table_statistics.setItem(k, 1, QTableWidgetItem(str(self.class_num_list[k])))
+        for k in range(4):
+            self.table_statistics.setItem(k, 1, QTableWidgetItem(str(self.class_num_list[k-1])))
             if sum(self.class_num_list):
-                self.table_statistics.setItem(k, 2, QTableWidgetItem('%.2f' %
-                                                                     (self.class_num_list[k]/sum(self.class_num_list))))
+                self.table_statistics.setItem(k, 2, QTableWidgetItem('%.2f' % (self.class_num_list[k-1]/sum(self.class_num_list))))
 
     def slot_save(self):
         """
@@ -133,8 +132,5 @@ class DefectLog(QDialog):
                                        '检测时间': [x[2] for x in self.defect_logs]})
             defect_csv.to_csv(file_name[0])
         else:
-            statistics_csv = pd.DataFrame({self.table_statistics.horizontalHeaderItem(0).text(): [i for i in range(12)],
-                                           self.table_statistics.horizontalHeaderItem(1).text(): self.class_num_list,
-                                           self.table_statistics.horizontalHeaderItem(2).text():
-                                               [self.table_statistics.itemAt(i, 3).text() for i in range(12)]})
+            statistics_csv = pd.DataFrame({self.table_statistics.horizontalHeaderItem(0).text(): [i for i in range(5)], self.table_statistics.horizontalHeaderItem(1).text(): self.class_num_list, self.table_statistics.horizontalHeaderItem(2).text(): [self.table_statistics.itemAt(i, 3).text() for i in range(5)]})
             statistics_csv.to_csv(file_name[0], index=False)
