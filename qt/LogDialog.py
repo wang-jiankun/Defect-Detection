@@ -19,8 +19,8 @@ class DetectLog(QDialog):
         loadUi('ui_detect_log.ui', self)
 
         # 连接数据库
-        self.connection = pymysql.connect(host='localhost', user='root', password='1234',
-                                          db='detection_data', charset='utf8')
+        self.connection = pymysql.connect(host='localhost', user='root', password='123456',
+                                          db='detection', charset='utf8')
         self.cursor = self.connection.cursor()
         # 检索数据库中所有检测记录
         sql = "SELECT path,time,detect_class FROM detection_log"
@@ -79,11 +79,10 @@ class DefectLog(QDialog):
         super(DefectLog, self).__init__()
         loadUi('ui_defect_log.ui', self)
 
-        # self.name_class_dic = {'正常': 0, '不导电': 1, '划痕': 2, '污渍': 3, '桔皮': 4, '漏底': 5, '起坑': 6, '脏点': 7}
         self.name_class_dic = {'normal': 0, 'nothing': 1, 'lack_cotton': 2, 'lack_piece': 3, 'wire_fail': 4}
         # 连接数据库
-        self.connection = pymysql.connect(host='localhost', user='root', password='1234',
-                                          db='detection_data', charset='utf8')
+        self.connection = pymysql.connect(host='localhost', user='root', password='123456',
+                                          db='detection', charset='utf8')
         self.cursor = self.connection.cursor()
         # 检索数据库中所有检测为缺陷的记录
         sql = "SELECT path,time,detect_class FROM detection_log WHERE detect_class != 'normal'"

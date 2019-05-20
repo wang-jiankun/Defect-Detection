@@ -33,10 +33,9 @@ class Detect(QMainWindow):
         self.folder_path = None
 
         # 连接数据库
-        self.connection = pymysql.connect(host='localhost', user='root', password='1234',
-                                          db='detection_data', charset='utf8')
+        self.connection = pymysql.connect(host='localhost', user='root', password='123456',
+                                          db='detection', charset='utf8')
         self.cursor = self.connection.cursor()
-        # self.class_name_dic = {0: '正常', 1: '不导电', 2: '划痕', 3: '污渍', 4: '桔皮', 5: '漏底', 6: '起坑', 7: '脏点'}
         self.class_name_dic = {0: 'normal', 1: 'nothing', 2: 'lack_cotton', 3: 'lack_piece', 4: 'wire_fail'}
         # 主窗口，信号与槽绑定，初始化设置
         self.ac_exit.triggered.connect(QApplication.exit)

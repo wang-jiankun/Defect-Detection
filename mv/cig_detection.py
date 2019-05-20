@@ -97,7 +97,6 @@ class AssembleDetection:
             thresh = int(np.max(img_gray[0:100, 220]))
         _, dst = cv2.threshold(img_gray, thresh, max_val, cv2.THRESH_BINARY)
 
-
         return dst
 
     @staticmethod
