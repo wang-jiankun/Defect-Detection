@@ -43,6 +43,8 @@ class Detect(QMainWindow):
         self.ac_defect_log.triggered.connect(self.action_defect_log)
         self.ac_update_model.triggered.connect(self.action_update_model)
         self.ac_open_website.triggered.connect(self.action_open_website)
+        self.ac_database_set.triggered.connect(self.action_database_set)
+
         self.pb_detect.clicked.connect(self.slot_detect)
         self.pb_choose_image.clicked.connect(self.slot_image_browser)
         self.pb_choose_folder.clicked.connect(self.slot_folder_browser)
@@ -216,6 +218,16 @@ class Detect(QMainWindow):
         defect_dialog = LogDialog.DefectLog()
         defect_dialog.show()
         defect_dialog.exec()
+
+    @staticmethod
+    def action_database_set(self):
+        """
+        打开数据库配置窗口
+        :return:
+        """
+        db_dialog = LogDialog.DatabaseSet()
+        db_dialog.show()
+        db_dialog.exec()
 
     def action_update_model(self):
         """

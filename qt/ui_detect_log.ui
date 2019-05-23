@@ -9,12 +9,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>500</width>
     <height>500</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>微软雅黑</family>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
-   <string>Detection Record</string>
+   <string>检查记录</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="15,1">
    <item>
@@ -41,7 +47,7 @@
       <number>3</number>
      </property>
      <attribute name="horizontalHeaderDefaultSectionSize">
-      <number>193</number>
+      <number>160</number>
      </attribute>
      <attribute name="horizontalHeaderMinimumSectionSize">
       <number>80</number>

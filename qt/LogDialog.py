@@ -133,3 +133,40 @@ class DefectLog(QDialog):
         else:
             statistics_csv = pd.DataFrame({self.table_statistics.horizontalHeaderItem(0).text(): [i for i in range(5)], self.table_statistics.horizontalHeaderItem(1).text(): self.class_num_list, self.table_statistics.horizontalHeaderItem(2).text(): [self.table_statistics.itemAt(i, 3).text() for i in range(5)]})
             statistics_csv.to_csv(file_name[0], index=False)
+
+
+class DatabaseSet(QDialog):
+    """
+    数据库配置类
+    """
+    def __init__(self):
+        super(DatabaseSet, self).__init__()
+        loadUi('ui_database_set.ui', self)
+
+        self.pb_db_ok.clicked.connect(self.slot_db_set)
+        self.pb_db_test.clicked.connect(self.slot_db_test)
+        self.pb_db_cancel.clicked.connect(self.close)
+
+    def slot_db_set(self):
+        """
+        数据库配置
+        :return:
+        """
+        print('ok')
+
+    def slot_db_test(self):
+        """
+        测试数据库连接
+        :return:
+        """
+        ip = self.le_ip.text()
+        port = self.le_port.text()
+        ac = self.le_ac.text()
+        pw = self.le_pw.text()
+        db = self.le_db.text()
+
+        try:
+            pymysql.connect(host=ip, user=ac, port=port, password=pw, db=db, charset='utf8')
+            print(1)
+        except:
+            print(2)
