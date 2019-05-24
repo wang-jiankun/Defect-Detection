@@ -152,7 +152,7 @@ class DatabaseSet(QDialog):
         数据库配置
         :return:
         """
-        print('ok')
+        print('数据库连接成功')
 
     def slot_db_test(self):
         """
@@ -160,13 +160,16 @@ class DatabaseSet(QDialog):
         :return:
         """
         ip = self.le_ip.text()
-        port = self.le_port.text()
+        port = int(self.le_port.text())
         ac = self.le_ac.text()
         pw = self.le_pw.text()
         db = self.le_db.text()
 
         try:
-            pymysql.connect(host=ip, user=ac, port=port, password=pw, db=db, charset='utf8')
-            print(1)
+            pymysql.connect(host=ip, port=port, user=ac, password=pw, db=db, charset='utf8')
+            # pymysql.connect(host='localhost', user='root', password='123456', db='detection', charset='utf8')
+            self.le_test_res.setText('连接测试成功')
+            print('数据库连接测试成功')
         except:
-            print(2)
+            self.le_test_res.setText('连接测试失败')
+            print('数据库连接测试失败')

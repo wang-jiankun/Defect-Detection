@@ -67,7 +67,7 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_7">
          <property name="topMargin">
-          <number>5</number>
+          <number>0</number>
          </property>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -154,7 +154,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="cb_">
+              <widget class="QComboBox" name="cb_n">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -169,7 +169,7 @@
                </property>
                <item>
                 <property name="text">
-                 <string>Mobile</string>
+                 <string>MobileNet</string>
                 </property>
                </item>
                <item>
@@ -208,7 +208,7 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <property name="topMargin">
-          <number>5</number>
+          <number>0</number>
          </property>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -381,7 +381,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="5,2">
+     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="7,3">
       <item>
        <widget class="QGroupBox" name="groupBox">
         <property name="title">
@@ -497,9 +497,6 @@
          </item>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout">
-           <property name="spacing">
-            <number>5</number>
-           </property>
            <item>
             <widget class="QPushButton" name="pb_open_file">
              <property name="enabled">

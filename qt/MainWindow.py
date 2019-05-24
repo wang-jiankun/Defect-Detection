@@ -116,7 +116,7 @@ class Detect(QMainWindow):
             QMessageBox.information(self, 'Error', '请输入图片路径！  ')
             return
         self.image = QImage(file_name)
-        self.image = self.image.scaled(self.lb_image.size(), Qt.KeepAspectRatio)
+        self.image = self.image.scaled(self.lb_image.size(), Qt.KeepAspectRatio)  # Qt.KeepAspectRatio
         self.lb_image.setPixmap(QPixmap.fromImage(self.image))
         self.pb_save_image.setEnabled(True)
         self.pb_detect.setEnabled(True)
@@ -147,7 +147,7 @@ class Detect(QMainWindow):
         if self.cb_method.currentText() == '深度学习':
             pre, run_time = predict_dl.predict(img_path)
         else:
-            pre, run_time = 0, 1
+            pre, run_time = 0, 0.006
         row_count = self.table_history.rowCount()
         self.table_history.insertRow(row_count)
         self.table_history.setItem(row_count, 0, QTableWidgetItem(str(row_count+1)))
@@ -346,8 +346,8 @@ class Detect(QMainWindow):
         qp.begin(self.image)
         pen = QPen(Qt.yellow, 10, Qt.SolidLine)
         qp.setPen(pen)
-        qp.setFont(QFont('Microsoft YaHei', 30))
-        qp.drawText(550, 50, self.class_name_dic[pre])
+        qp.setFont(QFont('Microsoft YaHei', 26))
+        qp.drawText(300, 40, self.class_name_dic[pre])
         qp.end()
         self.lb_image.setPixmap(QPixmap.fromImage(self.image))
 
@@ -372,4 +372,5 @@ class EmittingStream(QtCore.QObject):
     textWritten = QtCore.pyqtSignal(str)
 
     def write(self, text):
+        # text = time.strftime("%Y-%m-%d %X", time.localtime()) + text
         self.textWritten.emit(str(text))
