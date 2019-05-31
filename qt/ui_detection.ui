@@ -117,12 +117,12 @@
                </property>
                <item>
                 <property name="text">
-                 <string>图像处理</string>
+                 <string>深度学习</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>深度学习</string>
+                 <string>图像处理</string>
                 </property>
                </item>
               </widget>

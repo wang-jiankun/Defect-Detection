@@ -14,7 +14,7 @@ CLASSES = 5
 # 图像尺寸
 IMG_SIZE = 224
 # 图像通道数
-CHANNEL = 1
+CHANNEL = 2
 # 是否为非标准图像尺寸
 GLOBAL_POOL = True
 # 是否使用GPU
@@ -23,9 +23,9 @@ if not USE_GPU:
     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
     os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 # 模型名称 'Mobile' 'My'
-MODEL_NAME = 'Mobile'
+MODEL_NAME = 'My'
 # 数据集路径
-date_set_name = 'b_cig_'  # b_cig_, sia_cig_, s_sia_cig_
+date_set_name = 'sia_cig_'  # b_cig_, sia_cig_, s_sia_cig_
 images_path = '../data/' + date_set_name + 'data_' + str(IMG_SIZE) + '.npy'
 labels_path = '../data/' + date_set_name + 'label_' + str(IMG_SIZE) + '.npy'
 

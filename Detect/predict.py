@@ -10,7 +10,7 @@ import time
 # 图像目录路径
 # IMG_DIR = '../data/crop/pos/'
 # IMG_DIR = '../data/phone/'
-IMG_DIR = '../data/'      # normal
+IMG_DIR = '../data/cigarette/wire_fail/'      # normal wire_fail
 IS_TRAINING = False
 
 
@@ -123,7 +123,7 @@ def predict(img_path, model=MODEL_NAME):
             if CHANNEL == 1:
                 img = np.expand_dims(img, axis=3)
             if MODEL_NAME == 'My':
-                std_img_path = IMG_DIR + 'std.jpg'
+                std_img_path = '../data/' + 'std.jpg'
                 std_img = read_img(std_img_path)
                 img = np.stack((std_img, img), axis=-1)
 
@@ -165,5 +165,6 @@ def read_img(img_path):
 
 
 if __name__ == '__main__':
-    predict(['1.jpg', '1.jpg'])
-
+    img_list = os.listdir('E:/Defect_Detection/data/cigarette/wire_fail')
+    # predict(['1.jpg', '1.jpg'])
+    predict(img_list)

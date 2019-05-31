@@ -64,8 +64,8 @@ class Detect(QMainWindow):
         # self.table_history.horizontalHeaderItem(0).setBackground(QBrush(QColor(0,0,0))
 
         # print 输出重定向
-        sys.stdout = EmittingStream(textWritten=self.my_output)
-        sys.stderr = EmittingStream(textWritten=self.my_output)
+        # sys.stdout = EmittingStream(textWritten=self.my_output)
+        # sys.stderr = EmittingStream(textWritten=self.my_output)
         print('Welcome to use detection system.')
 
         # 初始化
@@ -86,7 +86,7 @@ class Detect(QMainWindow):
             # 显示文件名
             self.le_file.setText(image_path[0])
             self.slot_open_image()
-            self.slot_detect()
+            # self.slot_detect()
 
     def slot_folder_browser(self):
         """
