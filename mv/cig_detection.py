@@ -540,6 +540,6 @@ def folder_detect(folder_dir):
 if __name__ == '__main__':
     # normal, nothing, lack_cotton, lack_piece, wire_fail
     # single_detect('E:/paper/find_obj_ng/src.jpg')
-    folder = 'E:/backup/cigarette/wire_fail'
+    folder = '../data/backup/cigarette/wire_fail'
     # folder = '../data/cigarette/normal/'
     folder_detect(folder)

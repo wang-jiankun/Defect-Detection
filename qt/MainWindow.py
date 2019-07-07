@@ -347,7 +347,7 @@ class Detect(QMainWindow):
         pen = QPen(Qt.yellow, 10, Qt.SolidLine)
         qp.setPen(pen)
         qp.setFont(QFont('Microsoft YaHei', 26))
-        qp.drawText(300, 40, self.class_name_dic[pre])
+        qp.drawText(250, 40, self.class_name_dic[pre])
         qp.end()
         self.lb_image.setPixmap(QPixmap.fromImage(self.image))
 

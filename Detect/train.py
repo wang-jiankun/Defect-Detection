@@ -3,11 +3,15 @@ Detect 训练
 author: 王建坤
 date: 2018-9-10
 """
+import sys
+sys.path.append("..")
+
 from Detect.config import *
 from Detect import utils
 import tensorflow.contrib.slim as slim
 from sklearn.model_selection import train_test_split
 import time
+
 
 MAX_STEP = 10000
 LEARNING_RATE_BASE = 0.001

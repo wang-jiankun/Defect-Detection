@@ -4,6 +4,9 @@ author: 王建坤
 date: 2018-9-25
 """
 import sys
+sys.path.append("..")
+
+import sys
 from PyQt5.QtWidgets import QApplication
 from qt import MainWindow
 
