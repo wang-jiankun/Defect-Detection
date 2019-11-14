@@ -68,7 +68,8 @@ def close_sess():
     print('Close the session successfully')
 
 
-def predict(img_path):
+def predict(m=0, img_path='E:\std.jpg'):
+    start_time = time.clock()
     img = Image.open(img_path)
     if img.mode != 'L':
         print('Error: the image format is not support')
@@ -77,12 +78,12 @@ def predict(img_path):
     img = np.array(img, np.float32)
     img = np.expand_dims(img, axis=0)
     img = np.expand_dims(img, axis=3)
-    start_time = time.clock()
     predictions = sess.run(y, feed_dict={x: img})
     pre = np.argmax(predictions)
     end_time = time.clock()
-    run_time = round(end_time - start_time, 3)
-    print('Detection is done. class: %d running time: %s s ' % (int(pre), run_time))
+    run_time = round((end_time - start_time)*1000, 1)
+    if m == 0:
+        print('class: %d running time: %s ms ' % (int(pre), run_time))
     # print('prediction is:', '\n', predictions)
     return pre, run_time
 

@@ -162,9 +162,9 @@ def array_to_image(sample, sample_label):
 if __name__ == '__main__':
     print('running image2npy:')
     # alum_to_npy('../data/alum', '../data')
-    # multi_class_to_npy('../data/cigarette', '../data')
+    multi_class_to_npy('../data/cigarette', '../data')
     # siamese_sample_to_npy('../data/cigarette', '../data')
-    siamese_sample_to_npy('E:/backup/cigarette', '../data')
+    # siamese_sample_to_npy('E:/backup/cigarette', '../data')
 
 
 

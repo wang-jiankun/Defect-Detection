@@ -8,7 +8,7 @@ from PyQt5.uic import loadUi
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import QImage, QPixmap, QPainter, QFont, QPen, QBrush, QColor
 from PyQt5.QtCore import Qt
-from qt import predict_dl, LogDialog
+from qt import predict_dl, predict_ip, LogDialog
 import pandas as pd
 import threading as th
 from urllib import request
@@ -64,8 +64,8 @@ class Detect(QMainWindow):
         # self.table_history.horizontalHeaderItem(0).setBackground(QBrush(QColor(0,0,0))
 
         # print 输出重定向
-        # sys.stdout = EmittingStream(textWritten=self.my_output)
-        # sys.stderr = EmittingStream(textWritten=self.my_output)
+        sys.stdout = EmittingStream(textWritten=self.my_output)
+        sys.stderr = EmittingStream(textWritten=self.my_output)
         print('Welcome to use detection system.')
 
         # 初始化
@@ -79,7 +79,7 @@ class Detect(QMainWindow):
         :return:
         """
         # 打开文件浏览器，获得选择的文件
-        image_path = QFileDialog.getOpenFileName(self, '选择图片', '/Defect_Detection/data/cigarette',
+        image_path = QFileDialog.getOpenFileName(self, '选择图片', 'E:/',
                                                  'JPEG(*.jpg) ;; PNG(*.png)')
         # 判断是否选择了文件
         if image_path[0] != '':
@@ -94,7 +94,7 @@ class Detect(QMainWindow):
         :return:
         """
         # 打开文件浏览器，获得选择的文件
-        self.folder_path = QFileDialog.getExistingDirectory(self, '选择目录', '/Defect_Detection/data/cigarette')
+        self.folder_path = QFileDialog.getExistingDirectory(self, '选择目录', 'E:/cigarette_ys/')
         # 判断是否选择了文件
         if self.folder_path != '':
             # 显示文件名
@@ -102,7 +102,7 @@ class Detect(QMainWindow):
             self.image_list = os.listdir(self.folder_path)
             self.le_file.setText(self.folder_path + '/' + self.image_list[0])
             self.slot_open_image()
-            self.slot_detect()
+            # self.slot_detect()
             self.pb_next_image.setEnabled(True)
 
     def slot_open_image(self):
@@ -145,9 +145,9 @@ class Detect(QMainWindow):
             QMessageBox.information(self, 'Error', '请选择文件')
             return
         if self.cb_method.currentText() == '深度学习':
-            pre, run_time = predict_dl.predict(img_path)
+            pre, run_time = predict_dl.predict(0, img_path)
         else:
-            pre, run_time = 0, 0.006
+            pre, run_time = predict_ip.single_detect(img_path)
         row_count = self.table_history.rowCount()
         self.table_history.insertRow(row_count)
         self.table_history.setItem(row_count, 0, QTableWidgetItem(str(row_count+1)))
@@ -155,12 +155,14 @@ class Detect(QMainWindow):
         self.table_history.setItem(row_count, 1, QTableWidgetItem(self.class_name_dic[pre]))
         # 数据库插入一条检测记录
         self.insert_log(pre, img_path)
+        self.table_history.verticalScrollBar().setSliderPosition(self.table_history.rowCount()+1)
         # temp_log = [img_path, str(pre), time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())]
         if pre == -1:
             return
         # 在界面的历史记录表中插入信息
         self.le_class.setText(str(pre))
         self.le_time.setText(str(run_time))
+        # 在图片中显示结果
         self.put_text(pre)
 
     def slot_load_model(self):
@@ -173,6 +175,8 @@ class Detect(QMainWindow):
         if flag == -1:
             predict_dl.close_sess()
             return
+        predict_dl.predict(1)
+        predict_dl.predict(1)
         self.pb_load_model.setDisabled(True)
         # self.pb_detect.setEnabled(True)
         self.pb_close_model.setEnabled(True)
@@ -193,7 +197,7 @@ class Detect(QMainWindow):
         保存检测结果的图片
         :return:
         """
-        file_path = QFileDialog.getSaveFileName(self, 'save image', 'log/untitled.jpg', 'JPEG(*.jpg) ;; PNG(*.png)')
+        file_path = QFileDialog.getSaveFileName(self, 'save image', 'E:/', 'JPEG(*.jpg) ;; PNG(*.png)')
         if file_path[0] != '':
             print(file_path)
             self.image.save(file_path[0])
@@ -325,7 +329,7 @@ class Detect(QMainWindow):
         # date = time.strftime('%Y-%m-%d %H:%M:%S : ', time.localtime())
         # cursor.insertText(date)
         cursor.insertText(text)
-        # self.te_log.setTextCursor(cursor)
+        self.te_log.setTextCursor(cursor)
         # self.te_log.ensureCursorVisible()
 
     def refresh_para(self):
@@ -344,10 +348,10 @@ class Detect(QMainWindow):
         """
         qp = QPainter()
         qp.begin(self.image)
-        pen = QPen(Qt.yellow, 10, Qt.SolidLine)
+        pen = QPen(Qt.white, 6, Qt.SolidLine)
         qp.setPen(pen)
-        qp.setFont(QFont('Microsoft YaHei', 26))
-        qp.drawText(250, 40, self.class_name_dic[pre])
+        qp.setFont(QFont('Microsoft YaHei', 22))
+        qp.drawText(10, 40, 'type: ' + self.class_name_dic[pre])
         qp.end()
         self.lb_image.setPixmap(QPixmap.fromImage(self.image))
 

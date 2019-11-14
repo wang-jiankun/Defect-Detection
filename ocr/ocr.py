@@ -104,5 +104,5 @@ def ocr(img_path):
 
 
 if __name__ == '__main__':
-    ocr('E:/Defect_Detection/data/ocr/2.png')
+    ocr('../data/ocr/2.png')
 

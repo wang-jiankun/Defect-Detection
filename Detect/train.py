@@ -17,10 +17,10 @@ MAX_STEP = 10000
 LEARNING_RATE_BASE = 0.001
 LEARNING_RATE_DECAY = 0.95
 # 训练信息和保存权重的gap
-INFO_STEP = 10
+INFO_STEP = 1000
 SAVE_STEP = 10000
 # 图像尺寸
-BATCH_SIZE = 2
+BATCH_SIZE = 16
 
 
 def train(model=MODEL_NAME, inherit=False, fine_tune=False):
@@ -34,6 +34,7 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
     # 占位符
     x = tf.placeholder(tf.float32, [None, IMG_SIZE, IMG_SIZE, CHANNEL], name="x_input")
     y_ = tf.placeholder(tf.uint8, [None], name="y_input")
+    k = tf.placeholder(tf.float32)
     my_global_step = tf.Variable(0, name='global_step', trainable=False, dtype=tf.int64)
 
     # 加载数据集
@@ -59,16 +60,16 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
                                   spatial_squeeze=True,  # 压缩掉1维的维度
                                   global_pool=GLOBAL_POOL)  # 输入不是规定的尺寸时，需要global_pool
     elif model == 'My':
-        log_dir = "../log/My"
+        log_dir = "../log/my"
         model_name = 'my.ckpt'
         fine_tune_path = '../log/weight/mobilenet_v1_1.0_224/mobilenet_v1_1.0_224.ckpt'
         # y = mynet.mynet_v1(x, is_training=True, num_classes=CLASSES)
         y, _ = mobilenet_v1.mobilenet_v1(x,
                                          num_classes=CLASSES,
-                                         dropout_keep_prob=1.0,
+                                         dropout_keep_prob=k,
                                          is_training=True,
                                          min_depth=8,
-                                         depth_multiplier=1.0,
+                                         depth_multiplier=0.1,
                                          conv_defs=None,
                                          prediction_fn=None,
                                          spatial_squeeze=True,
@@ -82,7 +83,7 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
         fine_tune_path = '../log/weight/mobilenet_v1_1.0_224/mobilenet_v1_1.0_224.ckpt'
         y, _ = mobilenet_v1.mobilenet_v1(x,
                                          num_classes=CLASSES,
-                                         dropout_keep_prob=1.0,
+                                         dropout_keep_prob=0.8,
                                          is_training=True,
                                          min_depth=8,
                                          depth_multiplier=1.0,
@@ -138,7 +139,7 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
         y, _ = inception_resnet_v2.inception_resnet_v2(x,
                                                        num_classes=CLASSES,
                                                        is_training=True,
-                                                       dropout_keep_prob=1.0,
+                                                       dropout_keep_prob=0.8,
                                                        reuse=None,
                                                        scope='InceptionResnetV2',
                                                        create_aux_logits=True,
@@ -151,7 +152,7 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
 
     y_hot = tf.one_hot(y_, CLASSES)
     cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=y, labels=y_hot, name='entropy')
-    loss = tf.reduce_mean(cross_entropy, name='loss')
+    loss = tf.reduce_sum(cross_entropy, name='loss')
     learning_rate = tf.train.exponential_decay(LEARNING_RATE_BASE, my_global_step, 100, LEARNING_RATE_DECAY)
     optimizer = tf.train.AdamOptimizer(learning_rate)
     # 保证 train_op 在 update_ops执行之后再执行。BN中的滑动平均值操作。
@@ -198,32 +199,36 @@ def train(model=MODEL_NAME, inherit=False, fine_tune=False):
             print(model, 'restart train:')
             sess.run(init)
 
+        runtime = 0
         # 迭代
-        while step < MAX_STEP:
-            start_time = time.clock()
-            train_image_batch, train_label_batch = utils.get_batch(train_data, train_label, BATCH_SIZE)
-
-            # 训练，损失值和准确率
-            _ = sess.run(train_op, feed_dict={x: train_image_batch, y_: train_label_batch})
-            end_time = time.clock()
-            runtime = end_time - start_time
-
-            step += 1
+        while step <= MAX_STEP:
             # 训练信息和保存模型
-            if step % INFO_STEP == 0 or step == MAX_STEP:
+            if step % INFO_STEP == 0:
+                train_image_batch, train_label_batch = utils.get_batch(train_data, train_label, 120)
                 train_loss, train_ac, train_summary = sess.run([loss, accuracy, merged_summary_op],
-                                                               feed_dict={x: train_image_batch, y_: train_label_batch})
+                                                               feed_dict={x: train_image_batch, y_: train_label_batch,
+                                                                          k: 1.0})
                 train_summary_writer.add_summary(train_summary, step)
                 # 如果训练集太大，分出来的测试集也只能选择一部分来测试
-                test_image_batch, test_label_batch = utils.get_batch(val_data, val_label, 50)
+                test_image_batch, test_label_batch = utils.get_batch(val_data, val_label, 120)
                 test_loss, test_ac, test_summary = sess.run([loss, accuracy, merged_summary_op],
-                                                            feed_dict={x: test_image_batch, y_: test_label_batch})
+                                                            feed_dict={x: test_image_batch, y_: test_label_batch,
+                                                                       k: 1.0})
                 # test_loss, test_ac, test_summary = sess.run([loss, accuracy, merged_summary_op],
                 #                                             feed_dict={x: val_data, y_: val_label})
                 test_summary_writer.add_summary(test_summary, step)
 
                 print('step: %d, runtime: %.2f, train_loss: %.4f, test_loss: %.4f,train accuracy: %.4f, '
                       'test accuracy: %.4f' % (step, runtime, train_loss, test_loss, train_ac, test_ac))
+
+            step += 1
+            train_image_batch, train_label_batch = utils.get_batch(train_data, train_label, BATCH_SIZE)
+            start_time = time.clock()
+            # 训练，损失值和准确率
+            _ = sess.run(train_op, feed_dict={x: train_image_batch, y_: train_label_batch,
+                                              k: 0.6})
+            end_time = time.clock()
+            runtime = end_time - start_time
 
             if step % SAVE_STEP == 0:
                 print('learning_rate: ', sess.run(learning_rate))

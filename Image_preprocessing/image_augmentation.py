@@ -215,7 +215,7 @@ def alum_enhance():
         # color_enhance(image_path_list, save_path)
 
 
-def gray_enhance(image_path_list, save_path, num=1):
+def gray_enhance(image_path_list, save_path, num=5):
     """
     灰度增强，对图片进行亮度、对比度变换增强
     :param image_path_list:
@@ -229,12 +229,12 @@ def gray_enhance(image_path_list, save_path, num=1):
         original_image = Image.open(path)
         for i in range(num):
             # 亮度
-            brightness_factor = 1.3
-            # brightness_factor = np.random.randint(98, 103) / 100.
+            # brightness_factor = 1.3
+            brightness_factor = np.random.randint(98, 103) / 100.
             brightness_image = ImageEnhance.Brightness(original_image).enhance(brightness_factor)
             # 对比度
-            contrast_factor = 1.0
-            # contrast_factor = np.random.randint(98, 103) / 100.
+            # contrast_factor = 1.0
+            contrast_factor = np.random.randint(98, 103) / 100.
             contrast_image = ImageEnhance.Contrast(brightness_image).enhance(contrast_factor)
             prefix = path.split('/')[-1]
             prefix = prefix.split('.')[0]
@@ -248,7 +248,7 @@ def gray_enhance(image_path_list, save_path, num=1):
             # cv2.destroyAllWindows()
 
 
-def translation_enhance(image_path_list, save_path, num=1):
+def translation_enhance(image_path_list, save_path, num=4):
     """
     平移增强，上下左右进行微小的平移
     :param image_path_list:
@@ -261,9 +261,9 @@ def translation_enhance(image_path_list, save_path, num=1):
         print(path)
         original_image = cv2.imread(path, 0)
         for i in range(num):
-            # tx = np.random.randint(1, 20)
-            # ty = np.random.randint(1, 10)
-            tx, ty = 150, 100
+            tx = np.random.randint(3, 20)
+            ty = np.random.randint(2, 10)
+            # tx, ty = 150, 100
             M = np.float32([[1, 0, tx], [0, 1, ty]])
             rows, cols = original_image.shape[0], original_image.shape[1]
             trans_img = cv2.warpAffine(original_image, M, (cols, rows))
@@ -284,7 +284,7 @@ def cig_enhance():
     """
     data_root_path = '../data/cigarette'
     test = False
-    class_list = ['normal', 'nothing', 'lack_cotton', 'lack_piece', 'wire_fail', 'aug']
+    class_list = ['normal', 'nothing', 'lack_cotton', 'lack_piece', 'wire_fail']
     folder_list = os.listdir(data_root_path)
     for folder in folder_list:
         if folder not in class_list:
@@ -300,13 +300,13 @@ def cig_enhance():
         for image_name in image_name_list:
             image_path = image_root_path + '/' + image_name
             image_path_list.append(image_path)
-        gray_enhance(image_path_list, save_path)
         # translation_enhance(image_path_list, save_path)
+        gray_enhance(image_path_list, save_path)
 
 
 if __name__ == '__main__':
     print('running data augmentation')
-    # cig_enhance()
+    cig_enhance()
     # gray_enhance(['../data/1.jpg'], 'E:/paper/aug')
-    translation_enhance(['../data/1.jpg'], 'E:/paper/aug')
+    # translation_enhance(['../data/1.jpg'], 'E:/paper/aug')
 

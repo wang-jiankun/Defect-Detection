@@ -3,6 +3,8 @@ Detect 预测
 author: 王建坤
 date: 2018-8-10
 """
+import sys
+sys.path.append("..")
 from Detect.config import *
 from PIL import Image
 import time
@@ -10,8 +12,9 @@ import time
 # 图像目录路径
 # IMG_DIR = '../data/crop/pos/'
 # IMG_DIR = '../data/phone/'
-IMG_DIR = '../data/cigarette/wire_fail/'      # normal wire_fail
+IMG_DIR = '../data/backup/cigarette_ys/wire_fail/'      # normal wire_fail
 IS_TRAINING = False
+TS = []
 
 
 def predict(img_path, model=MODEL_NAME):
@@ -40,7 +43,7 @@ def predict(img_path, model=MODEL_NAME):
                                          dropout_keep_prob=1.0,
                                          is_training=IS_TRAINING,
                                          min_depth=8,
-                                         depth_multiplier=1.0,
+                                         depth_multiplier=0.1,
                                          conv_defs=None,
                                          prediction_fn=None,
                                          spatial_squeeze=True,
@@ -107,9 +110,9 @@ def predict(img_path, model=MODEL_NAME):
             print('Error: no checkpoint file found')
             return
 
-        # img = read_img(img_path)
+        # img = read_img(IMG_DIR + img_path[0])
         # # 第一次运行时间会较长
-        # sess.run(y, feed_dict={x: img})
+        # sess.run(y, feed_dict={x: np.expand_dims(img, 3)})
         if img_path:
             img_list = img_path
         else:
@@ -117,6 +120,8 @@ def predict(img_path, model=MODEL_NAME):
         for img_name in img_list:
             # img_name = '1.jpg'
             print(img_name)
+
+            start_time = time.clock()
             img_path = IMG_DIR + img_name
             img = read_img(img_path)
             # 如果输入是灰色图，要增加一维
@@ -126,15 +131,15 @@ def predict(img_path, model=MODEL_NAME):
                 std_img_path = '../data/' + 'std.jpg'
                 std_img = read_img(std_img_path)
                 img = np.stack((std_img, img), axis=-1)
-
-            start_time = time.clock()
             predictions = sess.run(y, feed_dict={x: img})
             pre = np.argmax(predictions, 1)
             end_time = time.clock()
             runtime = end_time - start_time
+            TS.append(round(runtime*1000, 3))
             print('prediction is:', predictions)
             print('predict class is:', pre)
             print('run time:', runtime)
+        print(min(TS), max(TS[1:]), sum(TS[1:]) / (len(TS)-1))
 
 
 def check_tensor_name(sess):
@@ -165,6 +170,7 @@ def read_img(img_path):
 
 
 if __name__ == '__main__':
-    img_list = os.listdir('E:/Defect_Detection/data/cigarette/wire_fail')
+    # normal, nothing, lack_cotton, lack_piece, wire_fail
+    img_list = os.listdir('../data/backup/cigarette_ys/wire_fail')
     # predict(['1.jpg', '1.jpg'])
     predict(img_list)
